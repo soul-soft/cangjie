@@ -1,6 +1,6 @@
 [dependencies]
-  soulsoft_extensions_options = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_options.git", branch = "main"}
-  soulsoft_extensions_injection = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_injection.git", branch = "main"}
+  soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
+  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
 [package]
   cjc-version = "0.60.5"
   compile-option = ""

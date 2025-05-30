@@ -1,11 +1,11 @@
 [dependencies]
-  soulsoft_asp_http = { git = "https://gitcode.com/soulsoft/soulsoft_asp_http.git", branch = "main"}
-  soulsoft_extensions_hosting = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_hosting.git", branch = "main"}
-  soulsoft_extensions_logging = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_logging.git", branch = "main"}
-  soulsoft_extensions_options = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_options.git", branch = "main"}
-  soulsoft_extensions_injection = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_injection.git", branch = "main"}
-  soulsoft_extensions_configuration = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_configuration.git", branch = "main"}
-  soulsoft_extensions_logging_configuration = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_logging_configuration.git", branch = "main"}
+  soulsoft_asp_http = { path = "../soulsoft_asp_http"}
+  soulsoft_extensions_hosting = { path = "../soulsoft_extensions_hosting"}
+  soulsoft_extensions_logging = { path = "../soulsoft_extensions_logging"}
+  soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
+  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
+  soulsoft_extensions_configuration = { path = "../soulsoft_extensions_configuration"}
+  soulsoft_extensions_logging_configuration = { path = "../soulsoft_extensions_logging_configuration"}
 [package]
   cjc-version = "0.60.5"
   compile-option = ""

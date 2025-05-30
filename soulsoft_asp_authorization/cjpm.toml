@@ -17,10 +17,7 @@
   soulsoft_security_claims = { git = "https://gitcode.com/soulsoft/soulsoft_security_claims.git", branch = "main"}
   soulsoft_extensions_options = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_options.git", branch = "main"}
   soulsoft_extensions_injection = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_injection.git", branch = "main"}
-  # test
-  soulsoft_asp_hosting = { git = "https://gitcode.com/soulsoft/soulsoft_asp_hosting.git", branch = "main"}
-  soulsoft_asp_authentication = { git = "https://gitcode.com/soulsoft/soulsoft_asp_authentication.git", branch = "main"}
-  soulsoft_extensions_logging = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_logging.git", branch = "main"}
+
 
 [target.x86_64-w64-mingw32]                                                     # 系统架构和 OS 信息
   [target.x86_64-w64-mingw32.bin-dependencies]
