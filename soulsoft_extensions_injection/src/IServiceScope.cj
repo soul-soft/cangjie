@@ -4,7 +4,7 @@ package soulsoft_extensions_injection
 用于实现容器和生命周期分离，创建者才有权限释放
 */
 public interface IServiceScope <: Resource {
-    prop services: ServiceProvider
+    prop services: IServiceProvider
 }
 
 class ServiceScope <: IServiceScope  {
@@ -15,7 +15,7 @@ class ServiceScope <: IServiceScope  {
         _services = services
     }
 
-    public prop services: ServiceProvider {
+    public prop services: IServiceProvider {
         get() {
             _services
         }
