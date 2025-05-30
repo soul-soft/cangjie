@@ -1,0 +1,18 @@
+[dependencies]
+  soulsoft_extensions_logging = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_logging.git", branch = "main"}
+  soulsoft_extensions_options = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_options.git", branch = "main"}
+  soulsoft_extensions_injection = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_injection.git", branch = "main"}
+  soulsoft_extensions_configuration = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_configuration.git", branch = "main"}
+  soulsoft_extensions_logging_configuration = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_logging_configuration.git", branch = "main"}
+[package]
+  cjc-version = "0.60.5"
+  compile-option = ""
+  description = "nothing here"
+  link-option = ""
+  name = "soulsoft_extensions_hosting"
+  output-type = "static"
+  override-compile-option = ""
+  src-dir = ""
+  target-dir = ""
+  version = "1.0.0"
+  package-configuration = {}
