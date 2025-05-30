@@ -1,7 +1,7 @@
 [dependencies]
-  soulsoft_asp_http = { git = "https://gitcode.com/soulsoft/soulsoft_asp_http.git", branch = "main"}
-  soulsoft_extensions_injection = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_injection.git", branch = "main"}
-  soulsoft_extensions_healthchecks = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_healthchecks.git", branch = "main"}
+  soulsoft_asp_http = { path = "../soulsoft_asp_http"}
+  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
+  soulsoft_extensions_healthchecks = { path = "../soulsoft_extensions_healthchecks"}
 [package]
   cjc-version = "0.58.3"
   compile-option = ""

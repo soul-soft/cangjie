@@ -2,32 +2,41 @@ package soulsoft_asp_authorization
 
 import soulsoft_asp_http.*
 import soulsoft_asp_routing.RoutingApplicationBuilderExtensions
+import soulsoft_asp_routing.*
 import soulsoft_asp_hosting.*
-import soulsoft_asp_authentication.AuthenticationApplicationBuilderExtension
-import soulsoft_asp_authentication.*
 import stdx.encoding.base64.*
 import soulsoft_security_claims.*
+import soulsoft_asp_authentication.*
 import soulsoft_extensions_logging.*
 import soulsoft_extensions_options.*
 import soulsoft_extensions_injection.*
 
 main(args: Array<String>) {
     let builder = WebHost.createBuilder(args)
+    builder.services.addRouting()
+    //添加身份认证
     builder.services.addAuthentication(BasicAuthenticationDefault.scheme)
         .addScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>(BasicAuthenticationDefault.scheme)
-    builder.services.addAuthorization{configure => 
+
+    builder.services.addAuthorization{ configure => 
         configure.addPolicy("default") { p=>
+            p.requireClaim("username")
             p.requireAuthenticatedUser()
         }
     }
     let host = builder.build()
-    host.useEndpoints{endpoints =>
+
+    host.useRouting()
+
+    host.useAuthentication()
+   
+    host.useAuthorization()
+   
+    host.useEndpoints{ endpoints =>
         endpoints.mapGet("hello") { context =>
             context.response.write("hello")
-        }.requireAuthorization()
+        }.requireAuthorization("default")
     }
-    host.useAuthentication()
-    host.useAuthorization()
     host.run()
     return 0
 }
@@ -53,8 +62,11 @@ public class BasicAuthenticationHandler <: AuthenticationHandler<BasicAuthentica
                 let password = secrets[1]
                 this.logger.info("username:${username},password:${password}")    
                 let subject = ClaimsPrincipal()
-                subject.addIdentity(ClaimsIdentity(Claim("username",username),Claim("password",password)))
-                let ticket = AuthenticationTicket(subject, BasicAuthenticationDefault.scheme, properties: None)
+                let identity = ClaimsIdentity(this.scheme.name)
+                identity.addClaim(Claim("username",username))
+                identity.addClaim(Claim("password",password))
+                subject.addIdentity(identity)
+                let ticket = AuthenticationTicket(subject, this.scheme.name)
                 return AuthenticateResult.success(ticket)
             }
         }

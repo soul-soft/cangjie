@@ -34,13 +34,13 @@ public class AuthorizationPolicyBuilder {
         return this
     }
 
-    public func requireClaim(claimType: String, allowedValues: Array<String>) {
-        requirements.add(ClaimsAuthorizationRequirement(claimType, allowedValues))
+    public func requireClaim(claimName: String, allowedValues: Array<String>) {
+        requirements.add(ClaimsAuthorizationRequirement(claimName, allowedValues))
         return this
     }
 
-    public func requireClaim(claimType: String) {
-        requirements.add(ClaimsAuthorizationRequirement(claimType))
+    public func requireClaim(claimName: String) {
+        requirements.add(ClaimsAuthorizationRequirement(claimName))
         return this
     }
 

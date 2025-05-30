@@ -6,12 +6,17 @@ public class AuthorizationOptions {
     private var _defaultPolicy: AuthorizationPolicy
     private let _policyMap = HashMap<String, AuthorizationPolicy>()
 
-    init() {
-        _defaultPolicy = AuthorizationPolicyBuilder().requireAuthenticatedUser().build()
+    public init() {
+        _defaultPolicy = AuthorizationPolicyBuilder()
+            .requireAuthenticatedUser()
+            .build()
     }
 
     public var invokeHandlersAfterFailure = false
+
     public var fallbackPolicy: ?AuthorizationPolicy = None
+
+    public var suppressUseHttpContextAsAuthorizationResource = false
 
     public prop policyMap: HashMap<String, AuthorizationPolicy> {
         get() {

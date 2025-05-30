@@ -49,19 +49,6 @@ public class AuthorizationPolicy {
                 }
             }
 
-            let roles = pattern
-                .roles
-                .flatMap {
-                    f => f.split(',', removeEmpty: true) |> filter {f => !f.isEmpty()} |> map {f => f.trim()} |>
-                        collectArray
-                }
-
-            if (let Some(roles) <- roles) {
-                if (roles.size > 0) {
-                    policyBuilder.flatMap {f => f.requireRole(roles)}
-                    useDefaultPolicy = false
-                }
-            }
             let authTypes = pattern
                 .authenticationSchemes
                 .flatMap {
@@ -76,7 +63,6 @@ public class AuthorizationPolicy {
             }
 
             if (useDefaultPolicy) {
-                let policy = policyProvider.getDefaultPolicy()
                 if (let Some(policy) <- policyProvider.getDefaultPolicy()) {
                     policyBuilder.flatMap {f => f.combine(policy)}
                 }
@@ -84,7 +70,6 @@ public class AuthorizationPolicy {
         }
         if (anyPolicies) {
             policyBuilder = policyBuilder ?? AuthorizationPolicyBuilder()
-            policyBuilder.flatMap {f =>}
             for (pattern in policies) {
                 policyBuilder.flatMap {f => f.combine(pattern)}
             }

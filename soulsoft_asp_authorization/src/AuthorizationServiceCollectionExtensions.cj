@@ -5,7 +5,7 @@ import soulsoft_extensions_injection.*
 
 public interface AuthorizationServiceCollectionExtensions {
     func addAuthorization(): ServiceCollection {
-        addAuthorization{_=>}
+        addAuthorization{ _=> }
     }
 
     func addAuthorization(configure: (AuthorizationOptions) -> Unit): ServiceCollection
@@ -14,10 +14,25 @@ public interface AuthorizationServiceCollectionExtensions {
         addAuthorizationCore {_ =>}
     }
 
+    func addAuthorizationBuilder() : AuthorizationBuilder
+    
     func addAuthorizationCore(configure: (AuthorizationOptions) -> Unit): ServiceCollection
+    
+    func addAuthorizationPolicyEvaluator(): ServiceCollection
 }
 
 extend ServiceCollection <: AuthorizationServiceCollectionExtensions {
+  
+    public func addAuthorizationBuilder() {
+        return AuthorizationBuilder(addAuthorization())
+    }
+
+    public  func addAuthorization(configure: (AuthorizationOptions) -> Unit): ServiceCollection {
+        addAuthorizationCore(configure)
+        addAuthorizationPolicyEvaluator()
+        return this
+    }
+
     public func addAuthorizationCore(configure: (AuthorizationOptions) -> Unit): ServiceCollection {
         this.configure(configure)
         this.tryAddTransient<IAuthorizationService, DefaultAuthorizationService> {
@@ -48,8 +63,9 @@ extend ServiceCollection <: AuthorizationServiceCollectionExtensions {
         return this
     }
 
-    public  func addAuthorization(configure: (AuthorizationOptions) -> Unit): ServiceCollection {
-        addAuthorizationCore(configure)
+    public func addAuthorizationPolicyEvaluator() {
+        this.tryAddSingleton<IPolicyEvaluator, DefaultPolicyEvaluator>()
+        this.tryAddSingleton<IAuthorizationMiddlewareResultHandler, DefaultAuthorizationMiddlewareResultHandler>()
         return this
     }
 }

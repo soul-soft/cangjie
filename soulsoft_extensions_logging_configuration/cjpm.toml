@@ -1,0 +1,16 @@
+[package]
+  cjc-version = "0.60.5"
+  name = "soulsoft_extensions_logging_configuration"
+  description = "nothing here"
+  version = "1.0.0"
+  target-dir = ""
+  src-dir = ""
+  output-type = "static"
+  compile-option = ""
+  override-compile-option = ""
+  link-option = ""
+  package-configuration = {}
+
+[dependencies]
+  soulsoft_extensions_logging = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_logging.git", branch = "main"}
+  soulsoft_extensions_configuration = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_configuration.git", branch = "main"}
