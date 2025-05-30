@@ -15,21 +15,21 @@
 
 | 模块名称                                    | 描述                          | 必要性  | 链接                                                                 |
 |--------------------------------------------|------------------------------|--------|----------------------------------------------------------------------|
-| soulsoft_asp_http                          | HTTP核心功能                  | 必需    | [链接](https://gitcode.com/soulsoft/soulsoft_asp_http.git)           |
-| soulsoft_asp_mvc                           | MVC                          | 可选    | [链接](https://gitcode.com/soulsoft/soulsoft_asp_mvc.git)        |
-| soulsoft_asp_routing                       | 路由与终结点                | 必需    | [链接](https://gitcode.com/soulsoft/soulsoft_asp_routing.git)        |
-| soulsoft_asp_hosting                       | Web主机                       | 必需    | [链接](https://gitcode.com/soulsoft/soulsoft_asp_hosting.git)        |
-| soulsoft_asp_staticfiles                   | 静态文件支持                  | 可选    | [链接](https://gitcode.com/soulsoft/soulsoft_asp_staticfiles.git)    |
-| soulsoft_asp_healthchecks                  | 健康检查中间件                | 可选    | [链接](https://gitcode.com/soulsoft/soulsoft_asp_healthchecks.git)   |
-| soulsoft_asp_authentication                  | 身份认证中间件              | 可选    | [链接](https://gitcode.com/soulsoft/soulsoft_asp_authentication.git)   |
-| soulsoft_asp_authorization                  | 授权中间件                | 可选    | [链接](https://gitcode.com/soulsoft/soulsoft_asp_authorization.git)   |
-| soulsoft_security_claims                | 身份声明                  | 可选     | [链接](https://gitcode.com/soulsoft/soulsoft_security_claims.git) |
-| soulsoft_extensions_hosting                | 通用主机                    | 可选     | [链接](https://gitcode.com/soulsoft/soulsoft_extensions_hosting.git) |
-| soulsoft_extensions_logging                | 日志                      | 可选     | [链接](https://gitcode.com/soulsoft/soulsoft_extensions_logging.git) |
-| soulsoft_extensions_options                | 选项                      | 必需    | [链接](https://gitcode.com/soulsoft/soulsoft_extensions_options.git) |
-| soulsoft_extensions_injection              | 依赖注入                      | 可选     | [链接](https://gitcode.com/soulsoft/soulsoft_extensions_injection.git) |
-| soulsoft_extensions_healthchecks           | 健康检查服务                  | 可选    | [链接](https://gitcode.com/soulsoft/soulsoft_extensions_healthchecks.git) |
-| soulsoft_extensions_configuration          | 配置管理                      | 可选     | [链接](https://gitcode.com/soulsoft/soulsoft_extensions_configuration.git) |
+| soulsoft_asp_http                          | HTTP核心功能                  | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_http.git)           |
+| soulsoft_asp_mvc                           | MVC                          | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_mvc.git)        |
+| soulsoft_asp_routing                       | 路由与终结点                | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_routing.git)        |
+| soulsoft_asp_hosting                       | Web主机                       | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_hosting.git)        |
+| soulsoft_asp_staticfiles                   | 静态文件支持                  | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_staticfiles.git)    |
+| soulsoft_asp_healthchecks                  | 健康检查中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_healthchecks.git)   |
+| soulsoft_asp_authentication                  | 身份认证中间件              | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authentication.git)   |
+| soulsoft_asp_authorization                  | 授权中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authorization.git)   |
+| soulsoft_security_claims                | 身份声明                  | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_security_claims.git) |
+| soulsoft_extensions_hosting                | 通用主机                    | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_hosting.git) |
+| soulsoft_extensions_logging                | 日志                      | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_logging.git) |
+| soulsoft_extensions_options                | 选项                      | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_options.git) |
+| soulsoft_extensions_injection              | 依赖注入                      | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_injection.git) |
+| soulsoft_extensions_healthchecks           | 健康检查服务                  | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_healthchecks.git) |
+| soulsoft_extensions_configuration          | 配置管理                      | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_configuration.git) |
 
 
 
