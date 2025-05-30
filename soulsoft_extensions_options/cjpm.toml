@@ -1,0 +1,14 @@
+[dependencies]
+  soulsoft_extensions_injection = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_injection.git", branch = "main"}
+[package]
+  cjc-version = "0.60.5"
+  compile-option = ""
+  description = "nothing here"
+  link-option = ""
+  name = "soulsoft_extensions_options"
+  output-type = "static"
+  override-compile-option = ""
+  src-dir = ""
+  target-dir = ""
+  version = "1.0.0"
+  package-configuration = {}

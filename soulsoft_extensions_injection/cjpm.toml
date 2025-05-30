@@ -1,0 +1,14 @@
+[dependencies]
+
+[package]
+  cjc-version = "0.60.5"
+  compile-option = ""
+  description = "nothing here"
+  link-option = ""
+  name = "soulsoft_extensions_injection"
+  output-type = "static"
+  override-compile-option = ""
+  src-dir = ""
+  target-dir = ""
+  version = "1.0.0"
+  package-configuration = {}

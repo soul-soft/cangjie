@@ -1,0 +1,19 @@
+[package]
+  cjc-version = "0.60.5"
+  name = "soulsoft_asp_authentication"
+  description = "nothing here"
+  version = "1.0.0"
+  target-dir = ""
+  src-dir = ""
+  output-type = "static"
+  compile-option = ""
+  override-compile-option = ""
+  link-option = ""
+  package-configuration = {}
+
+[dependencies]
+  soulsoft_asp_http = { git = "https://gitcode.com/soulsoft/soulsoft_asp_http.git", branch = "main"}
+  soulsoft_security_claims = { git = "https://gitcode.com/soulsoft/soulsoft_security_claims.git", branch = "main"}
+  soulsoft_extensions_logging = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_logging.git", branch = "main"}
+  soulsoft_extensions_options = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_options.git", branch = "main"}
+  soulsoft_extensions_injection = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_injection.git", branch = "main"}

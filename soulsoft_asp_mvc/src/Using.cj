@@ -1,0 +1,2 @@
+package soulsoft_asp_mvc
+public import soulsoft_asp_mvc.annotations.*

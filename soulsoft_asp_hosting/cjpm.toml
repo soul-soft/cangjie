@@ -1,0 +1,24 @@
+[dependencies]
+  soulsoft_asp_http = { git = "https://gitcode.com/soulsoft/soulsoft_asp_http.git", branch = "main"}
+  soulsoft_extensions_hosting = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_hosting.git", branch = "main"}
+  soulsoft_extensions_logging = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_logging.git", branch = "main"}
+  soulsoft_extensions_options = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_options.git", branch = "main"}
+  soulsoft_extensions_injection = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_injection.git", branch = "main"}
+  soulsoft_extensions_configuration = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_configuration.git", branch = "main"}
+  soulsoft_extensions_logging_configuration = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_logging_configuration.git", branch = "main"}
+[package]
+  cjc-version = "0.60.5"
+  compile-option = ""
+  description = "nothing here"
+  link-option = ""
+  name = "soulsoft_asp_hosting"
+  output-type = "static"
+  override-compile-option = ""
+  src-dir = ""
+  target-dir = ""
+  version = "1.0.0"
+  package-configuration = {}
+
+[target.x86_64-w64-mingw32]                                                     # 系统架构和 OS 信息
+  [target.x86_64-w64-mingw32.bin-dependencies]
+    path-option = ["D:\\cangjiestdx\\windows_x86_64_llvm\\stdx\\dynamic\\stdx"] # stdx 路径根据实际情况配置
