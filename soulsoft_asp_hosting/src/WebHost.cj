@@ -152,7 +152,7 @@ public class WebHost <: ApplicationBuilder & IHost {
 
     private static func configureConfiguration(args: Array<String>, environment: IHostEnvironment) {
         let configuration = ConfigurationManager()
-        configuration.addEnvVars("cj")
+        configuration.addEnvVars("asp")
         configuration.addArgVars(args)
         configuration.addJsonFile("./appsettings.json", true)
         configuration.addJsonFile("./appsettings.${environment.environmentName}.json", true)
