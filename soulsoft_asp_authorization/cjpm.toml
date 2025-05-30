@@ -15,6 +15,7 @@
   soulsoft_asp_http = { path = "../soulsoft_asp_http"}
   soulsoft_asp_routing = { path = "../soulsoft_asp_routing"}
   soulsoft_security_claims = { path = "../soulsoft_security_claims"}
+  soulsoft_asp_authentication = { path = "../soulsoft_asp_authentication"}
   soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
   soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
 
