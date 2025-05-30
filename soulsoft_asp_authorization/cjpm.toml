@@ -12,11 +12,11 @@
   package-configuration = {}
 
 [dependencies]
-  soulsoft_asp_http = { git = "https://gitcode.com/soulsoft/soulsoft_asp_http.git", branch = "main"}
-  soulsoft_asp_routing = { git = "https://gitcode.com/soulsoft/soulsoft_asp_routing.git", branch = "main"}
-  soulsoft_security_claims = { git = "https://gitcode.com/soulsoft/soulsoft_security_claims.git", branch = "main"}
-  soulsoft_extensions_options = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_options.git", branch = "main"}
-  soulsoft_extensions_injection = { git = "https://gitcode.com/soulsoft/soulsoft_extensions_injection.git", branch = "main"}
+  soulsoft_asp_http = { path = "../soulsoft_asp_http"}
+  soulsoft_asp_routing = { path = "../soulsoft_asp_routing"}
+  soulsoft_security_claims = { path = "../soulsoft_security_claims"}
+  soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
+  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
 
 
 [target.x86_64-w64-mingw32]                                                     # 系统架构和 OS 信息
