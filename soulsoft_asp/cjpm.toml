@@ -1,0 +1,32 @@
+[dependencies]
+  soulsoft_asp_mvc = { path = "../soulsoft_asp_mvc"}
+  soulsoft_asp_http = { path = "../soulsoft_asp_http"}
+  soulsoft_asp_routing = { path = "../soulsoft_asp_routing"}
+  soulsoft_asp_hosting = { path = "../soulsoft_asp_hosting"}
+  soulsoft_security_claims = { path = "../soulsoft_security_claims"}
+  soulsoft_asp_staticfiles = { path = "../soulsoft_asp_staticfiles"}
+  soulsoft_asp_healthchecks = { path = "../soulsoft_asp_healthchecks"}
+  soulsoft_asp_authorization = { path = "../soulsoft_asp_authorization"}
+  soulsoft_asp_authentication = { path = "../soulsoft_asp_authentication"}
+  soulsoft_extensions_hosting = { path = "../soulsoft_extensions_hosting"}
+  soulsoft_extensions_logging = { path = "../soulsoft_extensions_logging"}
+  soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
+  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
+  soulsoft_extensions_healthchecks = { path = "../soulsoft_extensions_healthchecks"}
+  soulsoft_extensions_configuration = { path = "../soulsoft_extensions_configuration"}
+[package]
+  cjc-version = "0.60.5"
+  compile-option = ""
+  description = "nothing here"
+  link-option = ""
+  name = "soulsoft_asp"
+  output-type = "executable"
+  override-compile-option = ""
+  src-dir = ""
+  target-dir = ""
+  version = "1.0.0"
+  package-configuration = {}
+
+[target.x86_64-w64-mingw32]                                                     # 系统架构和 OS 信息
+  [target.x86_64-w64-mingw32.bin-dependencies]
+    path-option = ["D:\\cangjiestdx\\windows_x86_64_llvm\\stdx\\dynamic\\stdx"] # stdx 路径根据实际情况配置
