@@ -185,13 +185,4 @@ extend ServiceCollection {
         return this
     }
 
-    public func build(): IServiceProvider {
-        build({_ =>})
-    }
-
-    public func build(configureOptions: (ServiceProviderOptions) -> Unit): IServiceProvider {
-        let options = ServiceProviderOptions()
-        configureOptions(options)
-        ServiceProvider(this, options)
-    }
 }
