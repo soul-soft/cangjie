@@ -107,4 +107,8 @@ public class JwtPayload <: Map<String, Any> & ToJson{
         }
         return dm
     }
+
+    public func toBase64UrlString() {
+        toJson().toJsonString() |> Base64UrlEncoder.encode
+    }
 }

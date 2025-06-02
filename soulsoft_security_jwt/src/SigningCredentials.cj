@@ -1,5 +1,8 @@
 package soulsoft_security_jwt
 
+import stdx.crypto.x509.*
+import stdx.crypto.keys.*
+
 public class SigningCredentials {
     private let _key: SecurityKey
     private let _algorithm: String

@@ -1,5 +1,9 @@
 package soulsoft_security_jwt
 
+import std.reflect.*
+import stdx.encoding.hex.*
+import stdx.crypto.digest.*
+
 public abstract class SignatureProvider {
     private let _key: SecurityKey
     private let _algorithm: String
@@ -20,8 +24,10 @@ public abstract class SignatureProvider {
             _algorithm
         }
     }
-    
+
     public func sign(input: Array<Byte>): Array<Byte>
-    
-    public func verify(input: Array<Byte>,signature: Array<Byte>): Bool
+
+    public func verify(input: Array<Byte>, signature: Array<Byte>): Bool
 }
+
+

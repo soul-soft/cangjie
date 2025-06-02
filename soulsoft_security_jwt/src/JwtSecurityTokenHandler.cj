@@ -1,14 +1,19 @@
 package soulsoft_security_jwt
 
 public class JwtSecurityTokenHandler {
-    public func writeToken(token: JwtSecurityToken)  {
-        let headerBase64Url = token.header.toJson().toJsonString() |> toBase64UrlString
-        let payloadBase64Url = token.payload.toJson().toJsonString() |> toBase64UrlString
+    public func writeToken(token: JwtSecurityToken) {
+        let headerBase64Url = token.header.toBase64UrlString()
+        let payloadBase64Url = token.payload.toBase64UrlString()
         let text = "${headerBase64Url}.${payloadBase64Url}"
-        let key = token.header.signingCredentials.key
-        let algorithm = token.header.signingCredentials.algorithm
-        let provider = SymmetricSignatureProvider(key, algorithm)
-        let sign = provider.sign(text.toArray()) |> toBase64UrlString
+        let provider = getSignatureProvider(token.header.signingCredentials)
+        let sign = Base64UrlEncoder.encode(provider.sign(text.toArray()))
         return "${text}.${sign}"
+    }
+
+    private static func getSignatureProvider(credentials: SigningCredentials) {
+        if (credentials.key is AsymmetricSecurityKey) {
+            return AsymmetricSignatureProvider(credentials.key, credentials.algorithm)
+        }
+        return SymmetricSignatureProvider(credentials.key, credentials.algorithm)
     }
 }

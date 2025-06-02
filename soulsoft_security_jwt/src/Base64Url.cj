@@ -3,10 +3,17 @@ package soulsoft_security_jwt
 import stdx.encoding.url.*
 import stdx.encoding.base64.*
 
-func toBase64UrlString(input: String) {
-    return toBase64String(input.toArray()).replace('+', '-').replace('/', '_').trimEnd(r'=')
-}
+public class Base64UrlEncoder {
+    
+    public static func encode(input: String) {
+        return encode(input.toArray())
+    }
 
-func toBase64UrlString(data: Array<Byte>) {
-    return toBase64String(data).replace('+', '-').replace('/', '_').trimEnd(r'=')
+    public static func encode(data: Array<Byte>) {
+        return toBase64String(data).replace('+', '-').replace('/', '_').trimEnd(r'=')
+    }
+
+    public static func decode(data: String) {
+        return fromBase64String("${data.replace('-', '+').replace('_', '/')}==")
+    }
 }

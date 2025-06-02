@@ -13,6 +13,9 @@ public class JwtHeader <: Map<String, Any> & ToJson {
         _items = HashMap<String, Any>(outboundAlgorithmMap)
         _items.add("alg", alg)
         _items.add("typ", typ)
+        if (let Some(kid) <- signingCredentials.key.keyId) {
+            _items.add("kid", kid)
+        }
     }
 
     public init(signingCredentials: SigningCredentials) {
@@ -101,6 +104,12 @@ public class JwtHeader <: Map<String, Any> & ToJson {
         }
     }
 
+    public prop kid:? String {
+      get() {
+        _signingCredentials.key.keyId
+      }
+    }
+
     public prop signingCredentials: SigningCredentials {
         get() {
             _signingCredentials
@@ -132,5 +141,9 @@ public class JwtHeader <: Map<String, Any> & ToJson {
             }
         }
         return dm
+    }
+
+    public func toBase64UrlString() {
+        toJson().toJsonString() |> Base64UrlEncoder.encode
     }
 }
