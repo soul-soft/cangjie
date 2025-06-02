@@ -44,4 +44,8 @@ public class ClaimsIdentity {
     public func addClaim(name: String, value: String, valueType: ?String) {
         _claims.add(Claim(name, value, valueType))
     }
+
+    public func addClaims(claims: Collection<Claim>) {
+        _claims.add(all: claims)
+    }
 }

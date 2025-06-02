@@ -2,9 +2,8 @@ package soulsoft_security_jwt
 
 import std.collection.*
 import stdx.encoding.json.*
-import stdx.serialization.serialization.*
 
-public class JwtHeader <: Map<String, Any> & ToJson {
+public class JwtHeader <: Map<String, Any> {
     private let _items: HashMap<String, Any>
     private let _signingCredentials: SigningCredentials
 
@@ -104,10 +103,10 @@ public class JwtHeader <: Map<String, Any> & ToJson {
         }
     }
 
-    public prop kid:? String {
-      get() {
-        _signingCredentials.key.keyId
-      }
+    public prop kid: ?String {
+        get() {
+            _signingCredentials.key.keyId
+        }
     }
 
     public prop signingCredentials: SigningCredentials {
@@ -116,7 +115,7 @@ public class JwtHeader <: Map<String, Any> & ToJson {
         }
     }
 
-    public func toJson(): JsonValue {
+    public func toJsonString(): String {
         let jsonValue = JsonObject()
         for ((key, value) in _items) {
             if (let str: String <- value) {
@@ -126,24 +125,10 @@ public class JwtHeader <: Map<String, Any> & ToJson {
                 jsonValue.put(key, JsonFloat(str))
             }
         }
-        return jsonValue
-    }
-
-    public static func fromJson(jv: JsonValue): DataModel {
-        let dm = DataModelStruct()
-        if (let obj: JsonObject <- jv) {
-            for ((key, value) in obj.getFields()) {
-                if (let str: JsonString <- value) {
-                    dm.add(Field(key, DataModelString(str.getValue())))
-                } else if (let str: JsonFloat <- value) {
-                    dm.add(Field(key, DataModelFloat(str.getValue())))
-                }
-            }
-        }
-        return dm
+        return jsonValue.toJsonString()
     }
 
     public func toBase64UrlString() {
-        toJson().toJsonString() |> Base64UrlEncoder.encode
+        toJsonString() |> Base64UrlEncoder.encode
     }
 }
