@@ -36,17 +36,17 @@ public class X509SecurityKey <: AsymmetricSecurityKey {
 }
 
 public class ECDsaSecurityKey <: AsymmetricSecurityKey {
-    private let _publickey: ?ECDSAPublicKey
+    private let _publicKey: ?ECDSAPublicKey
     private let _privateKey: ?ECDSAPrivateKey
 
-    public init(publickey!: ?ECDSAPublicKey = None, privateKey!: ?ECDSAPrivateKey = None) {
-        _publickey = publickey
+    public init(publicKey!: ?ECDSAPublicKey = None, privateKey!: ?ECDSAPrivateKey = None) {
+        _publicKey = publicKey
         _privateKey = privateKey
     }
 
-    public prop publickey: ?ECDSAPublicKey {
+    public prop publicKey: ?ECDSAPublicKey {
         get() {
-            _publickey
+            _publicKey
         }
     }
 

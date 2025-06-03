@@ -92,7 +92,7 @@ public class AsymmetricSignatureProvider <: SignatureProvider {
 
     public func getECDsaPublicKey() {
         if (let securityKey: ECDsaSecurityKey <- key) {
-            return securityKey.publickey.getOrThrow{ SecurityTokenValidationException("ECDsa public key is null.") }
+            return securityKey.publicKey.getOrThrow{ SecurityTokenValidationException("ECDsa public key is null.") }
         }
         throw SecurityTokenValidationException("The key is not of type ECDsaSecurityKey.")
     }
