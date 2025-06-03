@@ -31,9 +31,7 @@ class JsonConverter {
 
     private func parseArray(jsonArray: JsonArray) {
         for ((i, item) in jsonArray.getItems() |> enumerate) {
-            _keys.add("${i}")
             parse(item)
-            _keys.remove("${i}")
         }
     }
 
