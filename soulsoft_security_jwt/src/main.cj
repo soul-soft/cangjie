@@ -8,19 +8,19 @@ import stdx.crypto.keys.*
 import stdx.encoding.hex.*
 
 main(): Int64 {
-    let securityKey = SymmetricSecurityKey("your-256-bit-secret-key-herefaaaaaaaaaaaaaaaa".toArray())
-    //println(String.fromUtf8(readToEnd(File("ec256-private.pem", OpenMode.Read))))
-    //let pem = ECDSAPrivateKey.decodeFromPem(String.fromUtf8(readToEnd(File("ec256-private.pem", OpenMode.Read))))
-    //let securityKey = ECDsaSecurityKey(privateKey: pem)
-    let header = JwtHeader(SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256))
+    //let securityKey = SymmetricSecurityKey("your-256-bit-secret-key-herefaaaaaaaaaaaaaaaa".toArray())
+    println(String.fromUtf8(readToEnd(File("ec256-private.pem", OpenMode.Read))))
+    let pem = ECDSAPrivateKey.decodeFromPem(String.fromUtf8(readToEnd(File("ec256-private.pem", OpenMode.Read))))
+    let securityKey = ECDsaSecurityKey(privateKey: pem)
+    let header = JwtHeader(SigningCredentials(securityKey, SecurityAlgorithms.EcdsaSha256))
     let payload = JwtPayload([("sub", "jwt")])
     var jwtToken = JwtSecurityToken(header, payload)
     let tokenHandler = JwtSecurityTokenHandler()
     tokenHandler.writeToken(jwtToken) |> println
-    var parameters = TokenValidationParameters(securityKey)
-    let claims = tokenHandler.validateToken(tokenHandler.writeToken(jwtToken), parameters)
-    for (pattern in claims.claims) {
-        println("${pattern.name}=${pattern.value}")
-    }
+    // var parameters = TokenValidationParameters(securityKey)
+    // let claims = tokenHandler.validateToken(tokenHandler.writeToken(jwtToken), parameters)
+    // for (pattern in claims.claims) {
+    //     println("${pattern.name}=${pattern.value}")
+    // }
     return 0
 }
