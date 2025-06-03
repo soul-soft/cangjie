@@ -37,7 +37,6 @@ main(args: Array<String>): Int64 {
         .addScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>(BasicAuthenticationDefault.Scheme)
         //注册jwtBearer认证方案
         .addJwtBearer(JwtBearerAuthenticationDefaults.Scheme) { configureOptions =>
-            configureOptions.challenge = "faf"
             let securityKey = SymmetricSecurityKey("fjgHHgfgby451fjlzGtyC782fjlhgabGbvVlfj7195YUUVlqPQfjvzMfjhbvq".toArray())
             configureOptions.tokenValidationParameters = TokenValidationParameters(securityKey)
         }
