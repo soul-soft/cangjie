@@ -5,10 +5,19 @@
   version = "1.0.0"
   target-dir = ""
   src-dir = ""
-  output-type = "executable"
+  output-type = "static"
   compile-option = ""
   override-compile-option = ""
   link-option = ""
   package-configuration = {}
 
 [dependencies]
+  soulsoft_security_jwt = { path = "../soulsoft_security_jwt"}
+  soulsoft_security_claims = { path = "../soulsoft_security_claims"}
+  soulsoft_asp_authentication = { path = "../soulsoft_asp_authentication"}
+  soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
+  soulsoft_extensions_logging = { path = "../soulsoft_extensions_logging"}
+
+[target.x86_64-w64-mingw32]                                                     # 系统架构和 OS 信息
+  [target.x86_64-w64-mingw32.bin-dependencies]
+    path-option = ["D:\\cangjiestdx\\windows_x86_64_llvm\\stdx\\dynamic\\stdx"] # stdx 路径根据实际情况配置

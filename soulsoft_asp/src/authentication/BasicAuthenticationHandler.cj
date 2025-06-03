@@ -29,7 +29,7 @@ public class BasicAuthenticationHandler <: AuthenticationHandler<BasicAuthentica
                 identity.addClaim(Claim("username",username))
                 identity.addClaim(Claim("password",password))
                 subject.addIdentity(identity)
-                let ticket = AuthenticationTicket(subject, BasicAuthenticationDefault.scheme)
+                let ticket = AuthenticationTicket(subject, BasicAuthenticationDefault.Scheme)
                 return AuthenticateResult.success(ticket)
             }
         }

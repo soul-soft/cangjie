@@ -2,7 +2,7 @@ package soulsoft_asp_authentication
 
 import soulsoft_asp_http.*
 
-public interface AuthenticationHttpContextExtension {
+public interface AuthenticationHttpContextExtensions {
     func authenticate(): AuthenticateResult
     func authenticate(scheme: ?String): AuthenticateResult
     func challenge(): Unit
@@ -15,7 +15,7 @@ public interface AuthenticationHttpContextExtension {
     func forbid(scheme: ?String, properties: ?AuthenticationProperties): Unit
 }
 
-extend HttpContext <: AuthenticationHttpContextExtension {
+extend HttpContext <: AuthenticationHttpContextExtensions {
     public func authenticate(): AuthenticateResult {
         authenticate(None)
     }

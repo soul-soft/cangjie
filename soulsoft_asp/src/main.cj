@@ -11,6 +11,7 @@ import soulsoft_asp.infrastructure.*
 import soulsoft_asp.authentication.*
 
 main(args: Array<String>): Int64 {
+
     let builder = WebHost.createBuilder(args)
     //==============服务注册==================
 
@@ -31,11 +32,15 @@ main(args: Array<String>): Int64 {
     builder.services.addTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>()
     
     //注册身份认证方案
-    builder.services.addAuthentication(BasicAuthenticationDefault.scheme)
+    builder.services.addAuthentication(JwtBearerAuthenticationDefaults.Scheme)
         //注册basic认证方案
-        .addScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>(BasicAuthenticationDefault.scheme)
+        .addScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>(BasicAuthenticationDefault.Scheme)
         //注册jwtBearer认证方案
-        .addScheme<JwtBearerAuthenticationOptions, JwtBearerAuthenticationHandler>(JwtBearerAuthenticationDefault.scheme)
+        .addJwtBearer(JwtBearerAuthenticationDefaults.Scheme) { configureOptions =>
+            configureOptions.challenge = "faf"
+            let securityKey = SymmetricSecurityKey("fjgHHgfgby451fjlzGtyC782fjlhgabGbvVlfj7195YUUVlqPQfjvzMfjhbvq".toArray())
+            configureOptions.tokenValidationParameters = TokenValidationParameters(securityKey)
+        }
     
     //注册授权服务
     builder.services.addAuthorizationBuilder()
@@ -88,8 +93,17 @@ main(args: Array<String>): Int64 {
     //动态资源(负责注册和执行)
     host.useEndpoints { endpoints =>
 
+        endpoints.mapGet("connect/token"){ context =>
+            let securityKey = SymmetricSecurityKey("fjgHHgfgby451fjlzGtyC782fjlhgabGbvVlfj7195YUUVlqPQfjvzMfjhbvq".toArray())
+            let jwtHeader = JwtHeader(SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256))
+            let jwtPayload = JwtPayload([("sub", "1024"), ("username", "soulsoft")])
+            
+            let jwtTokenHander = JwtSecurityTokenHandler()
+            let accessToken = jwtTokenHander.writeToken(JwtSecurityToken(jwtHeader, jwtPayload))
+            context.response.write(accessToken)
+        }
         //登入接口需要授权
-        endpoints.mapGet("logout") {
+        endpoints.mapGet("connect/logout") {
             context => context.response.write("logout succeeded")
         }.requireAuthorization("default")
         

@@ -3,11 +3,13 @@
   soulsoft_asp_http = { path = "../soulsoft_asp_http"}
   soulsoft_asp_routing = { path = "../soulsoft_asp_routing"}
   soulsoft_asp_hosting = { path = "../soulsoft_asp_hosting"}
+  soulsoft_security_jwt = { path = "../soulsoft_security_jwt"}
   soulsoft_security_claims = { path = "../soulsoft_security_claims"}
   soulsoft_asp_staticfiles = { path = "../soulsoft_asp_staticfiles"}
   soulsoft_asp_healthchecks = { path = "../soulsoft_asp_healthchecks"}
   soulsoft_asp_authorization = { path = "../soulsoft_asp_authorization"}
   soulsoft_asp_authentication = { path = "../soulsoft_asp_authentication"}
+  soulsoft_asp_authentication_jwt = { path = "../soulsoft_asp_authentication_jwt"}
   soulsoft_extensions_hosting = { path = "../soulsoft_extensions_hosting"}
   soulsoft_extensions_logging = { path = "../soulsoft_extensions_logging"}
   soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}

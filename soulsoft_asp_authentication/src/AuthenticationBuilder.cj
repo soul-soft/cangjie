@@ -42,8 +42,8 @@ public class AuthenticationBuilder {
                 configureBuilder.handleType = TypeInfo.of<THandler>()
             }
         }
+        _services.configure(authenticateScheme, configureOptions)
         _services.addScoped<THandler, THandler>()
-        _services.configure(configureOptions)
         return this
     }
 }

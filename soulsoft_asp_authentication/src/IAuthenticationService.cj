@@ -28,7 +28,7 @@ class AuthenticationService <: IAuthenticationService {
             scheme
         }
         if (let Some(scheme) <- authenticateScheme) {
-            let handler = _handlers.getHandler(context, scheme) ?? throw NoneValueException()
+            let handler = _handlers.getHandler(context, scheme) ?? throw NoneValueException("authenticate scheme: ${scheme}")
             return handler.authenticate()
         }
         return AuthenticateResult.noResult()
@@ -40,7 +40,7 @@ class AuthenticationService <: IAuthenticationService {
             scheme
         }
         if (let Some(scheme) <- challengeScheme) {
-            let handler = _handlers.getHandler(context, scheme) ?? throw NoneValueException()
+            let handler = _handlers.getHandler(context, scheme) ?? throw NoneValueException("challenge scheme: ${scheme}")
             handler.challenge(properties)
         }
     }
@@ -51,7 +51,7 @@ class AuthenticationService <: IAuthenticationService {
             scheme
         }
         if (let Some(scheme) <- forbidScheme) {
-            let handler = _handlers.getHandler(context, scheme) ?? throw NoneValueException()
+            let handler = _handlers.getHandler(context, scheme) ?? throw NoneValueException("forbid scheme: ${scheme}")
             handler.forbid(properties)
         }
     }
