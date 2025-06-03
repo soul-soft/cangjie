@@ -48,7 +48,7 @@ public class AsymmetricSignatureProvider <: SignatureProvider {
     }
 
     public func verify(input: Array<Byte>, signature: Array<Byte>): Bool {
-         //ecd-sa
+        //ecd-sa
         if (algorithm == SecurityAlgorithms.EcdsaSha256) {
             let privateKey = getECDsaPublicKey()
             let sha = SHA256()
@@ -68,7 +68,7 @@ public class AsymmetricSignatureProvider <: SignatureProvider {
         if (algorithm == SecurityAlgorithms.RsaSha256) {
             let privateKey = getRsaPublicKey()
             let sha = SHA256()
-            return privateKey.verify(sha, digest(sha, input), signature , padType: PKCS1)
+            return privateKey.verify(sha, digest(sha, input), signature, padType: PKCS1)
         }
         if (algorithm == SecurityAlgorithms.RsaSha384) {
             let key = getRsaPublicKey()
@@ -80,34 +80,34 @@ public class AsymmetricSignatureProvider <: SignatureProvider {
             let sha = SHA512()
             return key.verify(sha, digest(sha, input), signature, padType: PKCS1)
         }
-        throw UnsupportedException(algorithm)
+        throw SecurityTokenValidationException(algorithm)
     }
 
     public func getECDsaPrivateKey() {
         if (let securityKey: ECDsaSecurityKey <- key) {
-            return securityKey.privateKey.getOrThrow()
+            return securityKey.privateKey.getOrThrow{ SecurityTokenValidationException("ECDsa private key is null.") }
         }
-        throw UnsupportedException()
+        throw SecurityTokenValidationException("The key is not of type ECDsaSecurityKey.")
     }
 
     public func getECDsaPublicKey() {
         if (let securityKey: ECDsaSecurityKey <- key) {
-            return securityKey.publickey.getOrThrow()
+            return securityKey.publicKey.getOrThrow{ SecurityTokenValidationException("ECDsa public key is null.") }
         }
-        throw UnsupportedException()
+        throw SecurityTokenValidationException("The key is not of type ECDsaSecurityKey.")
     }
 
     public func getRsaPrivateKey() {
         if (let securityKey: RsaSecurityKey <- key) {
-            return securityKey.privateKey.getOrThrow()
+            return securityKey.privateKey.getOrThrow{ SecurityTokenValidationException("RSA private key is null.") }
         }
-        throw UnsupportedException()
+        throw SecurityTokenValidationException("The key is not of type RsaSecurityKey.")
     }
 
     public func getRsaPublicKey() {
         if (let securityKey: RsaSecurityKey <- key) {
-            return securityKey.publickey.getOrThrow()
+            return securityKey.publickey.getOrThrow{ SecurityTokenValidationException("RSA public key is null.") }
         }
-        throw UnsupportedException()
+        throw SecurityTokenValidationException("The key is not of type RsaSecurityKey.")
     }
 }
