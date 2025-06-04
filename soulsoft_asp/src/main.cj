@@ -37,7 +37,7 @@ main(args: Array<String>): Int64 {
         .addScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>(BasicAuthenticationDefault.Scheme)
         //注册jwtBearer认证方案
         .addJwtBearer(JwtBearerAuthenticationDefaults.Scheme) { configureOptions =>
-            let securityKey = SymmetricSecurityKey("fjgHHgfgby451fjlzGtyC782fjlhgabGbvVlfj7195YUUVlqPQfjvzMfjhbvq".toArray())
+            let securityKey = SymmetricSecurityKey(builder.configuration["authentication:securityKey"].getOrThrow().toArray())
             configureOptions.tokenValidationParameters = TokenValidationParameters(securityKey)
         }
     
@@ -88,12 +88,12 @@ main(args: Array<String>): Int64 {
     
     //由于该中间件需要使用路由到的endpoint，因此必须放到useRouting后面
     host.useAuthorization()
-
+    
     //动态资源(负责注册和执行)
     host.useEndpoints { endpoints =>
 
         endpoints.mapGet("connect/token"){ context =>
-            let securityKey = SymmetricSecurityKey("fjgHHgfgby451fjlzGtyC782fjlhgabGbvVlfj7195YUUVlqPQfjvzMfjhbvq".toArray())
+            let securityKey = SymmetricSecurityKey(host.configuration["authentication:securityKey"].getOrThrow().toArray())
             let jwtHeader = JwtHeader(SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256))
             let jwtPayload = JwtPayload([("sub", "1024"), ("username", "soulsoft")])
             
