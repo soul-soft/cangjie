@@ -553,7 +553,7 @@ main(args: Array<String>): Int64 {
     //动态资源(负责注册和执行)
     host.useEndpoints { endpoints =>
 		
-		//创建jwt token
+        //创建jwt token
         endpoints.mapGet("connect/token"){ context =>
             let securityKey = SymmetricSecurityKey(host.configuration["authentication:securityKey"].getOrThrow().toArray())
             let jwtHeader = JwtHeader(SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256))
