@@ -8,8 +8,8 @@
 
 诚邀志同道合的开发者加入 Soulsoft 组织，共同构建：    
 🔧 标准化组件库    
-🔄 统一技术生态
-🌍 开源社区协作平台    
+🔄 统一技术生态   
+🌍 开源社区协作平台     
 
 ### 内置模块
 
@@ -22,6 +22,7 @@
 | soulsoft_asp_staticfiles                   | 静态文件支持                  | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_staticfiles.git)    |
 | soulsoft_asp_healthchecks                  | 健康检查中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_healthchecks.git)   |
 | soulsoft_asp_authentication                  | 身份认证中间件              | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authentication.git)   |
+| soulsoft_asp_authentication_jwt | Jwt身份认证方案 | 可选 | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authentication_jwt.git) |
 | soulsoft_asp_authorization                  | 授权中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authorization.git)   |
 | soulsoft_security_claims                | 身份声明                  | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_security_claims.git) |
 | soulsoft_extensions_hosting                | 通用主机                    | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_hosting.git) |
@@ -379,7 +380,9 @@ main(args: Array<String>) {
 }
 ```
 
-#### 身份认证与授权中间件
+### 《身份认证》
+
+#### Basic认证方案
 
 我们在身份认证模块下可以非常方便的实现一个认证方案，比如`Basic`认证方案。身份认证模块为我们处理好了认证和授权流程
 
@@ -502,3 +505,73 @@ main (args: Array<String>) {
 > - 由于`授权中间件`需要使用路由到的`Endpoint`，对终结点授权，因此`授权中间件`必须放到`useRouting`后面
 > - 注意：认证是确定你是谁，无论成果与否都不影响流程，而授权，需要验证你的身份，如果身份认证不通过，那么将会发起`challenge`（挑战），并返回401状态码。如果身份认证通过，但是不满足`授权策略`将会发起`forbid`（禁止）返回403状态码。你可以通过override来重写挑战和禁止的逻辑
 > - web主机在分发请求的时候，创建了一个子容器放到`HttpContext`的`services`字段上，进而实现请求scope级别的生命周期
+
+#### Jwt认证方案
+
+
+
+```cangjie
+main(args: Array<String>): Int64 {
+
+    let builder = WebHost.createBuilder(args)
+    //==============服务注册==================
+	
+	//注册路由
+    builder.services.AddRouting()
+    
+    //注册身份认证方案
+    builder.services.addAuthentication(JwtBearerAuthenticationDefaults.Scheme)
+        //注册basic认证方案
+        .addScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>(BasicAuthenticationDefault.Scheme)
+        //注册jwtBearer认证方案
+        .addJwtBearer(JwtBearerAuthenticationDefaults.Scheme) { configureOptions =>
+            let securityKey = SymmetricSecurityKey(builder.configuration["authentication:securityKey"].getOrThrow().toArray())
+            configureOptions.tokenValidationParameters = TokenValidationParameters(securityKey)
+        }
+    
+    //注册授权服务
+    builder.services.addAuthorizationBuilder()
+        .addPolicy("default"){ policy =>
+            //必须包含username
+            policy.requireClaim("username")
+            //基本要求，具体参考源码
+            policy.requireAuthenticatedUser()
+    }
+
+    //==============请求管道==================    
+    let host = builder.build()
+
+    //使用身份认证
+    host.useAuthentication()
+
+    //动态资源路由（负责路由，并放到HttpContext上）
+    host.useRouting()
+    
+    //由于该中间件需要使用路由到的endpoint，因此必须放到useRouting后面
+    host.useAuthorization()
+    
+    //动态资源(负责注册和执行)
+    host.useEndpoints { endpoints =>
+		
+		//创建jwt token
+        endpoints.mapGet("connect/token"){ context =>
+            let securityKey = SymmetricSecurityKey(host.configuration["authentication:securityKey"].getOrThrow().toArray())
+            let jwtHeader = JwtHeader(SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256))
+            let jwtPayload = JwtPayload([("sub", "1024"), ("username", "soulsoft")])
+            
+            let jwtTokenHander = JwtSecurityTokenHandler()
+            let accessToken = jwtTokenHander.writeToken(JwtSecurityToken(jwtHeader, jwtPayload))
+            context.response.write(accessToken)
+        }
+        
+        //登入接口需要授权
+        endpoints.mapGet("connect/logout") {
+            context => context.response.write("logout succeeded")
+        }.requireAuthorization("default")       
+    
+    }
+    host.run()
+    return 0
+}
+```
+
