@@ -1,4 +1,4 @@
-package soulsoft_security_jwt
+package soulsoft_security_tokens_jwt
 
 import stdx.encoding.url.*
 import stdx.encoding.base64.*

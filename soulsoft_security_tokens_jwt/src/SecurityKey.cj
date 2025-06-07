@@ -1,4 +1,4 @@
-package soulsoft_security_jwt
+package soulsoft_security_tokens_jwt
 
 import stdx.crypto.x509.*
 import std.crypto.digest.*

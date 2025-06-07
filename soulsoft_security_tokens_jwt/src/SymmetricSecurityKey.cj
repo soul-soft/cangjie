@@ -1,4 +1,4 @@
-package soulsoft_security_jwt
+package soulsoft_security_tokens_jwt
 
 public class SymmetricSecurityKey <: SecurityKey {
     private let _key: Array<Byte>

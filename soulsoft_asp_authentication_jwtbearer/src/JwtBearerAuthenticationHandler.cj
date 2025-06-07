@@ -1,4 +1,4 @@
-package soulsoft_asp_authentication_jwt
+package soulsoft_asp_authentication_jwtbearer
 
 import soulsoft_security_jwt.*
 import soulsoft_security_claims.*

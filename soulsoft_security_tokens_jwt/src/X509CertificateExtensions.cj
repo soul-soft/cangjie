@@ -1,4 +1,4 @@
-package soulsoft_security_jwt
+package soulsoft_security_tokens_jwt
 import std.unicode.UnicodeStringExtension
 
 import stdx.crypto.x509.*

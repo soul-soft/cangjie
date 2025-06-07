@@ -1,6 +1,6 @@
 [package]
   cjc-version = "0.60.5"
-  name = "soulsoft_asp_authentication_jwt"
+  name = "soulsoft_asp_authentication_jwtbearer"
   description = "nothing here"
   version = "1.0.0"
   target-dir = ""
@@ -12,8 +12,8 @@
   package-configuration = {}
 
 [dependencies]
-  soulsoft_security_jwt = { path = "../soulsoft_security_jwt"}
   soulsoft_security_claims = { path = "../soulsoft_security_claims"}
+  soulsoft_security_tokens_jwt = { path = "../soulsoft_security_tokens_jwt"}
   soulsoft_asp_authentication = { path = "../soulsoft_asp_authentication"}
   soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
   soulsoft_extensions_logging = { path = "../soulsoft_extensions_logging"}

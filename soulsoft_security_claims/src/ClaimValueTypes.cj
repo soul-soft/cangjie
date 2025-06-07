@@ -3,14 +3,14 @@ package soulsoft_security_claims
 public abstract class ClaimValueTypes {
     // Primitive Types
     public static let String = "http://www.w3.org/2001/XMLSchema#string"
-    public static let Integer = "http://www.w3.org/2001/XMLSchema#integer"
+    public static let Integer = "http://www.w3.org/2001/XMLSchema#integer"    
     public static let Boolean = "http://www.w3.org/2001/XMLSchema#boolean"
     public static let DateTime = "http://www.w3.org/2001/XMLSchema#dateTime"
     public static let Date = "http://www.w3.org/2001/XMLSchema#date"
     
     // Security/Identity Types
     public static let Json = "urn:ietf:params:oauth:token-type:json"
-    public static let jwt = "urn:ietf:params:oauth:token-type:jwt"
+    public static let Jwt = "urn:ietf:params:oauth:token-type:jwt"
     public static let Saml = "urn:oasis:names:tc:SAML:2.0:assertion"
     public static let Saml11 = "urn:oasis:names:tc:SAML:1.0:assertion"
     public static let Saml2 = "urn:oasis:names:tc:SAML:2.0:assertion"

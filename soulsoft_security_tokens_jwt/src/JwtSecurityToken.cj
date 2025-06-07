@@ -1,4 +1,4 @@
-package soulsoft_security_jwt
+package soulsoft_security_tokens_jwt
 
 public class JwtSecurityToken {
     private let _header: JwtHeader
