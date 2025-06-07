@@ -45,12 +45,12 @@ public class AuthorizationPolicyBuilder {
     }
 
     public func requireRole(roles: Array<String>) {
-        requirements.add(ClaimsAuthorizationRequirement(ClaimNames.role, roles))
+        requirements.add(ClaimsAuthorizationRequirement(ClaimNames.Role, roles))
         return this
     }
 
     public func requireName(roles: Array<String>) {
-        requirements.add(ClaimsAuthorizationRequirement(ClaimNames.name, roles))
+        requirements.add(ClaimsAuthorizationRequirement(ClaimNames.Name, roles))
         return this
     }
 

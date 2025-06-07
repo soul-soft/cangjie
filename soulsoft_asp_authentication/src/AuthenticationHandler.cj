@@ -39,6 +39,14 @@ public abstract class AuthenticationHandler<TOptions> <: IAuthenticationHandler 
         return result
     }
 
+    protected func handleAuthenticateOnceSafe() {
+        try {
+            return handleAuthenticateOnce()
+        }catch (ex: Exception) {
+            return AuthenticateResult.fail(ex)
+        }
+    }
+
     protected func handleAuthenticate(): AuthenticateResult
 
     protected open func handleForbidden(_: ?AuthenticationProperties): Unit {

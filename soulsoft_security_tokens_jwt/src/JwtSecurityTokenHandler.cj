@@ -80,16 +80,16 @@ public class JwtSecurityTokenHandler {
             }
             let claims = subject.findAll(ClaimNames.Issuer) |> map{f => f.value}
             if (!claims.any{f => issuers.contains(f)}) {
-                throw SecurityTokenValidationException("IDX10225: Audience validation failed. ")
+                throw SecurityTokenValidationException("IDX10225: Issuer validation failed. ")
             }
         }
         if (parameters.validateAudience) {
-            let issuers = parameters.validAudiences |> collectHashSet
+            let audiences = parameters.validAudiences |> collectHashSet
             if (let Some(audience) <- parameters.validAudience) {
-                issuers.add(audience)
+                audiences.add(audience)
             }
             let claims = subject.findAll(ClaimNames.Audience) |> map{f => f.value}
-            if (!claims.any{f => issuers.contains(f)}) {
+            if (!claims.any{f => audiences.contains(f)}) {
                 throw SecurityTokenValidationException("IDX10225: Audience validation failed. ")
             }
         }
