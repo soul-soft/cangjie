@@ -30,7 +30,9 @@ public class JwtBearerAuthenticationHandler <: AuthenticationHandler<JwtBearerAu
     }
 
     protected override func handleChallenge(properties: ?AuthenticationProperties): Unit {
-        this.context.response.addHeader("WWW-Authenticate", "${this.options.challenge}, charset=\"UTF-8\"")
+        let authenticateResult = handleAuthenticateOnceSafe()
+        let error_description = authenticateResult.failure.flatMap{f=>f.message} ?? String.empty
+        this.context.response.addHeader("WWW-Authenticate", "${this.options.challenge} error=\"invalid_token\", error_description=\"${error_description}\", charset=\"UTF-8\"")
         super.handleChallenge(properties)
     }
 

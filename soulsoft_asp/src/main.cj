@@ -41,14 +41,14 @@ main(args: Array<String>): Int64 {
         .addJwtBearer(JwtBearerAuthenticationDefaults.Scheme) { configureOptions =>
             let secret = builder.configuration["authentication:securityKey"].getOrThrow().toArray()
             let securityKey = SymmetricSecurityKey(secret)
+            configureOptions.tokenValidationParameters.authenticationType = JwtBearerAuthenticationDefaults.Scheme
             configureOptions.tokenValidationParameters.validIssuer = "soulsoft"
             configureOptions.tokenValidationParameters.validateAudience = false
             configureOptions.tokenValidationParameters.issuerSigningKey = securityKey
         }
 
     //注册授权服务
-    builder
-        .services
+    builder.services
         .addAuthorizationBuilder()
         .addPolicy("default") {
             policy =>
@@ -107,9 +107,9 @@ main(args: Array<String>): Int64 {
             let securityKey = SymmetricSecurityKey(
                 host.configuration["authentication:securityKey"].getOrThrow().toArray())
             let jwtHeader = JwtHeader(SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256))
-            let jwtPayload = JwtPayload(issuer: "soulsoft", notBefore: DateTime.now(), expires: DateTime.now(),
-                claims: [("sub", "1024"), ("username", "cangjie")])
-
+            let jwtPayload = JwtPayload(issuer: "soulsoft", notBefore: DateTime.now(), expires: DateTime.now().addDays(1),
+                claims: [("sub", "1024")])
+            jwtPayload.add("username", "admin")
             let jwtTokenHander = JwtSecurityTokenHandler()
             let accessToken = jwtTokenHander.writeToken(JwtSecurityToken(jwtHeader, jwtPayload))
             context.response.write(accessToken)

@@ -22,6 +22,12 @@ public class AuthenticateResult {
         }
     }
 
+    public prop failure: ?Exception {
+        get() {
+            _failure
+        }
+    }
+
     public prop succeeded: Bool {
         get() {
             !_ticket.isNone()

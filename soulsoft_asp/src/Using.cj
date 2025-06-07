@@ -4,6 +4,7 @@ internal import soulsoft_asp_mvc.*
 internal import soulsoft_asp_http.*
 internal import soulsoft_asp_routing.*
 internal import soulsoft_asp_hosting.*
+internal import soulsoft_security_claims.*
 internal import soulsoft_asp_staticfiles.*
 internal import soulsoft_asp_healthchecks.*
 internal import soulsoft_asp_authorization.*
