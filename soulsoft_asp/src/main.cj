@@ -107,7 +107,7 @@ main(args: Array<String>): Int64 {
             let securityKey = SymmetricSecurityKey(
                 host.configuration["authentication:securityKey"].getOrThrow().toArray())
             let jwtHeader = JwtHeader(SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256))
-            let jwtPayload = JwtPayload(issuer: "soulsoft", notBefore: DateTime.now(), expires: DateTime.now().addDays(1),
+            let jwtPayload = JwtPayload(issuer: "soulsoft", notBefore: DateTime.now(), expires: DateTime.now(),
                 claims: [("sub", "1024")])
             jwtPayload.add("username", "admin")
             let jwtTokenHander = JwtSecurityTokenHandler()

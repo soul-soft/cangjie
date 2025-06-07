@@ -16,6 +16,6 @@ public class TokenValidationParameters {
     public var validateAudience = true
     public var validAudience = Option<String>.None
     public var validAudiences = Array<String>()
-    public var requireExpirationTime = false
+    public var requireExpirationTime = true
     public var authenticationType: String = "AuthenticationTypes.Federation"
 }

@@ -31,30 +31,30 @@ public class JwtSecurityTokenHandler {
 
         if (segments.size != 3) {
             throw SecurityTokenValidationException(
-                "IDX10508: Signature validation failed. Signature is improperly formatted.")
+                "Signature validation failed.")
         }
 
         let headerJson = Base64UrlEncoder.decode(segments[0]).flatMap {f => String.fromUtf8(f)}.getOrThrow {
-            SecurityTokenValidationException("IDX10508: Signature validation failed. Signature is improperly formatted.")
+            SecurityTokenValidationException("Signature validation failed.")
         }
 
         let claims = JsonUtilities.toHashMap(headerJson)
         let algorithm = (claims["alg"] as String).getOrThrow {
-            SecurityTokenValidationException("IDX10508: Signature validation failed. Signature is improperly formatted.")
+            SecurityTokenValidationException("Signature validation failed.")
         }
 
         let signingCredentials = SigningCredentials(signingKey, algorithm)
         let provider = getSignatureProvider(signingCredentials)
         let text = "${segments[0]}.${segments[1]}"
         let sign = Base64UrlEncoder.decode(segments[2]).getOrThrow {
-            SecurityTokenValidationException("IDX10508: Signature validation failed. Signature is improperly formatted.")
+            SecurityTokenValidationException("Signature validation failed.")
         }
         if (!provider.verify(text.toArray(), sign)) {
-            throw SecurityTokenValidationException("JWT signature validation failed")
+            throw SecurityTokenValidationException("JWT signature validation failed.")
         }
         let jwtHeader = JwtHeader(signingCredentials, claims)
         let payloadJson = Base64UrlEncoder.decode(segments[1]).flatMap {f => String.fromUtf8(f)}.getOrThrow {
-            SecurityTokenValidationException("Failed to decode or parse JWT payload")
+            SecurityTokenValidationException("Failed to decode or parse JWT payload.")
         }
         
         let payloadClaims = JsonUtilities.toHashMap(payloadJson)
@@ -65,12 +65,17 @@ public class JwtSecurityTokenHandler {
 
     private func validateSubject(subject: ClaimsPrincipal, parameters: TokenValidationParameters) {
         if (parameters.requireExpirationTime) {
+            if (let Some(notBefore) <- subject.findFirstValue(ClaimNames.NotBefore).flatMap{f => Int64.parse(f)}) {
+                if (DateTime.now() < DateTime.fromUnixTimeStamp(Duration.second * notBefore)) {
+                    throw SecurityTokenValidationException("NotBefore validation failed.")
+                }
+            }
             if (let Some(expirationTime) <- subject.findFirstValue(ClaimNames.ExpirationTime).flatMap{f => Int64.parse(f)}) {
                 if (DateTime.now() > DateTime.fromUnixTimeStamp(Duration.second * expirationTime)) {
-                    throw SecurityTokenValidationException("IDX10225: Lifetime validation failed.")
+                    throw SecurityTokenValidationException("ExpirationTime validation failed.")
                 }
             }else {
-                throw SecurityTokenValidationException("IDX10225: Lifetime validation failed")
+                throw SecurityTokenValidationException("ExpirationTime validation failed")
             }
         }
         if (parameters.validateIssuer) {
@@ -80,7 +85,7 @@ public class JwtSecurityTokenHandler {
             }
             let claims = subject.findAll(ClaimNames.Issuer) |> map{f => f.value}
             if (!claims.any{f => issuers.contains(f)}) {
-                throw SecurityTokenValidationException("IDX10225: Issuer validation failed. ")
+                throw SecurityTokenValidationException("Issuer validation failed. ")
             }
         }
         if (parameters.validateAudience) {
@@ -90,7 +95,7 @@ public class JwtSecurityTokenHandler {
             }
             let claims = subject.findAll(ClaimNames.Audience) |> map{f => f.value}
             if (!claims.any{f => audiences.contains(f)}) {
-                throw SecurityTokenValidationException("IDX10225: Audience validation failed. ")
+                throw SecurityTokenValidationException("Audience validation failed. ")
             }
         }
     }
