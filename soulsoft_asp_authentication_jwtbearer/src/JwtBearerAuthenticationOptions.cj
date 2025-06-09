@@ -7,4 +7,5 @@ public class JwtBearerAuthenticationOptions <: AuthenticationSchemeOptions {
     public var saveToken = true
     public var challenge = JwtBearerAuthenticationDefaults.Scheme
     public var tokenValidationParameters: TokenValidationParameters = TokenValidationParameters()
+    public let events = JwtBearerAuthenticationEvents()
 }
