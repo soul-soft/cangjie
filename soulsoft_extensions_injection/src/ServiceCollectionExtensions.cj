@@ -86,7 +86,6 @@ extend ServiceCollection {
     }
 
     public func addScoped<TService>(sp: (IServiceProvider) -> TService) where TService <: Object {
-        println(ClassTypeInfo.of<TService>())
         add(ServiceDescriptor.scoped<TService, TService>(sp))
         return this
     }

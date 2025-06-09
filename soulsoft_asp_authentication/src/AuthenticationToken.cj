@@ -8,4 +8,17 @@ public class AuthenticationToken {
         _name = name
         _value = value
     }
+    
+
+    public prop name: String {
+        get() {
+            _name
+        }
+    }
+
+    public prop value: String {
+        get() {
+            _value
+        }
+    }
 }

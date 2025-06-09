@@ -4,16 +4,16 @@ import std.time.*
 import std.collection.*
 
 public class AuthenticationProperties {
-    private static let _issuedUtcKey = "__issued"
-    private static let _expiresUtcKey = "__expires"
-    private static let _isPersistentKey = "__persistent"
-    private static let _redirectUriKey = "__redirect"
-    private static let _refreshKey = "__refresh"
+    private let _items: HashMap<String, Any>
+    static let _tokenNamesKey = ".TokenNames"
+    static let _tokenKeyPrefix = ".Token."
 
-    private let _items = HashMap<String, Any>()
+    public init(items: HashMap<String, Any>) {
+        _items = items
+    }
 
-    public init(items: Array<(String, Any)>) {
-        _items.add(all: items)
+    public init() {
+        this(HashMap<String, Any>())
     }
 
     public prop items: HashMap<String, Any> {
@@ -21,77 +21,55 @@ public class AuthenticationProperties {
             _items
         }
     }
+}
 
-    public mut prop isPersistent: Bool {
-        get() {
-            getString(_isPersistentKey).isSome()
+extend AuthenticationProperties {
+    public func storeTokens(tokens: Array<AuthenticationToken>) {
+        for (token in getTokens()) {
+            items.remove("${_tokenKeyPrefix}${token.name}")
         }
-        set(value) {
-            setString(_isPersistentKey, if (value) {
-                String.empty
-            } else {
-                None
-            })
-        }
-    }
+        items.remove(_tokenNamesKey)
 
-    public mut prop redirectUri: ?String {
-        get() {
-            getString(_redirectUriKey)
+        let tokenNames = ArrayList<String>()
+        for (token in tokens) {
+            if (token.name.isEmpty()) {
+                throw IllegalArgumentException("Token name cannot be null for any token.")
+            }
+            tokenNames.add(token.name)
+            items["${_tokenKeyPrefix}${token.name}"] = token.value
         }
-        set(value) {
-            setString(_redirectUriKey, value)
-        }
-    }
-
-    public mut prop issuedUtc: ?DateTime {
-        get() {
-            get(_issuedUtcKey).flatMap {f => f as DateTime}
-        }
-        set(value) {
-            set(_issuedUtcKey, value)
+        
+        if (tokenNames.size > 0) {
+            items[_tokenNamesKey] = tokenNames |> collectArray
         }
     }
 
-    public mut prop expiresUtc: ?DateTime {
-        get() {
-            get(_expiresUtcKey).flatMap {f => f as DateTime}
+    public func updateTokenValue(tokenName: String, tokenValue: String) {
+        let tokenKey = "${_tokenKeyPrefix}${tokenName}"
+        if (!items.contains(tokenKey)) {
+            return false
         }
-        set(value) {
-            set(_expiresUtcKey, value)
+
+        items[tokenKey] = tokenValue
+        return true
+    }
+
+    public func getTokens(): Collection<AuthenticationToken> {
+        
+        let tokens = ArrayList<AuthenticationToken>()
+
+        if (let Some(tokenNames) <- items.get(_tokenNamesKey).flatMap{f => f as Array<String>}) {
+            for (tokenName in tokenNames) {
+                if (let Some(tokenValue) <- getTokenValue(tokenName)) {
+                    tokens.add(AuthenticationToken(tokenName, tokenValue))
+                }
+            }
         }
+
+        return tokens
     }
 
-    public mut prop allowRefresh: ?Bool {
-        get() {
-            getBool(_refreshKey)
-        }
-        set(value) {
-            setBool(_refreshKey, value)
-        }
-    }
-
-    public func get(key: String) {
-        _items.get(key)
-    }
-
-    public func set(key: String, value: Any) {
-        _items[key] = value
-    }
-
-    public func getString(key: String) {
-        _items.get(key).flatMap {f => f as String}
-    }
-
-    public func setString(key: String, value: ?String) {
-        _items[key] = value
-    }
-
-    public func getBool(key: String) {
-        _items.get(key).flatMap {f => f as Bool}
-    }
-
-    public func setBool(key: String, value: ?Bool) {
-        _items[key] = value
+    public func getTokenValue(tokenName: String): ?String {
+        items.get("${_tokenKeyPrefix}${tokenName}").flatMap{f => f as String}
     }
 }

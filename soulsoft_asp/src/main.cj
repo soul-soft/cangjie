@@ -32,15 +32,19 @@ main(args: Array<String>): Int64 {
     builder.services.addTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>()
 
     //注册身份认证方案
-    builder
-        .services
-        .addAuthentication(JwtBearerAuthenticationDefaults.Scheme)
+    builder.services.addAuthentication(JwtBearerAuthenticationDefaults.Scheme)
         //注册basic认证方案
         .addScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>(BasicAuthenticationDefault.Scheme)
         //注册jwtBearer认证方案
         .addJwtBearer(JwtBearerAuthenticationDefaults.Scheme) { configureOptions =>
             let secret = builder.configuration["authentication:securityKey"].getOrThrow().toArray()
             let securityKey = SymmetricSecurityKey(secret)
+            //优先从url中读取
+            configureOptions.events.onMessageReceived = { context =>
+                let token = context.request.url.queryForm.get("token")
+                return token
+            }
+            configureOptions.saveToken = true
             configureOptions.tokenValidationParameters.authenticationType = JwtBearerAuthenticationDefaults.Scheme
             configureOptions.tokenValidationParameters.validIssuer = "soulsoft"
             configureOptions.tokenValidationParameters.validateAudience = false
@@ -48,8 +52,7 @@ main(args: Array<String>): Int64 {
         }
 
     //注册授权服务
-    builder.services
-        .addAuthorizationBuilder()
+    builder.services.addAuthorizationBuilder()
         .addPolicy("default") {
             policy =>
             //必须包含username
@@ -59,9 +62,7 @@ main(args: Array<String>): Int64 {
         }
 
     //注册健康检查项
-    builder
-        .services
-        .addHealthChecks()
+    builder.services.addHealthChecks()
         .addCheck("self") {
             //模拟随机不健康效果
             let random = Random()
@@ -100,10 +101,8 @@ main(args: Array<String>): Int64 {
     host.useAuthorization()
 
     //动态资源(负责注册和执行)
-    host.useEndpoints {
-        endpoints =>
-        endpoints.mapGet("connect/token") {
-            context =>
+    host.useEndpoints { endpoints =>
+        endpoints.mapGet("connect/token") { context =>
             let securityKey = SymmetricSecurityKey(
                 host.configuration["authentication:securityKey"].getOrThrow().toArray())
             let jwtHeader = JwtHeader(SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256))
@@ -115,9 +114,9 @@ main(args: Array<String>): Int64 {
             context.response.write(accessToken)
         }
         //登入接口需要授权
-        endpoints
-            .mapGet("connect/logout") {
-                context => context.response.write("logout succeeded")
+        endpoints.mapGet("connect/logout") { context => 
+                let token = context.getToken("access_token") ?? "not token"
+                context.response.write(token)
             }
             .requireAuthorization("default")
 

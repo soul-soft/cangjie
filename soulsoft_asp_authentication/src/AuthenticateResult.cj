@@ -3,17 +3,15 @@ package soulsoft_asp_authentication
 import soulsoft_security_claims.*
 
 public class AuthenticateResult {
-    private let _none: Bool
-    private let _failure: ?Exception
-    private let _ticket: ?AuthenticationTicket
-    private let _properties: ?AuthenticationProperties
+    private var _none: Bool = false
+    private var _failure: ?Exception = None
+    private var _ticket: ?AuthenticationTicket = None
+    private var _properties: ?AuthenticationProperties = None
 
-    public init(ticket!: ?AuthenticationTicket = None, failure!: ?Exception = None,
-        properties!: ?AuthenticationProperties = None, none!: Bool = false) {
-        _ticket = ticket
-        _failure = failure
-        _properties = properties
-        _none = none
+    public static func createInstance(instance :(AuthenticateResult) -> Unit) {
+        let result = AuthenticateResult()
+        instance(result)
+        return result
     }
 
     public prop none: Bool {
@@ -53,18 +51,28 @@ public class AuthenticateResult {
     }
 
     public static func fail(failure: Exception) {
-        return AuthenticateResult(failure: failure)
+        return createInstance{ instance =>
+            instance._failure = failure
+        }
     }
 
     public static func fail(failure: Exception, properties: AuthenticationProperties) {
-        return AuthenticateResult(failure: failure, properties: properties)
+        return createInstance{ instance =>
+            instance._failure = failure
+            instance._properties = properties
+        }
     }
 
     public static func success(ticket: AuthenticationTicket) {
-        return AuthenticateResult(ticket: ticket)
+         return createInstance{ instance =>
+            instance._ticket = ticket
+            instance._properties = ticket.properties
+        }
     }
 
     public static func noResult() {
-        return AuthenticateResult(none: true)
+        return createInstance{ instance =>
+            instance._none = true
+        }
     }
 }

@@ -15,14 +15,20 @@ public class JwtBearerAuthenticationHandler <: AuthenticationHandler<JwtBearerAu
     }
 
     public func handleAuthenticate() {
-        if (let Some(authorizationValue) <- messageReceived() && isJwtBearer(authorizationValue)) {
+        if (let Some(accessToken) <- getAccessToken()) {
             try {
-                let accessToken = authorizationValue[7..]
                 let jwtTokenHandler = JwtSecurityTokenHandler()
                 let tokenValidationParameters = this.options.tokenValidationParameters
                 let subject = jwtTokenHandler.validateToken(accessToken, tokenValidationParameters)
-                let ticket = AuthenticationTicket(subject, JwtBearerAuthenticationDefaults.Scheme)
-                return AuthenticateResult.success(ticket)
+                if (this.options.saveToken) {
+                    let properties = AuthenticationProperties()
+                    properties.storeTokens(AuthenticationToken("access_token", accessToken))
+                    let ticket = AuthenticationTicket(subject, JwtBearerAuthenticationDefaults.Scheme, properties)
+                    return AuthenticateResult.success(ticket)
+                }else {
+                    let ticket = AuthenticationTicket(subject, JwtBearerAuthenticationDefaults.Scheme)
+                    return AuthenticateResult.success(ticket)
+                }
             }catch (ex: Exception) {
                 return AuthenticateResult.fail(ex)
             }
@@ -32,23 +38,22 @@ public class JwtBearerAuthenticationHandler <: AuthenticationHandler<JwtBearerAu
 
     protected override func handleChallenge(properties: ?AuthenticationProperties): Unit {
         let authenticateResult = handleAuthenticateOnceSafe()
-        let error_description = authenticateResult.failure.flatMap{f=>f.message} ?? String.empty
+        let error_description = authenticateResult.failure.flatMap{f => f.message} ?? String.empty
         this.context.response.addHeader("WWW-Authenticate", "${this.options.challenge} error=\"invalid_token\", error_description=\"${error_description}\", charset=\"UTF-8\"")
         super.handleChallenge(properties)
     }
 
-    private func messageReceived() {
-        var authorizationValue = Option<String>.None
-        if (let Some(onMessageReceived) <- this.options.events.onMessageReceived) {
-            authorizationValue = onMessageReceived(this.context)
+    private func getAccessToken() {
+        return if (let Some(onMessageReceived) <- this.options.events.onMessageReceived) {
+            onMessageReceived(this.context)
+        }else if(let Some(authorizationValue) <- this.context.request.headers.getFirst("Authorization") && startWithBearer(authorizationValue)) {
+            authorizationValue[7..]
+        }else {
+            Option<String>.None
         }
-        if (authorizationValue.isNone()) {
-            authorizationValue = this.context.request.headers.getFirst("Authorization")
-        }
-        return authorizationValue
     }
 
-    private func isJwtBearer(authorizationValue: String) {
+    private func startWithBearer(authorizationValue: String) {
         return authorizationValue.toUpper().startsWith("BEARER")
     }
 }

@@ -13,6 +13,8 @@ public interface AuthenticationHttpContextExtensions {
     func forbid(scheme: ?String): Unit
     func forbid(properties: ?AuthenticationProperties): Unit
     func forbid(scheme: ?String, properties: ?AuthenticationProperties): Unit
+    func getToken(tokenName: String): ?String
+    func getToken(scheme: String, tokenName: String): ?String
 }
 
 extend HttpContext <: AuthenticationHttpContextExtensions {
@@ -58,5 +60,13 @@ extend HttpContext <: AuthenticationHttpContextExtensions {
 
     private func getAuthenticationService() {
         return services.getOrThrow<IAuthenticationService>()
+    }
+
+    public func getToken(tokenName: String): ?String {
+        authenticate().properties.flatMap{f => f.getTokenValue(tokenName)}
+    }
+
+    public func getToken(scheme: String, tokenName: String): ?String {
+        authenticate(scheme).properties.flatMap{f => f.getTokenValue(tokenName)}
     }
 }
