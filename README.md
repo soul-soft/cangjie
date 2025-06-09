@@ -22,7 +22,7 @@
 | soulsoft_asp_staticfiles                   | 静态文件支持                  | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_staticfiles.git)    |
 | soulsoft_asp_healthchecks                  | 健康检查中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_healthchecks.git)   |
 | soulsoft_asp_authentication                  | 身份认证中间件              | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authentication.git)   |
-| soulsoft_asp_authentication_jwt | Jwt身份认证方案 | 可选 | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authentication_jwt.git) |
+| soulsoft_asp_authentication_jwtbearer | Jwt身份认证方案 | 可选 | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authentication_jwt.git) |
 | soulsoft_asp_authorization                  | 授权中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authorization.git)   |
 | soulsoft_security_claims                | 身份声明                  | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_security_claims.git) |
 | soulsoft_extensions_hosting                | 通用主机                    | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_hosting.git) |
