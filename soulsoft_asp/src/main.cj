@@ -115,10 +115,10 @@ main(args: Array<String>): Int64 {
         }
         //登出接口需要授权
         endpoints.mapGet("connect/logout") { context => 
-                let token = context.getToken("access_token") ?? "not token"
-                context.response.write(token)
-            }
-            .requireAuthorization("default")
+            let token = context.getToken("access_token") ?? "not token"
+            context.response.write(token)
+        }
+        .requireAuthorization("default")
 
         //无须授权
         endpoints.mapGet("hello") {
