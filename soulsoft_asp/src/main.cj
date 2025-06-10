@@ -101,6 +101,7 @@ main(args: Array<String>): Int64 {
 
     //动态资源(负责注册和执行)
     host.useEndpoints { endpoints =>
+        //创建token
         endpoints.mapGet("connect/token") { context =>
             let securityKey = SymmetricSecurityKey(
                 host.configuration["authentication:securityKey"].getOrThrow().toArray())
@@ -112,7 +113,7 @@ main(args: Array<String>): Int64 {
             let accessToken = jwtTokenHander.writeToken(JwtSecurityToken(jwtHeader, jwtPayload))
             context.response.write(accessToken)
         }
-        //登入接口需要授权
+        //登出接口需要授权
         endpoints.mapGet("connect/logout") { context => 
                 let token = context.getToken("access_token") ?? "not token"
                 context.response.write(token)
