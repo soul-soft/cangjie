@@ -43,14 +43,19 @@ public class JwtBearerAuthenticationHandler <: AuthenticationHandler<JwtBearerAu
         super.handleChallenge(properties)
     }
 
-    private func getAccessToken() {
-        return if (let Some(onMessageReceived) <- this.options.events.onMessageReceived) {
+    private func getAccessToken(): ?String {
+        var accessToken: ?String = if (let Some(onMessageReceived) <- this.options.events.onMessageReceived) {
             onMessageReceived(this.context)
-        }else if(let Some(authorizationValue) <- this.context.request.headers.getFirst("Authorization") && startWithBearer(authorizationValue)) {
-            authorizationValue[7..]
         }else {
-            Option<String>.None
+            None
         }
+
+        if (accessToken.isNone()) {
+            if(let Some(authorizationValue) <- this.context.request.headers.getFirst("Authorization") && startWithBearer(authorizationValue)) {
+                accessToken = authorizationValue[7..]
+            }
+        }
+        return accessToken
     }
 
     private func startWithBearer(authorizationValue: String) {
