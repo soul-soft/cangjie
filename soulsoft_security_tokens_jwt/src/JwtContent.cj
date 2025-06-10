@@ -93,7 +93,7 @@ public abstract class JwtContent <: Map<String, Any> {
     }
 
     public func toJsonString(): String {
-        return JsonUtilities.fromHashMap(this._items)
+        return JsonSerializer.serialize(this._items)
     }
 
     public func toBase64UrlString() {

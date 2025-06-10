@@ -38,7 +38,7 @@ public class JwtSecurityTokenHandler {
             SecurityTokenValidationException("Signature validation failed.")
         }
 
-        let claims = JsonUtilities.toHashMap(headerJson)
+        let claims = JsonSerializer.deserialize(headerJson)
         let algorithm = (claims["alg"] as String).getOrThrow {
             SecurityTokenValidationException("Signature validation failed.")
         }
@@ -57,7 +57,7 @@ public class JwtSecurityTokenHandler {
             SecurityTokenValidationException("Failed to decode or parse JWT payload.")
         }
         
-        let payloadClaims = JsonUtilities.toHashMap(payloadJson)
+        let payloadClaims = JsonSerializer.deserialize(payloadJson)
        
         let jwtPayload = JwtPayload(payloadClaims)
         return JwtSecurityToken(jwtHeader, jwtPayload)
