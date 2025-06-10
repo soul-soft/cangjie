@@ -3,76 +3,39 @@ package soulsoft_asp_authentication
 import soulsoft_security_claims.*
 
 public class AuthenticateResult {
-    private var _none: Bool = false
-    private var _failure: ?Exception = None
-    private var _ticket: ?AuthenticationTicket = None
-    private var _properties: ?AuthenticationProperties = None
 
-    public static func createInstance(instance :(AuthenticateResult) -> Unit) {
-        let result = AuthenticateResult()
-        instance(result)
-        return result
-    }
-
-    public prop none: Bool {
-        get() {
-            _none
-        }
-    }
-
-    public prop failure: ?Exception {
-        get() {
-            _failure
-        }
+    AuthenticateResult(
+        public let none!: Bool = false, 
+        public let ticket!: ?AuthenticationTicket = None, 
+        public let properties!: ?AuthenticationProperties = None,
+        public let failure!: ?Exception = None) {
     }
 
     public prop succeeded: Bool {
         get() {
-            !_ticket.isNone()
-        }
-    }
-
-    public prop ticket: ?AuthenticationTicket {
-        get() {
-            _ticket
+            !ticket.isNone()
         }
     }
 
     public prop principal: ?ClaimsPrincipal {
         get() {
-            _ticket?.principal
-        }
-    }
-
-    public prop properties: ?AuthenticationProperties {
-        get() {
-            _properties
+            ticket.flatMap{f => f.principal}
         }
     }
 
     public static func fail(failure: Exception) {
-        return createInstance{ instance =>
-            instance._failure = failure
-        }
+        return AuthenticateResult(failure: failure)
     }
 
     public static func fail(failure: Exception, properties: AuthenticationProperties) {
-        return createInstance{ instance =>
-            instance._failure = failure
-            instance._properties = properties
-        }
+        return AuthenticateResult(failure: failure, properties : properties)
     }
 
     public static func success(ticket: AuthenticationTicket) {
-         return createInstance{ instance =>
-            instance._ticket = ticket
-            instance._properties = ticket.properties
-        }
+         return AuthenticateResult(ticket: ticket, properties: ticket.properties)
     }
 
     public static func noResult() {
-        return createInstance{ instance =>
-            instance._none = true
-        }
+        return AuthenticateResult(none: true)
     }
 }

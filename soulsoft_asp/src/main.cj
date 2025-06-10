@@ -44,17 +44,16 @@ main(args: Array<String>): Int64 {
                 let token = context.request.url.queryForm.get("token")
                 return token
             }
-            configureOptions.saveToken = true
+            configureOptions.saveToken = true//保存token
             configureOptions.tokenValidationParameters.authenticationType = JwtBearerAuthenticationDefaults.Scheme
-            configureOptions.tokenValidationParameters.validIssuer = "soulsoft"
-            configureOptions.tokenValidationParameters.validateAudience = false
-            configureOptions.tokenValidationParameters.issuerSigningKey = securityKey
+            configureOptions.tokenValidationParameters.validIssuer = "soulsoft"//发行方
+            configureOptions.tokenValidationParameters.validateAudience = false//不验证受众
+            configureOptions.tokenValidationParameters.issuerSigningKey = securityKey//验签key
         }
 
     //注册授权服务
     builder.services.addAuthorizationBuilder()
-        .addPolicy("default") {
-            policy =>
+        .addPolicy("default") { policy =>
             //必须包含username
             policy.requireClaim("username")
             //基本要求，具体参考源码
