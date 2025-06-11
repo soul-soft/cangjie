@@ -10,7 +10,7 @@ class HealthCheckMiddleware <: IMiddleware {
     }
 
     public func invoke(context: HttpContext, next: () -> Unit): Unit {
-        if (context.request.url.path == _path) {
+        if (context.request.path.value == _path) {
             let report = _checkService.check()
             context.response.write(report.status.toString())
             match (report.status) {

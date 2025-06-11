@@ -2,19 +2,19 @@ package soulsoft_extensions_options
 
 import soulsoft_extensions_injection.*
 
-public interface OptionsExtension {
-    func addOptions<TOptions>(): ServiceCollection where TOptions <: Object
+public interface OptionsServiceCollectionExtensions {
+    func addOptions<TOptions>(): OptionsBuilder<TOptions> where TOptions <: Object
     func configure<TOptions>(configureOptions: (TOptions) -> Unit): ServiceCollection where TOptions <: Object
     func configure<TOptions>(name: String, configureOptions: (TOptions) -> Unit): ServiceCollection where TOptions <: Object
     func configureAfter<TOptions>(configureOptions: (TOptions) -> Unit): ServiceCollection where TOptions <: Object
     func configureAfter<TOptions>(name: String, configureOptions: (TOptions) -> Unit): ServiceCollection where TOptions <: Object
 }
 
-extend ServiceCollection <: OptionsExtension {
+extend ServiceCollection <: OptionsServiceCollectionExtensions {
     public func addOptions<TOptions>() where TOptions <: Object {
-        tryAddSingleton<IOptions<TOptions>, OptionsWrapper<TOptions>>({sp => 
+        tryAddSingleton<IOptions<TOptions>, UnnamedOptionsManager<TOptions>>({sp => 
             let optionsFactory = sp.getOrThrow<IOptionsFactory<TOptions>>()
-            return OptionsWrapper<TOptions>(optionsFactory)
+            return UnnamedOptionsManager<TOptions>(optionsFactory)
         })
      
         tryAddSingleton<IOptionsFactory<TOptions>, OptionsFactory<TOptions>>({sp => 
@@ -22,7 +22,7 @@ extend ServiceCollection <: OptionsExtension {
             let configureAfters = sp.getAll<IConfigureAfterOptions<TOptions>>()
             return OptionsFactory<TOptions>(configures, configureAfters)
         })
-        return this
+        return OptionsBuilder<TOptions>()
     }
 
     public func configure<TOptions>(configureOptions: (TOptions) -> Unit) where TOptions <: Object {

@@ -10,7 +10,7 @@ class StaticFileMiddleware <: IMiddleware {
     }
 
     public func invoke(context: HttpContext, next: () -> Unit): Unit {
-        let path = context.request.url.path
+        let path = context.request.path.value
         let file = "${_environment.webRootPath}${path}"
         if (path != "/" && exists(file)) {
             let bytes = File.readFrom(file)

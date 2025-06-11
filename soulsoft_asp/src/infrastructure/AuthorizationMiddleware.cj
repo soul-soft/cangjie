@@ -20,18 +20,18 @@ public class AuthorizationMiddleware <: IMiddleware {
     public func invoke(context: HttpContext, next: () -> Unit) {
         if (let Some(endpoint) <- context.getEndpoint()) {
             if (endpoint.metadata.getMetadata<IAuthorizeData>().isSome() && !(endpoint.metadata |> any{f => f is IAllowAnonymous})) {
-                logger.info("${context.request.url}:需要认证")
+                logger.info("${context.request.getDisplayUrl()}:需要认证")
                 if (!context.authenticate().succeeded) {
-                    logger.info("${context.request.url}:认证失败,发起challenge")
+                    logger.info("${context.request.getDisplayUrl()}:认证失败,发起challenge")
                     //短路
                     context.challenge()
                     return
                 } else {
                     let username = context.user.findFirstValue("username")
-                    logger.info("${context.request.url}:认证成功,username:${username}")
+                    logger.info("${context.request.getDisplayUrl()}:认证成功,username:${username}")
                 }
             } else {
-                logger.info("${context.request.url}:无须认证")
+                logger.info("${context.request.getDisplayUrl()}:无须认证")
             }
         }
         next()

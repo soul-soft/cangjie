@@ -41,7 +41,7 @@ main(args: Array<String>): Int64 {
             let securityKey = SymmetricSecurityKey(secret)
             //优先从url中读取
             configureOptions.events.onMessageReceived = { context =>
-                let token = context.request.url.queryForm.get("token")
+                let token = context.request.queryForm.get("token")
                 return token
             }
             configureOptions.saveToken = true//保存token

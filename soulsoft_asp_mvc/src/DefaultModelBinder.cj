@@ -38,7 +38,7 @@ class DefaultModelBinder <: IModelBinder {
     }
 
     private func fromQuery(parameter: ParameterInfo, context: HttpContext): Any {
-        return ModelBindingHelper.deserization(parameter, context.request.url.queryForm)
+        return ModelBindingHelper.deserization(parameter, context.request.queryForm)
     }
 
     private func fromForm(parameter: ParameterInfo, context: HttpContext): Any {

@@ -1,6 +1,6 @@
 package soulsoft_extensions_options
 
-class OptionsWrapper<TOptions> <: IOptions<TOptions> where TOptions <: Object {
+class UnnamedOptionsManager<TOptions> <: IOptions<TOptions> where TOptions <: Object {
     private let _optionsFactory: IOptionsFactory<TOptions>
 
     public init(optionsFactory: IOptionsFactory<TOptions>) {

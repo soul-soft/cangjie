@@ -13,7 +13,7 @@ class RouteMatcher <: IRouteMatcher {
     }
 
     public func apply(context: HttpContext): RouteMatchingFlags {
-        let request = RoutePattern.parse(context.request.url.path)
+        let request = RoutePattern.parse(context.request.path.value)
         let routeValues = context.request.routeValues
         var flag = RouteMatchingFlags.Notfound
         for (endpoint in _dataSource.endpoints |> filterMap {f => f as RouteEndpoint}) {

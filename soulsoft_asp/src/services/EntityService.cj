@@ -15,7 +15,7 @@ public class EntityService <: Resource {
     public func working() {
         //业务层也可以获取httpContext，方便进行单元测试，单元测试你可以实现IHttpContextAccessor,并注入容器
         let context = _contextAccessor.context.getOrThrow {=> Exception("not http")}
-        _logger.info(context.request.url.toString())
+        _logger.info(context.request.getDisplayUrl())
     }
 
     public func isClosed() {

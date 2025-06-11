@@ -12,7 +12,7 @@ class DefaultFileMiddleware <: IMiddleware {
 
     public func invoke(context: HttpContext, next: () -> Unit): Unit {
         let webRootPath = _environment.webRootPath
-        if (context.request.url.path == "/" && let Some(file) <- findFile(webRootPath)) {
+        if (context.request.path.value == "/" && let Some(file) <- findFile(webRootPath)) {
             let bytes = File.readFrom(file)
             context.response.write(bytes)
             context.response.status(200)

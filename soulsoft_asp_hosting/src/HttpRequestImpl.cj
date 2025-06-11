@@ -38,6 +38,30 @@ public class HttpRequestImpl <: HttpRequest {
         }
     }
 
+    public prop path: PathString {
+        get() {
+            PathString(_request.url.path)
+        }
+    }
+
+    public prop host: HostString {
+        get() {
+            HostString(_request.url.host)
+        }
+    }
+
+    public prop queryForm: Form {
+        get() {
+            _request.url.queryForm
+        }
+    }
+
+    public prop scheme: String {
+        get() {
+            _request.url.scheme
+        }
+    }
+
     public prop headers: HttpHeaders {
         get() {
             _request.headers
@@ -68,10 +92,15 @@ public class HttpRequestImpl <: HttpRequest {
         }
     }
 
+    @Deprecated
     public prop url: URL {
         get() {
             _request.url
         }
+    }
+
+    public func getDisplayUrl() {
+        return _request.url.toString()
     }
 
     public prop version: Protocol {

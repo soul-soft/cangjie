@@ -16,7 +16,7 @@ public class OpenApiMiddleware <: IMiddleware {
     }
 
     public func invoke(context: HttpContext, next: () -> Unit): Unit {
-        if (context.request.url.path == "/openapi") {
+        if (context.request.path.value == "/openapi") {
             let sb = StringBuilder()
             sb.append("<html>")
             sb.append("<body>")
