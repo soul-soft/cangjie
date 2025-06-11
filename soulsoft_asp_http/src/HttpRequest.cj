@@ -13,9 +13,11 @@ public abstract class HttpRequest {
     public prop close: Bool
     public prop form: Form
     public prop host: HostString
+    public prop isHttps: Bool
     public prop path: PathString
     public prop scheme: String
     public prop queryForm: Form
+    public prop queryString: QueryString
     public prop headers: HttpHeaders
     public prop method: String
     public prop readTimeout: ?Duration

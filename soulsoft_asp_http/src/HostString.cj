@@ -2,7 +2,7 @@ package soulsoft_asp_http
 
 import std.convert.*
 
-public struct HostString {
+public struct HostString <: Equatable<HostString> & Equatable<String> & ToString{
     private let _value: String
 
     public init(value: String) {
@@ -36,5 +36,29 @@ public struct HostString {
             80
         }
         return (host, port)
+    }
+
+    public prop value: String {
+        get() {
+            _value
+        }
+    }
+
+    public prop hasValue: Bool {
+        get() {
+            _value.size > 0
+        }
+    }
+
+    public operator func ==(oth: HostString) {
+        return this.value == oth.value
+    }
+
+    public operator func ==(value: String) {
+        return this.value == value
+    }
+
+    public func toString() {
+        _value
     }
 }

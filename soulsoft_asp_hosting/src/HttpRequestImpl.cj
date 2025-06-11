@@ -32,6 +32,12 @@ public class HttpRequestImpl <: HttpRequest {
         }
     }
 
+    public prop isHttps: Bool {
+        get() {
+            "https".equalsIgnoreAsciiCase(_request.url.scheme)
+        }
+    }
+
     public prop form: Form {
         get() {
             _request.form
@@ -47,6 +53,12 @@ public class HttpRequestImpl <: HttpRequest {
     public prop host: HostString {
         get() {
             HostString(_request.url.host)
+        }
+    }
+
+    public prop queryString: QueryString {
+        get() {
+            QueryString(_request.url.rawQuery ?? String.empty)
         }
     }
 

@@ -1,8 +1,8 @@
 package soulsoft_asp_http
 
-public struct PathString <: Equatable<PathString> & Equatable<String> & ToString {
+public struct QueryString <: Equatable<QueryString> & Equatable<String> & ToString{
     private let _value: String
-    
+
     public init(value: String) {
         _value = value
     }
@@ -19,10 +19,10 @@ public struct PathString <: Equatable<PathString> & Equatable<String> & ToString
         }
     }
 
-    public operator func ==(oth: PathString) {
+    public operator func ==(oth: QueryString) {
         return this.value == oth.value
     }
-    
+
     public operator func ==(value: String) {
         return this.value == value
     }

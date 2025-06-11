@@ -121,8 +121,9 @@ main(args: Array<String>): Int64 {
         .requireAuthorization("default")
 
         //无须授权
-        endpoints.mapGet("hello") {
-            context => context.response.write("hello:soulsoft")
+        endpoints.mapGet("hello") { context =>
+            println(context.request.queryString)
+            context.response.write("hello:soulsoft")
         }
 
         endpoints.mapControllers()
