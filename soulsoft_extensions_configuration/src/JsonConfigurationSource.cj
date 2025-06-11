@@ -80,7 +80,7 @@ extend ConfigurationManager {
         return this
     }
 
-    public func addJsonFile(path: String, optional: Bool): IConfigurationBuilder {
+    public func addJsonFile(path: String, optional!: Bool = true): IConfigurationBuilder {
         if (optional && !exists(path)) {
             return this
         }

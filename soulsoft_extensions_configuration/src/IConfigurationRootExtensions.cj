@@ -19,25 +19,6 @@ func getChildKeys(configuratin: IConfigurationRoot, parentPath: ?String): Iterab
     return results |> collectArray
 }
 
-func getConfiguration(configuratin: IConfigurationRoot, key: String): ?String {
-    let providers = configuratin.providers |> collectArray
-    var index = providers.size - 1
-    while (index >= 0) {
-        let provider = providers[index]
-        if (let Some(value) <- provider.get(key)) {
-            return value
-        }
-        index--
-    }
-    return None
-}
-
-func setConfiguration(configuratin: IConfigurationRoot, key: String, value: ?String): ?String {
-    for (pattern in configuratin.providers) {
-        pattern.set(key, value)
-    }
-    return None
-}
 
 func camelCase(name: String, splitter: String) {
     let sb = StringBuilder()

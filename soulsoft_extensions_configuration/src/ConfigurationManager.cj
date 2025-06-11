@@ -3,14 +3,10 @@ package soulsoft_extensions_configuration
 import std.reflect.*
 import std.collection.*
 
-public class ConfigurationManager <: IConfigurationManager {
-    private let _properties = HashMap<String, Any>()
+public class ConfigurationManager <: IConfigurationManager & IConfigurationRoot & IConfiguration{
     private let _sources = ArrayList<IConfigurationSource>()
+    private let _properties = HashMap<String, Any>()
     private let _providers = ArrayList<IConfigurationProvider>()
-
-    public init() {
-        
-    }
 
     public prop sources: List<IConfigurationSource> {
         get() {
@@ -18,24 +14,24 @@ public class ConfigurationManager <: IConfigurationManager {
         }
     }
 
-    public prop providers: Collection<IConfigurationProvider> {
+    public prop providers: List<IConfigurationProvider> {
         get() {
             _providers
         }
     }
 
-    public prop properties: HashMap<String, Any> {
+    public prop properties: Map<String, Any> {
         get() {
             _properties
         }
     }
 
     public operator func [](key: String): ?String {
-        return getConfiguration(this, key)
+        ConfigurationRoot.getConfiguration(_providers, key)
     }
 
     public operator func [](key: String, value!: ?String): Unit {
-        setConfiguration(this, key, value)
+        ConfigurationRoot.setConfiguration(_providers, key, value)
     }
 
     public func getSection(key: String): IConfigurationSection {
@@ -59,8 +55,7 @@ public class ConfigurationManager <: IConfigurationManager {
         return this
     }
 
-    public func build(): IConfiguration {
-        return this
+    public func build(): IConfigurationRoot {
+        this
     }
 }
-

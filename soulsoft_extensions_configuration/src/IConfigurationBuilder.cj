@@ -8,7 +8,7 @@ import std.collection.*
  */
 public interface IConfigurationBuilder {
     prop sources: List<IConfigurationSource>
-    prop properties: HashMap<String, Any>
+    prop properties: Map<String, Any>
     func add(source: IConfigurationSource): IConfigurationBuilder
-    func build(): IConfiguration
+    func build(): IConfigurationRoot
 }

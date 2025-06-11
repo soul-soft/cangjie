@@ -1,0 +1,11 @@
+package soulsoft_extensions_configuration
+
+main() {
+    
+    let configuration = ConfigurationManager()
+    configuration.addJsonFile("./appsettings.json")
+    for (pattern in configuration.getSection("mvcOptions").getChildren()) {
+        println("${pattern.key} = ${pattern.value}")   
+    }
+    return 0
+}

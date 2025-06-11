@@ -128,8 +128,8 @@ public class Host <: IHost {
         let configuration = ConfigurationManager()
         configuration.addEnvVars("cj")
         configuration.addArgVars(args)
-        configuration.addJsonFile("./appsettings.json", true)
-        configuration.addJsonFile("./appsettings.${environment.environmentName}.json", true)
+        configuration.addJsonFile("./appsettings.json", optional: true)
+        configuration.addJsonFile("./appsettings.${environment.environmentName}.json", optional: true)
         return configuration
     }
 
