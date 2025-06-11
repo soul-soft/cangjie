@@ -3,7 +3,7 @@ package soulsoft_extensions_configuration
 import std.reflect.*
 import std.collection.*
 
-public class ConfigurationManager <: IConfigurationManager & IConfigurationRoot & IConfiguration{
+public class ConfigurationManager <: IConfigurationManager {
     private let _sources = ArrayList<IConfigurationSource>()
     private let _properties = HashMap<String, Any>()
     private let _providers = ArrayList<IConfigurationProvider>()
