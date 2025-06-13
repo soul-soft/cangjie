@@ -18,9 +18,9 @@ public interface ILogger {
         log(LogLevel.Warn, message, None)
     }
     func error(message: String) {
-        error(message, None)
+        log(LogLevel.Error, message, None)
     }
-    func error(message: String, exception: ?Exception) {
+    func error(exception: Exception, message: String) {
         log(LogLevel.Error, message, exception)
     }
     func fatal(message: String) {

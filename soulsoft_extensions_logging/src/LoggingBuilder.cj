@@ -21,17 +21,7 @@ public class LoggingBuilder {
     public func setMinimumLevel(minLevel: LogLevel) {
         _minLevel = minLevel
         return this
-    }
-
-    public func addFile() {
-        addProvider(FileLoggerProvider())
-        return this
-    }
-
-    public func addConsole() {
-        addProvider(ConsoleLoggerProvider())
-        return this
-    }
+    }   
 
     public func addProvider(provider: ILoggerProvider) {
         let key = TypeInfo.of(provider)

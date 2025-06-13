@@ -49,3 +49,10 @@ class ConsoleLoggerProvider <: ILoggerProvider {
         return ConsoleLogger(categoryName)
     }
 }
+
+extend LoggingBuilder{
+    public func addConsole() {
+        addProvider(ConsoleLoggerProvider())
+        return this
+    }
+}
