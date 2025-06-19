@@ -16,6 +16,8 @@
   version = "1.0.0"
   package-configuration = {}
 
-[target.x86_64-w64-mingw32]                                                     # 系统架构和 OS 信息
-  [target.x86_64-w64-mingw32.bin-dependencies]
-    path-option = ["D:\\cangjiestdx\\windows_x86_64_llvm\\stdx\\dynamic\\stdx"] # stdx 路径根据实际情况配置
+[target.x86_64-w64-mingw32.bin-dependencies]
+  path-option = ["${CANGJIE_STDX}"]
+
+[target.x86_64-unknown-linux-gnu.bin-dependencies]    
+  path-option = ["${CANGJIE_STDX}"]
