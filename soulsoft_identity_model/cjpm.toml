@@ -1,0 +1,14 @@
+[package]
+  cjc-version = "0.60.5"
+  name = "soulsoft_identity_model"
+  description = "nothing here"
+  version = "1.0.0"
+  target-dir = ""
+  src-dir = ""
+  output-type = "executable"
+  compile-option = ""
+  override-compile-option = ""
+  link-option = ""
+  package-configuration = {}
+
+[dependencies]
