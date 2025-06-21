@@ -1,4 +1,4 @@
-package soulsoft_security_tokens_jwt
+package soulsoft_identity_tokens
 
 import std.reflect.*
 import stdx.crypto.keys.*

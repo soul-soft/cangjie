@@ -1,7 +1,8 @@
-package soulsoft_security_tokens_jwt
+package soulsoft_identity_tokens_jwt
 
 import std.collection.*
 import stdx.encoding.json.*
+import soulsoft_identity_tokens.*
 
 public class JwtHeader <: JwtContent {
     private let _signingCredentials: SigningCredentials

@@ -1,6 +1,6 @@
 [package]
   cjc-version = "0.60.5"
-  name = "soulsoft_asp_authentication_jwtbearer"
+  name = "soulsoft_identity_tokens_jwt"
   description = "nothing here"
   version = "1.0.0"
   target-dir = ""
@@ -14,11 +14,6 @@
 [dependencies]
   soulsoft_security_claims = { path = "../soulsoft_security_claims"}
   soulsoft_identity_tokens = { path = "../soulsoft_identity_tokens"}
-  soulsoft_identity_tokens_jwt = { path = "../soulsoft_identity_tokens_jwt"}
-  soulsoft_asp_http = { path = "../soulsoft_asp_http"}
-  soulsoft_asp_authentication = { path = "../soulsoft_asp_authentication"}
-  soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
-  soulsoft_extensions_logging = { path = "../soulsoft_extensions_logging"}
 
 [target.x86_64-w64-mingw32.bin-dependencies]
   path-option = ["${CANGJIE_STDX}"]

@@ -1,4 +1,4 @@
-package soulsoft_security_tokens_jwt
+package soulsoft_identity_tokens_jwt
 
 import std.time.*
 import std.convert.*

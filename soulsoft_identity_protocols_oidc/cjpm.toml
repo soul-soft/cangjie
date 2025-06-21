@@ -1,6 +1,6 @@
 [package]
   cjc-version = "0.60.5"
-  name = "soulsoft_security_tokens_jwt"
+  name = "soulsoft_identity_protocols_oidc"
   description = "nothing here"
   version = "1.0.0"
   target-dir = ""
@@ -11,11 +11,11 @@
   link-option = ""
   package-configuration = {}
 
-[dependencies]
-  soulsoft_security_claims = { path = "../soulsoft_security_claims"}
-
 [target.x86_64-w64-mingw32.bin-dependencies]
   path-option = ["${CANGJIE_STDX}"]
 
 [target.x86_64-unknown-linux-gnu.bin-dependencies]    
-  path-option = ["${CANGJIE_STDX}"]
+  path-option = ["${CANGJIE_STDX}"]  
+  
+[dependencies]
+  soulsoft_identity_tokens_jwt = { path = "../soulsoft_identity_tokens_jwt"}

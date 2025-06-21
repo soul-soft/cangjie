@@ -10,7 +10,7 @@ public class RedirectResult <: IActionResult {
     }
 
     public func invoke(context: HttpContext): Unit {
-        context.response.status(HttpStatusCode.STATUS_FOUND)
+        context.response.status(HttpStatusCode.Found)
         context.response.addHeader("location", _url)
     }
 }

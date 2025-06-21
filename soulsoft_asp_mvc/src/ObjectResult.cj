@@ -8,7 +8,7 @@ public class ObjectResult <: IActionResult {
     private let _status: UInt16
 
     init(value: ?Any, contentType: ?String) {
-        this(HttpStatusCode.STATUS_OK, value, contentType)
+        this(HttpStatusCode.Ok, value, contentType)
     }
 
     init(status: UInt16) {

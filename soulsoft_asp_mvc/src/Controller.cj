@@ -26,7 +26,7 @@ public abstract class Controller {
     }
 
     protected func ok() {
-        return ObjectResult(HttpStatusCode.STATUS_OK)
+        return ObjectResult(HttpStatusCode.Ok)
     }
 
     protected func ok(value: Object, contentType: ?String) {
@@ -38,7 +38,7 @@ public abstract class Controller {
     }
 
     protected func noContent() {
-        return ObjectResult(HttpStatusCode.STATUS_NO_CONTENT)
+        return ObjectResult(HttpStatusCode.NoContent)
     }
 
     protected func status(status: UInt16) {

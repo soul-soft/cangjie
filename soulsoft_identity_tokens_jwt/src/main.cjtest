@@ -1,4 +1,4 @@
-package soulsoft_security_tokens_jwt
+package soulsoft_identity_tokens_jwt
 
 import std.fs.*
 import std.io.*
@@ -8,6 +8,7 @@ import stdx.crypto.digest.*
 import stdx.crypto.x509.*
 import stdx.crypto.keys.*
 import stdx.encoding.hex.*
+import soulsoft_identity_tokens.*
 
 main(): Int64 {
     let securityKey = SymmetricSecurityKey("SECUZebfRscapBanPymcs5CZEJpEFjSISECUZebfRscapBanPymcs5CZEJpEFjSI".toArray())
@@ -35,9 +36,13 @@ main(): Int64 {
     var parameters = TokenValidationParameters(securityKey)
     parameters.validIssuer = "cangjie"
     parameters.validAudience = "cangjie"
-    let claims = tokenHandler.validateToken(tokenHandler.writeToken(jwtToken), parameters)
-    for (pattern in claims.claims) {
-        println("${pattern.name}=${pattern.value}")
+    parameters.requireExpirationTime = false
+    let result = tokenHandler.validateToken(tokenHandler.writeToken(jwtToken), parameters)
+    println(result.isValid)
+    if (result.isValid) {
+        for (pattern in result.subject.claims) {
+            println("${pattern.name}=${pattern.value}")
+        }
     }
     return 0
 }

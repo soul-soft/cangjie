@@ -16,7 +16,7 @@ public class ExceptionHandlerMiddleware <: IMiddleware {
         } catch (ex: Exception) {
             _logger.error(ex.message)
             ex.printStackTrace()
-            context.response.status(HttpStatusCode.STATUS_INTERNAL_SERVER_ERROR)
+            context.response.status(HttpStatusCode.InternalServerError)
         }
     }
 }

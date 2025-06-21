@@ -1,12 +1,13 @@
-package soulsoft_security_tokens_jwt
+package soulsoft_identity_tokens_jwt
 
 import std.time.*
 import std.convert.*
 import std.collection.*
 import stdx.encoding.json.*
 import soulsoft_security_claims.*
+import soulsoft_identity_tokens.*
 
-public class JwtSecurityTokenHandler {
+public class JwtSecurityTokenHandler <: SecurityTokenHandler {
     public func writeToken(token: JwtSecurityToken) {
         let headerBase64Url = token.header.toBase64UrlString()
         let payloadBase64Url = token.payload.toBase64UrlString()
@@ -16,13 +17,17 @@ public class JwtSecurityTokenHandler {
         return "${text}.${sign}"
     }
 
-    public func validateToken(token: String, parameters: TokenValidationParameters): ClaimsPrincipal {
-        let securityToken = validateSign(token, parameters.issuerSigningKey.getOrThrow())       
-        let identity = ClaimsIdentity(parameters.authenticationType)
-        identity.addClaims(securityToken.payload.toClaims())
-        let subject = ClaimsPrincipal(identity)
-        validateSubject(subject, parameters)
-        return subject
+    public func validateToken(token: String, parameters: TokenValidationParameters): TokenValidationResult {
+        try {            
+            let securityToken = validateSign(token, parameters.issuerSigningKey.getOrThrow())       
+            let identity = ClaimsIdentity(parameters.authenticationType)
+            identity.addClaims(securityToken.payload.toClaims())
+            let subject = ClaimsPrincipal(identity)
+            validateSubject(subject, parameters)
+            return TokenValidationResult.success(subject, securityToken)
+        }catch (exception: Exception) {
+            return TokenValidationResult.failed(exception)
+        }
     }
 
 

@@ -2,11 +2,12 @@ package soulsoft_asp_authentication_jwtbearer
 
 import std.unicode.*
 import soulsoft_asp_http.*
+import soulsoft_identity_tokens.*
 import soulsoft_security_claims.*
 import soulsoft_asp_authentication.*
 import soulsoft_extensions_options.*
 import soulsoft_extensions_logging.*
-import soulsoft_security_tokens_jwt.*
+import soulsoft_identity_tokens_jwt.*
 
 public class JwtBearerAuthenticationHandler <: AuthenticationHandler<JwtBearerAuthenticationOptions> {
    
@@ -16,21 +17,18 @@ public class JwtBearerAuthenticationHandler <: AuthenticationHandler<JwtBearerAu
 
     public func handleAuthenticate() {
         if (let Some(accessToken) <- getAccessToken()) {
-            try {
-                let jwtTokenHandler = JwtSecurityTokenHandler()
-                let tokenValidationParameters = this.options.tokenValidationParameters
-                let subject = jwtTokenHandler.validateToken(accessToken, tokenValidationParameters)
+            let jwtTokenHandler = JwtSecurityTokenHandler()
+            let tokenValidationParameters = this.options.tokenValidationParameters
+            let result = jwtTokenHandler.validateToken(accessToken, tokenValidationParameters)
+            if (result.isValid) {
+                let properties = AuthenticationProperties()
                 if (this.options.saveToken) {
-                    let properties = AuthenticationProperties()
                     properties.storeTokens(AuthenticationToken("access_token", accessToken))
-                    let ticket = AuthenticationTicket(subject, JwtBearerAuthenticationDefaults.Scheme, properties)
-                    return AuthenticateResult.success(ticket)
-                }else {
-                    let ticket = AuthenticationTicket(subject, JwtBearerAuthenticationDefaults.Scheme)
-                    return AuthenticateResult.success(ticket)
-                }
-            }catch (ex: Exception) {
-                return AuthenticateResult.fail(ex)
+                }   
+                let ticket = AuthenticationTicket(result.subject, JwtBearerAuthenticationDefaults.Scheme, properties)
+                return AuthenticateResult.success(ticket)
+            }else {
+                AuthenticateResult.fail(result.exception.getOrThrow())
             }
         }
         return AuthenticateResult.noResult()

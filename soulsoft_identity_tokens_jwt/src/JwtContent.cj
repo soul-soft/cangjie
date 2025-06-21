@@ -1,10 +1,11 @@
-package soulsoft_security_tokens_jwt
+package soulsoft_identity_tokens_jwt
 
 import std.time.*
 import std.convert.*
 import std.collection.*
 import stdx.encoding.json.*
 import soulsoft_security_claims.*
+import soulsoft_identity_tokens.*
 
 public abstract class JwtContent <: Map<String, Any> {
     private let _items = HashMap<String, Any>()

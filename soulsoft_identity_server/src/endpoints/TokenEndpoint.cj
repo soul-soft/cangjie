@@ -21,6 +21,7 @@ public class TokenEndpoint <: EndpointHandler {
             return error(InvalidErrors.InvalidScope, "Invalid scope parameter.")
         }    
 
+        
         return methodNotAllowed()
     }
 }

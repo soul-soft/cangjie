@@ -18,9 +18,9 @@ public class ContentResult <: IActionResult {
 
     public func invoke(context: HttpContext): Unit {
         if (_content.size == 0) {
-            context.response.status(HttpStatusCode.STATUS_NO_CONTENT)
+            context.response.status(HttpStatusCode.NoContent)
         }else {
-            context.response.status(HttpStatusCode.STATUS_OK)
+            context.response.status(HttpStatusCode.Ok)
             context.response.write(_content)
         }
         if (let Some(contentType) <- _contentType) {

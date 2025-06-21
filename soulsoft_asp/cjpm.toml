@@ -4,7 +4,8 @@
   soulsoft_asp_routing = { path = "../soulsoft_asp_routing"}
   soulsoft_asp_hosting = { path = "../soulsoft_asp_hosting"}
   soulsoft_security_claims = { path = "../soulsoft_security_claims"}
-  soulsoft_security_tokens_jwt = { path = "../soulsoft_security_tokens_jwt"}
+  soulsoft_identity_tokens = { path = "../soulsoft_identity_tokens"}
+  soulsoft_identity_tokens_jwt = { path = "../soulsoft_identity_tokens_jwt"}
   soulsoft_asp_staticfiles = { path = "../soulsoft_asp_staticfiles"}
   soulsoft_asp_healthchecks = { path = "../soulsoft_asp_healthchecks"}
   soulsoft_asp_authorization = { path = "../soulsoft_asp_authorization"}

@@ -1,7 +1,8 @@
-package soulsoft_security_tokens_jwt
+package soulsoft_identity_tokens
 
 import stdx.crypto.x509.*
 import std.crypto.digest.*
+import stdx.serialization.serialization.*
 
 public abstract class SecurityKey {
    public prop keyId: ?String
