@@ -12,10 +12,10 @@
   package-configuration = {}
 
 [dependencies]
+  soulsoft_asp_http = { path = "../soulsoft_asp_http"}
   soulsoft_security_claims = { path = "../soulsoft_security_claims"}
   soulsoft_identity_tokens = { path = "../soulsoft_identity_tokens"}
   soulsoft_identity_tokens_jwt = { path = "../soulsoft_identity_tokens_jwt"}
-  soulsoft_asp_http = { path = "../soulsoft_asp_http"}
   soulsoft_asp_authentication = { path = "../soulsoft_asp_authentication"}
   soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
   soulsoft_extensions_logging = { path = "../soulsoft_extensions_logging"}
