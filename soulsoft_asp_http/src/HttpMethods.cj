@@ -12,30 +12,34 @@ public struct HttpMethods {
     public static const options = "options"
 
     public static func isGet(method: String) {
-        return get == method
+        return equals(get, method)
     }
     public static func isPut(method: String) {
-        return put == method
+        return equals(put, method)
     }
     public static func isPost(method: String) {
-        return post == method
+        return equals(post, method)
     }
     public static func isHead(method: String) {
-        return head == method
+        return equals(head, method)
     }
     public static func isPatch(method: String) {
-        return patch == method
+        return equals(patch, method)
     }
     public static func isTrace(method: String) {
-        return trace == method
+        return equals(trace, method)
     }
     public static func isDelete(method: String) {
-        return delete == method
+        return equals(delete, method)
     }
     public static func isConnect(method: String) {
-        return connect == method
+        return equals(connect, method)
     }
     public static func isOptions(method: String) {
-        return options == method
+        return equals(options, method)
     }
+
+    private static func equals(left: String, right: String) {
+        left.equalsIgnoreAsciiCase(right)
+    }    
 }

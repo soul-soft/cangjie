@@ -1,6 +1,6 @@
 package soulsoft_asp_routing
 
-public enum RouteMatchingFlags {
+public enum RouteFlags {
     Ok
     | Notfound
     | MethodNotAllowed

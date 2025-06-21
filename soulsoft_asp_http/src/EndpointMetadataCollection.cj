@@ -6,6 +6,10 @@ import std.collection.*
 public class EndpointMetadataCollection <: ReadOnlyList<Any> {
     private let _metadata = ArrayList<Any>()
 
+    public init() {
+        
+    }
+
     public init(metadata: Collection<Any>) {
         _metadata.add(all: metadata)
     }

@@ -28,7 +28,7 @@ extend ApplicationBuilder <: RoutingApplicationBuilderExtensions {
         if (this.properties.contains(endpointRoutingMiddlewareKey)) {
             return
         }
-        let matcher = this.applicationServices.getOrThrow<IRouteMatcher>()
+        let matcher = this.applicationServices.getOrThrow<IRouter>()
         use(EndpointRoutingMiddleware(matcher))
         this.properties[endpointRoutingMiddlewareKey] = true
     }

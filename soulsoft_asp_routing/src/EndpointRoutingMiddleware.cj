@@ -3,21 +3,21 @@ package soulsoft_asp_routing
 import std.collection.*
 
 public class EndpointRoutingMiddleware <: IMiddleware {
-    private let _matcher: IRouteMatcher
+    private let _matcher: IRouter
 
-    init(matcher: IRouteMatcher) {
+    init(matcher: IRouter) {
         _matcher = matcher
     }
 
     public func invoke(context: HttpContext, next: () -> Unit): Unit {
-        var flag = RouteMatchingFlags.Notfound
+        var flag = RouteFlags.Notfound
         if (context.getEndpoint().isNone()) {
             flag = _matcher.apply(context)
         } else {
-            flag = RouteMatchingFlags.Ok
+            flag = RouteFlags.Ok
         }
         match (flag) {
-            case MethodNotAllowed => context.response.status(HttpStatusCode.STATUS_METHOD_NOT_ALLOWED)
+            case MethodNotAllowed => context.response.status(HttpStatusCode.MethodNotAllowed)
             case _ => next()
         }
     }

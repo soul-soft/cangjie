@@ -1,6 +1,6 @@
 [package]
   cjc-version = "0.60.5"
-  name = "soulsoft_oidc"
+  name = "soulsoft_identity_server"
   description = "nothing here"
   version = "1.0.0"
   target-dir = ""
@@ -12,3 +12,14 @@
   package-configuration = {}
 
 [dependencies]
+  soulsoft_asp_http = { path = "../soulsoft_asp_http"}
+  soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
+  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
+  #test
+  soulsoft_asp_hosting = { path = "../soulsoft_asp_hosting"}
+
+[target.x86_64-w64-mingw32.bin-dependencies]
+  path-option = ["${CANGJIE_STDX}"]
+
+[target.x86_64-unknown-linux-gnu.bin-dependencies]    
+  path-option = ["${CANGJIE_STDX}"]

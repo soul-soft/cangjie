@@ -5,23 +5,23 @@ import std.collection.*
 import soulsoft_asp_http.*
 import soulsoft_extensions_options.*
 
-class RouteMatcher <: IRouteMatcher {
+class Route <: IRouter {
     private var _dataSource: EndpointDataSource
 
     public init(dataSource: EndpointDataSource) {
         _dataSource = dataSource
     }
 
-    public func apply(context: HttpContext): RouteMatchingFlags {
+    public func apply(context: HttpContext): RouteFlags {
         let request = RoutePattern.parse(context.request.path.value)
         let routeValues = context.request.routeValues
-        var flag = RouteMatchingFlags.Notfound
+        var flag = RouteFlags.Notfound
         for (endpoint in _dataSource.endpoints |> filterMap {f => f as RouteEndpoint}) {
             if (tryMatch(routeValues, request, endpoint.routePattern)) {
-                flag = RouteMatchingFlags.MethodNotAllowed
-                if (checkRequestMethod(context, endpoint)) {
+                flag = RouteFlags.MethodNotAllowed
+                if (isAllowedRequestMethod(context, endpoint)) {
                     context.setEndpoint(endpoint)
-                    return RouteMatchingFlags.Ok
+                    return RouteFlags.Ok
                 }
             } else {
                 routeValues.clear()
@@ -51,7 +51,7 @@ class RouteMatcher <: IRouteMatcher {
         }
     }
 
-    private func checkRequestMethod(context: HttpContext, endpoint: Endpoint) {
+    private func isAllowedRequestMethod(context: HttpContext, endpoint: Endpoint) {
         if (let Some(httpMetadata) <- endpoint.metadata.getMetadata<IHttpMethodMetadata>()) {
             if (httpMetadata.httpMethods |> any {method => context.request.method.equalsIgnoreAsciiCase(method)}) {
                 return true
