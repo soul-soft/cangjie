@@ -1,0 +1,18 @@
+[dependencies]
+
+[package]
+  cjc-version = "0.60.5"
+  compile-option = ""
+  description = "nothing here"
+  link-option = ""
+  name = "soulsoft_net_http"
+  output-type = "static"
+  override-compile-option = ""
+  src-dir = ""
+  target-dir = ""
+  version = "1.0.0"
+  package-configuration = {}
+
+[target.x86_64-w64-mingw32]                                                     # 系统架构和 OS 信息
+  [target.x86_64-w64-mingw32.bin-dependencies]
+    path-option = ["D:\\cangjiestdx\\windows_x86_64_llvm\\stdx\\dynamic\\stdx"] # stdx 路径根据实际情况配置
