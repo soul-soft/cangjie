@@ -1,9 +1,8 @@
-package soulsoft_identity_server.endpoints
+package soulsoft_identity_server.endpoints.results
 
 import soulsoft_asp_http.*
 import stdx.encoding.json.ToJson
 import stdx.serialization.serialization.*
-
 import soulsoft_identity_server.hosting.*
 
 public class JsonResult<T> <: IEndpointResult {

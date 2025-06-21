@@ -13,8 +13,12 @@
 
 [dependencies]
   soulsoft_asp_http = { path = "../soulsoft_asp_http"}
+  soulsoft_security_claims = { path = "../soulsoft_security_claims"}
+  soulsoft_identity_tokens = { path = "../soulsoft_identity_tokens"}
+  soulsoft_identity_tokens_jwt = { path = "../soulsoft_identity_tokens_jwt"}
   soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
   soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
+  soulsoft_identity_protocols_oidc = { path = "../soulsoft_identity_protocols_oidc"}
   #test
   soulsoft_asp_hosting = { path = "../soulsoft_asp_hosting"}
 

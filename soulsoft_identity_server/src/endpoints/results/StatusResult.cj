@@ -1,4 +1,4 @@
-package soulsoft_identity_server.endpoints
+package soulsoft_identity_server.endpoints.results
 
 import soulsoft_asp_http.*
 import soulsoft_identity_server.hosting.*

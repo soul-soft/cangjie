@@ -18,4 +18,4 @@
   path-option = ["${CANGJIE_STDX}"]  
   
 [dependencies]
-  soulsoft_identity_tokens_jwt = { path = "../soulsoft_identity_tokens_jwt"}
+  soulsoft_identity_tokens = { path = "../soulsoft_identity_tokens"}

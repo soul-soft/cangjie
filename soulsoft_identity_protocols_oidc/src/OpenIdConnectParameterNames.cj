@@ -1,6 +1,6 @@
-package soulsoft_identity_server.constants
+package soulsoft_identity_protocols_oidc
 
-public class ParameterNames {
+public class OpenIdConnectParameterNames {
     public static let AccessToken = "access_token"
     public static let AcrValues = "acr_values"
     public static let ClaimsLocales = "claims_locales"

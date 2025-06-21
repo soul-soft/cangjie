@@ -2,7 +2,7 @@ package soulsoft_identity_protocols_oidc
 
 import std.collection.*
 import stdx.encoding.json.*
-import soulsoft_identity_tokens_jwt.*
+import soulsoft_identity_tokens.*
 import stdx.serialization.serialization.*
 
 /**
