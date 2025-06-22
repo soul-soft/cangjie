@@ -4,10 +4,10 @@ import soulsoft_identity_server.constants.*
 
 public class EndpointsOptions {
     public var prefix = ""
-    public var enableAuthorizeEndpoint = true
     public var enableJwtRequestUri = true
     public var enableTokenEndpoint  = true
     public var enableUserInfoEndpoint  = true
+    public var enableAuthorizeEndpoint = true
     public var enableDiscoveryEndpoint  = true
     public var enableEndSessionEndpoint  = true
     public var enableCheckSessionEndpoint  = true
@@ -16,4 +16,26 @@ public class EndpointsOptions {
     public var enableDeviceAuthorizationEndpoint  = true
     public var enableBackchannelAuthenticationEndpoint  = true
     public var enablePushedAuthorizationEndpoint  = true
+
+    public func isEnable(name: String) {
+        if (name == ConstantEndpointNames.Token) {
+            return enableTokenEndpoint
+        }
+        if (name == ConstantEndpointNames.UserInfo) {
+            return enableUserInfoEndpoint
+        }
+        if (name == ConstantEndpointNames.Authorize) {
+            return enableAuthorizeEndpoint
+        }
+        if (name == ConstantEndpointNames.DiscoveryDocument) {
+            return enableDiscoveryEndpoint
+        }
+        if (name == ConstantEndpointNames.DiscoveryDocumentJwks) {
+            return enableJwtRequestUri
+        }
+        if (name == ConstantEndpointNames.Introspection) {
+            return enableIntrospectionEndpoint
+        }
+        return true
+    }
 }

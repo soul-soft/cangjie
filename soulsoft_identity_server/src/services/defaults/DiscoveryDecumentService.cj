@@ -19,6 +19,8 @@ public class DiscoveryDecumentService <: IDiscoveryDecumentService {
     
     public func getDiscoveryDocument(): String {
         let configuration = OpenIdConnectConfiguration()
+        configuration.issuer = _options.issuer
+        //endpoints
         for (pattern in _descriptors.items) {
             if (pattern.name == ConstantEndpointNames.Token && _options.endpoints.enableTokenEndpoint) {
                 configuration.tokenEndpoint = "${_serverUrls.url}${pattern.path}"
@@ -26,11 +28,15 @@ public class DiscoveryDecumentService <: IDiscoveryDecumentService {
             else if (pattern.name == ConstantEndpointNames.Authorize && _options.endpoints.enableAuthorizeEndpoint) {
                 configuration.authorizationEndpoint = "${_serverUrls.url}${pattern.path}"
             }
-            else if (pattern.name == ConstantEndpointNames.DiscoveryJwks && _options.endpoints.enableJwtRequestUri) {
+            else if (pattern.name == ConstantEndpointNames.DiscoveryDocumentJwks && _options.endpoints.enableJwtRequestUri) {
                 configuration.jwksUri = "${_serverUrls.url}${pattern.path}"
             }
         }
         let json = OpenIdConnectConfiguration.wirte(configuration)
         return json
+    }
+
+    public func getDiscoveryDocumentJwks() : String {
+        return String.empty
     }
 }

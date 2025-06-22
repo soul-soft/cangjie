@@ -19,7 +19,6 @@ public class ServerUrls <: IServerUrls {
                 return _options.issuerUri
             }
             let context = _httpContextAccessor.context.getOrThrow()
-            println(context.request.host)
             return "${context.request.host}"
         }
     }

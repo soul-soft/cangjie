@@ -10,8 +10,10 @@ import soulsoft_identity_server.services.*
 main(): Int64 {
     let builer = WebHost.createBuilder()
     
-    builer.services.addIdentityServer{configureOptions =>
+    builer.services.addIdentityServer{ configureOptions =>
         configureOptions.idp = "soulsoft"
+        configureOptions.issuer = "soulsoft"
+        configureOptions.issuerUri = "http://localhost:5000"
         configureOptions.endpoints.prefix = ""
     }
     

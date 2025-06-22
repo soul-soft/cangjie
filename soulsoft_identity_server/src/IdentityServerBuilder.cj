@@ -15,7 +15,7 @@ import soulsoft_identity_server.services.defaults.*
 public class IdentityServerBuilder {
     protected let services: ServiceCollection
 
-    init(services: ServiceCollection) {
+    protected init(services: ServiceCollection) {
         this.services = services
     }
 
@@ -32,7 +32,8 @@ public class IdentityServerBuilder {
 extend IdentityServerBuilder {
     public func addRequiredPlatformEndpoints() {
         addEndpoint<TokenEndpoint>(ConstantEndpointNames.Token, ConstantEndpointPaths.TokenPath)
-        addEndpoint<DiscoveryDocumentEndpoint>(ConstantEndpointNames.Discovery, ConstantEndpointPaths.DiscoveryPath)
+        addEndpoint<DiscoveryDocumentEndpoint>(ConstantEndpointNames.DiscoveryDocument, ConstantEndpointPaths.DiscoveryDocumentPath)
+        addEndpoint<DiscoveryDocumentJwksEndpoint>(ConstantEndpointNames.DiscoveryDocumentJwks, ConstantEndpointPaths.DiscoveryDocumentJwksPath)
         return this
     }
 

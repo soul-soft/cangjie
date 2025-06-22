@@ -53,9 +53,9 @@ class DefaultHttpRequestDistributor <: HttpRequestDistributor {
     }
 
     public func distribute(_: String) {
-        return FuncHandler {
+        return FuncHandler { context => 
             //创建请求作用域子容器
-            context => try (requestScope = _services.createScope()) {                
+            try (requestScope = _services.createScope()) {  
                 let contextImpl = HttpContextImpl(context, requestScope.services)
                 //init context accessor
                 if (let Some(contextAccessor) <- contextImpl.services.getOrDefault<IHttpContextAccessor>()) {
