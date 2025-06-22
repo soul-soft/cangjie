@@ -5,4 +5,5 @@ public class IdentityServerOptions {
     public var issuer = ""
     public var issuerUri = ""
     public let endpoints = EndpointsOptions()
+    public let dsicovery = DiscoveryOptions()
 }

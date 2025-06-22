@@ -1,11 +1,10 @@
-package soulsoft_identity_server.endpoints.results
+package soulsoft_identity_server.hosting
 
 import soulsoft_asp_http.*
 import stdx.serialization.serialization.*
-import soulsoft_identity_server.hosting.*
 
-public class ContentResult <: IEndpointResult {
-    public ContentResult(let data: String,let contentType: String) {
+public class ContentEndpointResult <: IEndpointResult {
+    public ContentEndpointResult(let data: String,let contentType: String) {
         
     }
 

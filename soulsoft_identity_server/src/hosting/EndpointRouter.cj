@@ -8,9 +8,9 @@ import soulsoft_identity_server.options.*
 
 public class EndpointRouter <: IEndpointRouter {
     private let _options: IdentityServerOptions
-    private let _descriptors: EndpointDescriptors
+    private let _descriptors: EndpointManager
 
-    public init(options: IdentityServerOptions, descriptors: EndpointDescriptors) {
+    public init(options: IdentityServerOptions, descriptors: EndpointManager) {
         _options = options
         _descriptors = descriptors
     }

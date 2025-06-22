@@ -5,11 +5,14 @@ import soulsoft_asp_hosting.*
 import soulsoft_extensions_options.*
 import soulsoft_extensions_injection.*
 
+import soulsoft_identity_tokens.*
+import soulsoft_identity_server.stores.*
 import soulsoft_identity_server.options.*
 import soulsoft_identity_server.hosting.*
 import soulsoft_identity_server.services.*
 import soulsoft_identity_server.constants.*
 import soulsoft_identity_server.endpoints.*
+import soulsoft_identity_server.stores.defaults.*
 import soulsoft_identity_server.services.defaults.*
 
 public class IdentityServerBuilder {
@@ -17,6 +20,18 @@ public class IdentityServerBuilder {
 
     protected init(services: ServiceCollection) {
         this.services = services
+    }
+
+    public func addSigningCredential(credential: SigningCredentials) {
+        addSigningCredentialStore(InMemorySigningCredentialStore(credential))
+    }
+
+    public func addSigningCredentialStore<TSigningCredentialStore>() where TSigningCredentialStore <: Object{
+        services.addSingleton<ISigningCredentialStore, TSigningCredentialStore>()
+    }
+
+    public func addSigningCredentialStore(store: ISigningCredentialStore) {
+        services.addSingleton<ISigningCredentialStore>(store)
     }
 
     public func addEndpoint<TEndpointHandler>(name: String,path: String) where TEndpointHandler <: IEndpointHandler {
@@ -30,24 +45,21 @@ public class IdentityServerBuilder {
 
 /** core extensions **/
 extend IdentityServerBuilder {
-    public func addRequiredPlatformEndpoints() {
+    public func addDefaultEndpoints() {
         addEndpoint<TokenEndpoint>(ConstantEndpointNames.Token, ConstantEndpointPaths.TokenPath)
         addEndpoint<AuthorizeEndpoint>(ConstantEndpointNames.Authorize, ConstantEndpointPaths.AuthorizePath)
-        addEndpoint<DiscoveryDocumentEndpoint>(ConstantEndpointNames.DiscoveryDocument, ConstantEndpointPaths.DiscoveryDocumentPath)
-        addEndpoint<DiscoveryDocumentJwksEndpoint>(ConstantEndpointNames.DiscoveryDocumentJwks, ConstantEndpointPaths.DiscoveryDocumentJwksPath)
+        addEndpoint<DiscoveryEndpoint>(ConstantEndpointNames.Discovery, ConstantEndpointPaths.DiscoveryPath)
+        addEndpoint<DiscoveryJwksEndpoint>(ConstantEndpointNames.DiscoveryJwks, ConstantEndpointPaths.DiscoveryJwksPath)
         return this
     }
 
-    public func addRequiredPlatformServices() {
+    public func AddPluggableServices() {
         services.addHttpContextAccessor()
         services.tryAddScoped<IServerUrls, ServerUrls>()
         services.tryAddScoped<IClaimService, ClaimsService>()
         services.tryAddSingleton<IEndpointRouter, EndpointRouter>()
         services.tryAddScoped<IDiscoveryDecumentService, DiscoveryDecumentService>()
-        services.tryAddSingleton<EndpointDescriptors, EndpointDescriptors>{sp => EndpointDescriptors(sp.getAll<EndpointDescriptor>())}
+        services.tryAddSingleton<EndpointManager, EndpointManager>{sp => EndpointManager(sp.getAll<EndpointDescriptor>())}
         return this
-    }
-
-    public func name() {
     }
 }

@@ -4,14 +4,17 @@ import std.reflect.*
 
 public class EndpointDescriptor {
     public EndpointDescriptor(public let name: String, public let path: String, public let typeInfo: TypeInfo) {
-
     }
 }
 
-public class EndpointDescriptors  {
-    public let items: Collection<EndpointDescriptor>
+public class EndpointManager <: Iterable<EndpointDescriptor> {
+    private let _items: Collection<EndpointDescriptor>
 
     public init(items: Collection<EndpointDescriptor>) {
-        this.items = items
+        _items = items
+    }
+
+    public func iterator() {
+        _items.iterator()
     }
 }

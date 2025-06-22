@@ -18,8 +18,8 @@ extend ServiceCollection <: IdentityServiceExtensions {
 
     public func addIdentityServer(configureOptions: (IdentityServerOptions)->Unit) {
         addIdentityServerBuilder(configureOptions)
-            .addRequiredPlatformEndpoints()
-            .addRequiredPlatformServices()
+            .addDefaultEndpoints()
+            .AddPluggableServices()
         return this
     }
 

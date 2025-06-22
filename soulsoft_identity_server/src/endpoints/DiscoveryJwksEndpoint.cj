@@ -4,7 +4,7 @@ import soulsoft_asp_http.*
 import soulsoft_identity_server.hosting.*
 import soulsoft_identity_server.services.*
 
-public class DiscoveryDocumentEndpoint <: EndpointHandler {
+public class DiscoveryJwksEndpoint <: EndpointHandler {
     private let _discoveryDecument: IDiscoveryDecumentService
 
     public init(discoveryDecument: IDiscoveryDecumentService) {
@@ -12,7 +12,7 @@ public class DiscoveryDocumentEndpoint <: EndpointHandler {
     }
 
     public func handle(_: HttpContext): IEndpointResult {
-        let document = _discoveryDecument.getDiscoveryDocument()
+        let document = _discoveryDecument.createDiscoveryDocumentJwks()
         return json(document)
     }
 }

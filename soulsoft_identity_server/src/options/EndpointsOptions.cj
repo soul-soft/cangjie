@@ -27,10 +27,10 @@ public class EndpointsOptions {
         if (name == ConstantEndpointNames.Authorize) {
             return enableAuthorizeEndpoint
         }
-        if (name == ConstantEndpointNames.DiscoveryDocument) {
+        if (name == ConstantEndpointNames.Discovery) {
             return enableDiscoveryEndpoint
         }
-        if (name == ConstantEndpointNames.DiscoveryDocumentJwks) {
+        if (name == ConstantEndpointNames.DiscoveryJwks) {
             return enableJwtRequestUri
         }
         if (name == ConstantEndpointNames.Introspection) {

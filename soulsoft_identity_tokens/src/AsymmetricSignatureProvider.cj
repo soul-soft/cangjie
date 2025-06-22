@@ -106,7 +106,7 @@ public class AsymmetricSignatureProvider <: SignatureProvider {
 
     public func getRsaPublicKey() {
         if (let securityKey: RsaSecurityKey <- key) {
-            return securityKey.publickey.getOrThrow{ SecurityTokenValidationException("RSA public key is null.") }
+            return securityKey.publicKey.getOrThrow{ SecurityTokenValidationException("RSA public key is null.") }
         }
         throw SecurityTokenValidationException("The key is not of type RsaSecurityKey.")
     }
