@@ -32,6 +32,7 @@ public class IdentityServerBuilder {
 extend IdentityServerBuilder {
     public func addRequiredPlatformEndpoints() {
         addEndpoint<TokenEndpoint>(ConstantEndpointNames.Token, ConstantEndpointPaths.TokenPath)
+        addEndpoint<AuthorizeEndpoint>(ConstantEndpointNames.Authorize, ConstantEndpointPaths.AuthorizePath)
         addEndpoint<DiscoveryDocumentEndpoint>(ConstantEndpointNames.DiscoveryDocument, ConstantEndpointPaths.DiscoveryDocumentPath)
         addEndpoint<DiscoveryDocumentJwksEndpoint>(ConstantEndpointNames.DiscoveryDocumentJwks, ConstantEndpointPaths.DiscoveryDocumentJwksPath)
         return this
