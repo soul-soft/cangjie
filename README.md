@@ -1,5 +1,9 @@
 # soulsoft
 
+# 许可
+
+soulsoft基础模块后续将使用MIT协议，但是soulsoft_identity_server待定
+
 我们正在探索 Cangjie 与 ASP.NET Core 的深度融合，致力于打造：    
 ✅ 现代化：基于最新 .NET 技术栈的开发范式    
 ✅ 轻量级：低侵入设计，零冗余依赖    
