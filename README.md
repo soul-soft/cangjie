@@ -2,7 +2,7 @@
 
 # 许可
 
-soulsoft基础模块后续将使用MIT协议，但是soulsoft_identity_server待定
+soulsoft基础模块后续将使用MIT协议，soulsoft_identity_server待定
 
 我们正在探索 Cangjie 与 ASP.NET Core 的深度融合，致力于打造：    
 ✅ 现代化：基于最新 .NET 技术栈的开发范式    
@@ -21,21 +21,21 @@ soulsoft基础模块后续将使用MIT协议，但是soulsoft_identity_server待
 |--------------------------------------------|------------------------------|--------|----------------------------------------------------------------------|
 | soulsoft_asp_http                          | HTTP核心功能                  | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_http.git)           |
 | soulsoft_asp_mvc                           | MVC                          | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_mvc.git)        |
-| soulsoft_asp_routing                       | 路由与终结点                | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_routing.git)        |
+| soulsoft_asp_routing                       | 路由与终结点                  | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_routing.git)        |
 | soulsoft_asp_hosting                       | Web主机                       | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_hosting.git)        |
 | soulsoft_asp_staticfiles                   | 静态文件支持                  | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_staticfiles.git)    |
 | soulsoft_asp_healthchecks                  | 健康检查中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_healthchecks.git)   |
-| soulsoft_asp_authentication                  | 身份认证中间件              | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authentication.git)   |
-| soulsoft_asp_authentication_jwtbearer | Jwt身份认证方案 | 可选 | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authentication_jwt.git) |
-| soulsoft_asp_authorization                  | 授权中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authorization.git)   |
-| soulsoft_security_claims                | 身份声明                  | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_security_claims.git) |
-| soulsoft_extensions_hosting                | 通用主机                    | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_hosting.git) |
-| soulsoft_extensions_logging                | 日志                      | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_logging.git) |
-| soulsoft_extensions_options                | 选项                      | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_options.git) |
+| soulsoft_asp_authorization                 | 授权中间件                     | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authorization.git)   |
+| soulsoft_asp_authentication                | 身份认证中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authentication.git)   |
+| soulsoft_asp_authentication_jwtbearer      | Jwt身份认证方案 | 可选         | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authentication_jwt.git) |
+| soulsoft_security_claims                   | 身份声明                      | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_security_claims.git) |
+| soulsoft_extensions_hosting                | 通用主机                      | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_hosting.git) |
+| soulsoft_extensions_logging                | 日志                          | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_logging.git) |
+| soulsoft_extensions_options                | 选项                         | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_options.git) |
 | soulsoft_extensions_injection              | 依赖注入                      | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_injection.git) |
 | soulsoft_extensions_healthchecks           | 健康检查服务                  | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_healthchecks.git) |
 | soulsoft_extensions_configuration          | 配置管理                      | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_configuration.git) |
-| soulsoft_identity_server                   | OIDC和Auth2.0认证中心                      | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_identity_server.git) |
+| soulsoft_identity_server                   | Auth2.0认证中心               | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_identity_server.git) |
 
 
 
