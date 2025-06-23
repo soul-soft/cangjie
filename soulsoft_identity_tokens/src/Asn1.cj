@@ -4,10 +4,9 @@ import std.convert.*
 import std.collection.*
 
 public class Asn1 {
-
     public static func parse(bytes: Array<Byte>) {
         var i = 0
-        let root = AsnEntry(0)  
+        let root = AsnEntry(0)
         while (i < bytes.size) {
             let tag = bytes[i]
             let offset = Int64(bytes[i + 1])
@@ -18,7 +17,7 @@ public class Asn1 {
             }
             root.add(node)
             i += 2 + offset
-        }  
+        }
 
         if (root.children.size == 1) {
             return root.children[0]
@@ -27,7 +26,7 @@ public class Asn1 {
         return root
     }
 
-    private static func parseChildren(bytes: Array<Byte>) : Array<AsnEntry> {
+    private static func parseChildren(bytes: Array<Byte>): Array<AsnEntry> {
         var i = 0
         let children = ArrayList<AsnEntry>()
         while (i < bytes.size) {
@@ -42,10 +41,9 @@ public class Asn1 {
             children.add(node)
             i += 2 + offset
         }
-        return children |> collectArray  
+        return children |> collectArray
     }
 }
-
 
 public class AsnEntry <: ToString {
     private let _tag: Byte
@@ -71,21 +69,21 @@ public class AsnEntry <: ToString {
         get() {
             if (_tag == 0x30) {
                 "SEQUENCE"
-            }else if (_tag == 0x01) {
+            } else if (_tag == 0x01) {
                 "BOOLEAN"
-            }else if (_tag == 0x02) {
+            } else if (_tag == 0x02) {
                 "INTEGER"
-            }else if (_tag == 0x03) {
+            } else if (_tag == 0x03) {
                 "BIT STRING"
-            }else if (_tag == 0x04) {
+            } else if (_tag == 0x04) {
                 "OCTET STRING"
-            }else if (_tag == 0x05) {
+            } else if (_tag == 0x05) {
                 "NULL"
-            }else if (_tag == 0x06) {
+            } else if (_tag == 0x06) {
                 "OBJECT IDENTIFIER"
-            }else if(_tag == 0x0C) {
+            } else if (_tag == 0x0C) {
                 "UNKNOWN(${tag.format("02X")})"
-            }else {
+            } else {
                 "UNKNOWN(${tag.format("02X")})"
             }
         }
@@ -104,10 +102,9 @@ public class AsnEntry <: ToString {
     }
 
     public func toString() {
-        let dataHex = String.join(_data |> map{f => f.format("02X")} |> collectArray, delimiter: ' ')
+        let dataHex = String.join(_data |> map {f => f.format("02X")} |> collectArray, delimiter: ' ')
         return "${tagName}: ${dataHex}"
     }
-
 
     public func print() {
         println(this)
@@ -119,5 +116,35 @@ public class AsnEntry <: ToString {
             printChildren(pattern.children)
             println(pattern)
         }
+    }
+
+    public func findFirst(tag: Byte) {
+        return find(tag) |> first
+    }
+
+    public func find(tag: Byte) {
+        let result = ArrayList<Array<Byte>>()
+        if (this.tag == tag) {
+            result.add(this.data)
+        }
+        let children = findChildren(tag, _children)
+        if (children.size > 0) {
+            result.add(all: children)
+        }
+        return result
+    }
+
+    private func findChildren(tag: Byte, children: Collection<AsnEntry>): Collection<Array<Byte>> {
+        let result = ArrayList<Array<Byte>>()
+        for (pattern in children) {
+            if (pattern.tag == tag) {
+                result.add(pattern.data)
+            }
+            let children = findChildren(tag, pattern.children)
+            if (children.size > 0) {
+                result.add(all: children)
+            }
+        }
+        return result
     }
 }

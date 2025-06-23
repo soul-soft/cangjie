@@ -21,7 +21,7 @@ public class JsonWebKeyConverter {
         if (let Some(alg) <- algorithm) {
             jwk.crv = CryptoHelper.getCrvParameterValue(alg)
         }
-        if (let Some(parameters) <- key.publicKey.flatMap{f => f.exportParameters()}) {
+        if (let Some(parameters) <- key.exportParameters()) {
             jwk.x = Base64UrlEncoder.encode(parameters.q.x)
             jwk.y = Base64UrlEncoder.encode(parameters.q.x)
         }

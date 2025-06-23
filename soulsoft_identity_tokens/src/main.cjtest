@@ -1,0 +1,18 @@
+package soulsoft_identity_tokens
+
+import std.io.*
+import std.fs.*
+import std.convert.*
+import std.collection.*
+import stdx.crypto.keys.*
+import stdx.encoding.base64.*
+
+main() {
+    let pem = ECDSAPublicKey.decodeFromPem(String.fromUtf8(readToEnd(File("es384-public.pem", OpenMode.Read))))
+    let key = ECDsaSecurityKey(publicKey: pem)
+    if (let Some(parameters) <- key.exportParameters()) {
+        String.join(parameters.q.x |> map{f=>f.format("02X")}|> collectArray, delimiter: " ") |> println
+        String.join(parameters.q.y |> map{f=>f.format("02X")}|> collectArray, delimiter: " ") |> println
+    }
+    return 0
+}

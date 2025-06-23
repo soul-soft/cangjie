@@ -37,4 +37,19 @@ public class ECDsaSecurityKey <: AsymmetricSecurityKey {
             None
         }
     }
+
+    public func exportParameters(): ?ECParameters {
+        if (let Some(key) <- _publicKey) {
+            let body = key.encodeToDer().body
+            let result = Asn1.parse(body)
+            if (let Some(bitStringData) <- result.findFirst(0x03)) {
+                let coordinateSize = (bitStringData.size - 2) / 2
+                let x = bitStringData[2..coordinateSize + 2]
+                let y = bitStringData[coordinateSize + 2..bitStringData.size]
+                return ECParameters(ECPoint(x, y))
+            }
+        }
+
+        return None
+    }
 }
