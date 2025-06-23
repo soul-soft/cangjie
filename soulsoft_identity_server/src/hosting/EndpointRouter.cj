@@ -17,7 +17,7 @@ public class EndpointRouter <: IEndpointRouter {
 
     public func routing(context: HttpContext): ?IEndpointHandler {
         let path = context.request.path.value
-        let descriptor = _descriptors.items |> filter{f => f.path.equalsIgnoreAsciiCase(path) } |> first
+        let descriptor = _descriptors |> filter{f => f.path.equalsIgnoreAsciiCase(path) } |> first
         if (let Some(descriptor) <- descriptor) {
             if (!_options.endpoints.isEnable(descriptor.name)) {
                 return None
