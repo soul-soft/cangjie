@@ -1,6 +1,6 @@
 /*
     https://lapo.it/asn1js/
-*/
+ */
 
 package soulsoft_identity_tokens
 
@@ -8,58 +8,65 @@ import std.convert.*
 import std.collection.*
 
 public class Asn1 {
-    public static func parse(bytes: Array<Byte>) {
-        var i = 0
-        let root = AsnEntry(0)
-        while (i < bytes.size) {
-            let tag = bytes[i]
-            let offset = Int64(bytes[i + 1])
-            let data = bytes[i + 2..i + 2 + offset]
-            let node = AsnEntry(tag, data)
-            if (tag == 0x30) {
-                node.add(parseChildren(bytes[i + 2..i + 2 + offset]))
-            }
-            root.add(node)
-            i += 2 + offset
-        }
-
-        if (root.children.size == 1) {
-            return root.children[0]
-        }
-
-        return root
+    public static func parse(data: Array<Byte>) {
+        let (entry, _) = parseNode(data)
+        return entry
     }
 
-    private static func parseChildren(bytes: Array<Byte>): Array<AsnEntry> {
-        var i = 0
-        let children = ArrayList<AsnEntry>()
-        while (i < bytes.size) {
-            let tag = bytes[i]
-            let offset = Int64(bytes[i + 1])
-            let data = bytes[i + 2..i + 2 + offset]
-            let node = AsnEntry(tag, data)
+    private static func parseNode(data: Array<Byte>): (Asn1Entry, Int64) {
+        var offset = 0
+        let tag = data[offset]
+        offset += 1
 
-            if (tag == 0x30) {
-                node.add(parseChildren(bytes[i + 2..i + 2 + offset]))
+        let (length, lengthBytes) = readLength(data[offset..])
+        offset += lengthBytes
+
+        let value = data[offset..offset + length]
+        let entry = Asn1Entry(tag, value)
+        offset += length
+
+        if (entry.isConstructed) {
+            var childOffset = 0
+            while (childOffset < value.size) {
+                let (child, childBytes) = parseNode(value[childOffset..])
+                entry.addChild(child)
+                childOffset += childBytes
             }
-            children.add(node)
-            i += 2 + offset
         }
-        return children |> collectArray
+
+        return (entry, offset)
+    }
+
+    private static func readLength(data: Array<Byte>): (length: Int64, lengthBytes: Int64) {
+        var lengthBytes = 0
+        if ((data[0] & 0x80) == 0) {
+            lengthBytes = 1
+            return (Int64(data[0]), lengthBytes)
+        }
+        let numBytes = Int64(data[0] & 0x7F)
+        if (numBytes == 0 || numBytes > 4) {
+            throw IllegalFormatException("Invalid ASN.1 length encoding.")
+        }
+        var length = 0
+        for (i in 1..numBytes + 1) {
+            length = (length << 8) | Int64(data[i])
+        }
+        lengthBytes = 1 + numBytes
+        return (length, lengthBytes)
     }
 }
 
-public class AsnEntry <: ToString {
+public class Asn1Entry <: ToString {
     private let _tag: Byte
     private let _data: Array<Byte>
-    private let _children = ArrayList<AsnEntry>()
+    private let _children = ArrayList<Asn1Entry>()
 
     init(tag: Byte, data: Array<Byte>) {
         _tag = tag
         _data = data
     }
 
-    func add(entries: Array<AsnEntry>) {
+    func addChild(entries: Array<Asn1Entry>) {
         _children.add(all: entries)
     }
 
@@ -71,24 +78,21 @@ public class AsnEntry <: ToString {
 
     public prop tagName: String {
         get() {
-            if (_tag == 0x30) {
-                "SEQUENCE"
-            } else if (_tag == 0x01) {
-                "BOOLEAN"
-            } else if (_tag == 0x02) {
-                "INTEGER"
-            } else if (_tag == 0x03) {
-                "BIT STRING"
-            } else if (_tag == 0x04) {
-                "OCTET STRING"
-            } else if (_tag == 0x05) {
-                "NULL"
-            } else if (_tag == 0x06) {
-                "OBJECT IDENTIFIER"
-            } else if (_tag == 0x0C) {
-                "UNKNOWN(${tag.format("02X")})"
-            } else {
-                "UNKNOWN(${tag.format("02X")})"
+            match (_tag) {
+                case 0x01 => "BOOLEAN"
+                case 0x02 => "INTEGER"
+                case 0x03 => "BIT STRING"
+                case 0x04 => "OCTET STRING"
+                case 0x05 => "NULL"
+                case 0x06 => "OBJECT IDENTIFIER"
+                case 0x0C => "UTF8String"
+                case 0x13 => "PrintableString"
+                case 0x16 => "IA5String"
+                case 0x17 => "UTCTime"
+                case 0x18 => "GeneralizedTime"
+                case 0x30 => "SEQUENCE"
+                case 0x31 => "SET"
+                case _ => "UNKNOWN(${tag.format("02X")})"
             }
         }
     }
@@ -99,27 +103,38 @@ public class AsnEntry <: ToString {
         }
     }
 
-    public prop children: ReadOnlyList<AsnEntry> {
+    public prop isConstructed: Bool {
+        get() {
+            (tag & 0x20) != 0 || tag == 0x30
+        }
+    }
+
+    public prop children: ReadOnlyList<Asn1Entry> {
         get() {
             _children
         }
     }
 
     public func toString() {
-        let dataHex = String.join(_data |> map {f => f.format("02X")} |> collectArray, delimiter: ' ')
-        return "${tagName}: ${dataHex}"
+        format(0)
     }
 
-    public func print() {
-        println(this)
-        printChildren(children)
-    }
+    private func format(indent: Int64): String {
+        let sb = StringBuilder()
+        let indentStr = " " * (indent * 2)
+        sb.append("${indentStr}- ${tagName} (0x${tag.format("02X")})\r\n")
 
-    private func printChildren(entries: Collection<AsnEntry>): Unit {
-        for (pattern in entries) {
-            printChildren(pattern.children)
-            println(pattern)
+        if (data.size > 0) {
+            let hexArray = this._data |> map {f => f.format("02X")} |> collectArray
+            let hexText = String.join(hexArray, delimiter: " ")
+            sb.append("${indentStr}  Data: ${hexText}\r\n")
         }
+
+        for (child in children) {
+            sb.append(child.format(indent + 1))
+        }
+
+        return sb.toString()
     }
 
     public func findFirst(tag: Byte) {
@@ -138,7 +153,7 @@ public class AsnEntry <: ToString {
         return result
     }
 
-    private func findChildren(tag: Byte, children: Collection<AsnEntry>): Collection<Array<Byte>> {
+    private func findChildren(tag: Byte, children: Collection<Asn1Entry>): Collection<Array<Byte>> {
         let result = ArrayList<Array<Byte>>()
         for (pattern in children) {
             if (pattern.tag == tag) {

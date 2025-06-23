@@ -36,17 +36,12 @@ public class RsaSecurityKey <: AsymmetricSecurityKey {
         }
     }
 
-    // public func exportParameters(includePrivateParameters: Bool): ?ECParameters {
-    //     if (let Some(key) <- _publicKey) {
-    //         let data = key.encodeToDer().body
-    //         let x = data[1..32]
-    //         let y = data[33..32]
-    //         var d = Option<Array<Byte>>.None
-    //         if (includePrivateParameters) {
-    //             d = data
-    //         }
-    //         return ECParameters(ECPoint(x, y), d)
-    //     }
-    //     return None
-    // }
+    public func exportParameters(): ?RsaParameters {
+        // if (let Some(key) <- _publicKey) {
+        //     let data = key.encodeToDer().body
+        //     let asn = Asn1Parser.parse(data)
+        //     return RsaParameters()
+        // }
+        return None
+    }
 }

@@ -18,6 +18,7 @@ main(): Int64 {
     }
     
     let host = builer.build()
+  
     host.use{ _, next => 
         try {
             next()
@@ -25,6 +26,7 @@ main(): Int64 {
            ex.printStackTrace()
         }
     }
+   
     host.useIdentityServer()
 
     host.run()
