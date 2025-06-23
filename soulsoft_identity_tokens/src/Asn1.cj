@@ -1,3 +1,7 @@
+/*
+    https://lapo.it/asn1js/
+*/
+
 package soulsoft_identity_tokens
 
 import std.convert.*
