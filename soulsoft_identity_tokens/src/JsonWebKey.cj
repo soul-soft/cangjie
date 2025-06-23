@@ -1,5 +1,7 @@
 package soulsoft_identity_tokens
 
+import stdx.serialization.serialization.*
+
 public class JsonWebKey <: SecurityKey {
     private let _keyId: ?String
     private let _keySize: Int64
@@ -34,5 +36,11 @@ public class JsonWebKey <: SecurityKey {
         get() {
             _keySize
         }
+    }
+
+    public func serialize(): DataModel {
+        let dms = DataModelStruct()
+        //dms.add(Field("k", k.))
+        return dms
     }
 }
