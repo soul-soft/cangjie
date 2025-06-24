@@ -42,12 +42,11 @@ public class ECDsaSecurityKey <: AsymmetricSecurityKey {
         if (let Some(key) <- _publicKey) {
             let body = key.encodeToDer().body
             let parameters = AsnParser.parse(body).toHashMap()
-            if (let Some(bitStringData) <- parameters.get("03")) {
-                let coordinateSize = (bitStringData.size - 2) / 2
-                let x = bitStringData[2..coordinateSize + 2]
-                let y = bitStringData[coordinateSize + 2..bitStringData.size]
-                return ECParameters(ECPoint(x, y))
-            }
+            let bitStringData = parameters["00:03:1"]
+            let coordinateSize = (bitStringData.size - 2) / 2
+            let x = bitStringData[2..coordinateSize + 2]
+            let y = bitStringData[coordinateSize + 2..bitStringData.size]
+            return ECParameters(ECPoint(x, y))
         }
 
         return None

@@ -60,6 +60,7 @@ extend IdentityServerBuilder {
         services.tryAddSingleton<IEndpointRouter, EndpointRouter>()
         services.tryAddScoped<IDiscoveryDecumentService, DiscoveryDecumentService>()
         services.tryAddSingleton<EndpointManager, EndpointManager>{sp => EndpointManager(sp.getAll<EndpointDescriptor>())}
+        services.tryAddSingleton<EndpointManager, EndpointManager>{sp => EndpointManager(sp.getAll<EndpointDescriptor>())}
         return this
     }
 }

@@ -8,12 +8,18 @@ import stdx.crypto.keys.*
 import stdx.encoding.base64.*
 
 main() {
-     let pem = ECDSAPublicKey.decodeFromPem(String.fromUtf8(readToEnd(File("ec256-public.pem", OpenMode.Read))))
+    let pem = ECDSAPublicKey.decodeFromPem(String.fromUtf8(readToEnd(File("ec384-public.pem", OpenMode.Read))))
     let key = ECDsaSecurityKey(publicKey: pem)
     if (let Some(parameters) <- key.exportParameters()) {
         String.join(parameters.q.x |> map{f=>f.format("02X")}|> collectArray, delimiter: " ") |> println
         String.join(parameters.q.y |> map{f=>f.format("02X")}|> collectArray, delimiter: " ") |> println
     }
-   
+    
+    // let pem = RSAPublicKey.decodeFromPem(String.fromUtf8(readToEnd(File("rsa256_public.pem", OpenMode.Read))))
+    // let key = RsaSecurityKey(publicKey: pem)
+    // //let paramaters = key.exportParameters()
+    // var node = AsnParser.parse(pem.encodeToDer().body).toHashMap()
+    // println(String.join(node["00:03:1:30:02:0"] |> map{f=>f.format("02X")}|> collectArray, delimiter: " "))
+    // println(String.join(node["00:03:1:30:02:1"] |> map{f=>f.format("02X")}|> collectArray, delimiter: " "))
     return 0
 }

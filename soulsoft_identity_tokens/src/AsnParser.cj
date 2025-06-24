@@ -40,7 +40,7 @@ public class AsnParser {
             } else {
                 0
             }
-            let innerSpan = _data[innerOffset..]
+            let innerSpan = value[innerOffset..]
             if (looksLikeAsn1Structure(innerSpan)) {
                 try {
                     let innerParser = AsnParser(innerSpan)
@@ -155,7 +155,7 @@ public class AsnNode {
 
     public func toHashMap() {
         let hashMap = HashMap<String, Array<Byte>>()
-        buildHashMap(this, hashMap, "")
+        buildHashMap(this, hashMap, "00")
         return hashMap
     }
 
@@ -165,9 +165,10 @@ public class AsnNode {
             hashMap[path] = node.data
         }
 
-        for (child in node.children) {
-            let childPath = if (path.isEmpty()) {
-                "${child.tag.format('02X')}"
+        for (i in 0..node.children.size) {
+            let child = node.children[i]
+            let childPath = if (node.children.size > 1) {
+                "${path}:${child.tag.format('02X')}:${i}"
             }else {
                 "${path}:${child.tag.format('02X')}"
             }

@@ -6,7 +6,6 @@ import stdx.serialization.serialization.*
 
 public class JsonEndpointResult<T> <: IEndpointResult {
     public JsonEndpointResult(let data: Serializable<T>) {
-        
     }
 
     public func execute(context: HttpContext) {

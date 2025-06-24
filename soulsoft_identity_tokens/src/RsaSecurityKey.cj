@@ -37,11 +37,13 @@ public class RsaSecurityKey <: AsymmetricSecurityKey {
     }
 
     public func exportParameters(): ?RsaParameters {
-        // if (let Some(key) <- _publicKey) {
-        //     let data = key.encodeToDer().body
-        //     let asn = Asn1Parser.parse(data)
-        //     return RsaParameters()
-        // }
+        if (let Some(key) <- _publicKey) {
+            let data = key.encodeToDer().body
+            let node = AsnParser.parse(data).toHashMap()
+            let modulus = node["00:03:1:30:02:0"]
+            let exponent = node["00:03:1:30:02:1"]
+            return RsaParameters(modulus: modulus, exponent: exponent)
+        }
         return None
     }
 }
