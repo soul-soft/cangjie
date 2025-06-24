@@ -13,6 +13,7 @@ public class DiscoveryJwksEndpoint <: EndpointHandler {
 
     public func handle(_: HttpContext): IEndpointResult {
         let document = _discoveryDecument.createJwksDocument()
+        println(11)
         return json(document)
     }
 }

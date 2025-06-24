@@ -11,8 +11,9 @@ public class ActivatorUtilities {
 
     public static func createInstance(serviceProvider: IServiceProvider, typeInfo: TypeInfo, args: Array<Any>): Object {
         if (let classTypeInfo: ClassTypeInfo <- typeInfo) {
-            for (constructor in classTypeInfo.constructors) {
-                if (let Some(instance) <- apply(constructor, serviceProvider, args)) {
+            for ((index, constructor) in classTypeInfo.constructors |> enumerate) {
+                let isFinal = index + 1 == classTypeInfo.constructors.size
+                if (let Some(instance) <- apply(constructor, serviceProvider, isFinal, args)) {
                     return instance
                 }
             }
@@ -22,7 +23,8 @@ public class ActivatorUtilities {
         )
     }
 
-    static func apply(constructor: ConstructorInfo, sp: IServiceProvider, customArguments: Array<Any>): ?Object {
+    private static func apply(constructor: ConstructorInfo, sp: IServiceProvider, isFinal: Bool,
+        customArguments: Array<Any>): ?Object {
         var customArgumentIndex = 0
         let arguments = ArrayList<Any>()
         for (pattern in constructor.parameters) {
@@ -30,17 +32,25 @@ public class ActivatorUtilities {
                 arguments.add(argument)
             } else {
                 if (customArguments.size <= customArgumentIndex) {
-                    return None
+                    return handleNotFoundException(isFinal, pattern.typeInfo)
                 }
                 let customArgument = customArguments[customArgumentIndex]
                 let customArgumentType = TypeInfo.of(customArgument)
                 if (!(customArgumentType == pattern.typeInfo || customArgumentType.isSubtypeOf(pattern.typeInfo))) {
-                    return None
+                    return handleNotFoundException(isFinal, pattern.typeInfo)
                 }
                 arguments.add(customArguments[customArgumentIndex])
                 customArgumentIndex += 1
             }
         }
         return constructor.apply(arguments |> collectArray) as Object
+    }
+
+    private static func handleNotFoundException(isFinal: Bool, typeInfo: TypeInfo): ?Object {
+        if (isFinal) {
+            throw NoneValueException("No service for type ${typeInfo}' has been registered.")
+        } else {
+            return None
+        }
     }
 }

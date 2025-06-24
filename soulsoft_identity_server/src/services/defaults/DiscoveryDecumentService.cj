@@ -11,10 +11,10 @@ import soulsoft_identity_server.constants.*
 public class DiscoveryDecumentService <: IDiscoveryDecumentService {
 
     public DiscoveryDecumentService(
-        let options: IdentityServerOptions,
         let serverUrls: IServerUrls, 
-        let keyManager: IKeyManager ,
-        let endpoints: EndpointManager) {
+        let keyManager: IKeyManager,
+        let endpoints: EndpointManager,
+        let options: IdentityServerOptions) {
     }
     
     public func createDiscoveryDocument(): String {

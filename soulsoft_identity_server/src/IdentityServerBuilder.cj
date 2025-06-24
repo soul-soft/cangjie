@@ -55,11 +55,11 @@ extend IdentityServerBuilder {
 
     public func AddPluggableServices() {
         services.addHttpContextAccessor()
+        services.tryAddScoped<IKeyManager, KeyManager>()
         services.tryAddScoped<IServerUrls, ServerUrls>()
         services.tryAddScoped<IClaimService, ClaimsService>()
         services.tryAddSingleton<IEndpointRouter, EndpointRouter>()
         services.tryAddScoped<IDiscoveryDecumentService, DiscoveryDecumentService>()
-        services.tryAddSingleton<EndpointManager, EndpointManager>{sp => EndpointManager(sp.getAll<EndpointDescriptor>())}
         services.tryAddSingleton<EndpointManager, EndpointManager>{sp => EndpointManager(sp.getAll<EndpointDescriptor>())}
         return this
     }

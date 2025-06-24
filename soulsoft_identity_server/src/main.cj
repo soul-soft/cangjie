@@ -14,7 +14,6 @@ main(): Int64 {
         configureOptions.idp = "soulsoft"
         configureOptions.issuer = "soulsoft"
         configureOptions.issuerUri = "http://localhost:5000"
-        configureOptions.endpoints.prefix = "/identity"
     }
     
     let host = builer.build()
