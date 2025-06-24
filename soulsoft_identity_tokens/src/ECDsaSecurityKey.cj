@@ -41,8 +41,8 @@ public class ECDsaSecurityKey <: AsymmetricSecurityKey {
     public func exportParameters(): ?ECParameters {
         if (let Some(key) <- _publicKey) {
             let body = key.encodeToDer().body
-            let result = Asn1.parse(body)
-            if (let Some(bitStringData) <- result.findFirst(0x03)) {
+            let parameters = AsnParser.parse(body).toHashMap()
+            if (let Some(bitStringData) <- parameters.get("03")) {
                 let coordinateSize = (bitStringData.size - 2) / 2
                 let x = bitStringData[2..coordinateSize + 2]
                 let y = bitStringData[coordinateSize + 2..bitStringData.size]
