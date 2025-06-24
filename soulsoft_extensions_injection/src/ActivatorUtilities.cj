@@ -32,12 +32,12 @@ public class ActivatorUtilities {
                 arguments.add(argument)
             } else {
                 if (customArguments.size <= customArgumentIndex) {
-                    return notFoundServiceResult(isFinal, pattern.typeInfo)
+                    return noServiceResult(isFinal, pattern.typeInfo)
                 }
                 let customArgument = customArguments[customArgumentIndex]
                 let customArgumentType = TypeInfo.of(customArgument)
                 if (!(customArgumentType == pattern.typeInfo || customArgumentType.isSubtypeOf(pattern.typeInfo))) {
-                    return notFoundServiceResult(isFinal, pattern.typeInfo)
+                    return noServiceResult(isFinal, pattern.typeInfo)
                 }
                 arguments.add(customArguments[customArgumentIndex])
                 customArgumentIndex += 1
@@ -46,7 +46,7 @@ public class ActivatorUtilities {
         return constructor.apply(arguments |> collectArray) as Object
     }
 
-    private static func notFoundServiceResult(isFinal: Bool, typeInfo: TypeInfo): ?Object {
+    private static func noServiceResult(isFinal: Bool, typeInfo: TypeInfo): ?Object {
         if (isFinal) {
             throw NoneValueException("No service for type ${typeInfo}' has been registered.")
         } else {
