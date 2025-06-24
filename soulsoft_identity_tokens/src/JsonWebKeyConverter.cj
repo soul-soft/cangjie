@@ -5,16 +5,12 @@ import stdx.crypto.keys.*
 public class JsonWebKeyConverter {
    
     public static func convert(key: SymmetricSecurityKey, algorithm!: ?String = None) {
-        let jwk = JsonWebKey(key.keyId, key.keySize)
-        jwk.k = Base64UrlEncoder.encode(key.key)
-        jwk.kty = "oct"
-        jwk.use = "sig"
-        jwk.alg = algorithm
-        return jwk
+        let k = Base64UrlEncoder.encode(key.key)
+        return JsonWebKey(k: k, kty:"oct", use: "sig", alg: algorithm)
     }
 
     public static func convert(key: ECDsaSecurityKey, algorithm!: ?String = None) {
-        let jwk = JsonWebKey(key.keyId, key.keySize)
+        let jwk = JsonWebKey()
         jwk.kty = "EC"
         jwk.use = "sig"
         jwk.alg = algorithm
@@ -29,17 +25,21 @@ public class JsonWebKeyConverter {
     }
 
     public static func convert(key: RsaSecurityKey, algorithm!: ?String = None) {
-        let jwk = JsonWebKey(key.keyId, key.keySize)
+        let jwk = JsonWebKey()
         jwk.kty = "EC"
         jwk.use = "sig"
         jwk.alg = algorithm
         if (let Some(alg) <- algorithm) {
             jwk.crv = CryptoHelper.getCrvParameterValue(alg)
         }
-        // if (let Some(parameters) <- key.exportParameters(false)) {
-        //     jwk.x = Base64UrlEncoder.encode(parameters.q.x)
-        //     jwk.y = Base64UrlEncoder.encode(parameters.q.x)
-        // }
+        if (let Some(parameters) <- key.exportParameters()) {
+            if (let Some(data) <- parameters.exponent) {
+                jwk.e = Base64UrlEncoder.encode(data)    
+            }
+            if (let Some(data) <- parameters.modulus) {
+                jwk.n = Base64UrlEncoder.encode(data)    
+            }
+        }
         return jwk
     }
 

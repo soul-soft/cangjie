@@ -142,7 +142,7 @@ public class OpenIdConnectConfiguration {
     /** Introspection 端点支持的签名算法 */
     public var introspectionEndpointAuthSigningAlgValuesSupported: Collection<String> = ArrayList<String>()
 
-    public func serialize(): DataModel {
+    private func serialize(): DataModel {
         var dms = DataModelStruct()
         // Basic string fields
         dms.add(OpenIdProviderMetadataNames.Issuer, issuer, issuer.size > 0)
@@ -211,7 +211,7 @@ public class OpenIdConnectConfiguration {
         return dms
     }
 
-    public static func deserialize(dm: DataModel): OpenIdConnectConfiguration {
+    private static func deserialize(dm: DataModel): OpenIdConnectConfiguration {
         var dms = match(dm){
             case data: DataModelStruct => data
             case _ => throw Exception("this data is not DataModelStruct")
