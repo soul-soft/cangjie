@@ -1,6 +1,7 @@
 package soulsoft_identity_server.endpoints
 
 import soulsoft_asp_http.*
+import soulsoft_identity_tokens.*
 import soulsoft_identity_server.hosting.*
 import soulsoft_identity_server.services.*
 
@@ -12,8 +13,8 @@ public class DiscoveryJwksEndpoint <: EndpointHandler {
     }
 
     public func handle(_: HttpContext): IEndpointResult {
-        let document = _discoveryDecument.createJwksDocument()
-        println(11)
-        return json(document)
+        let jwks = _discoveryDecument.createJwksDocument()
+        return json(jwks)
     }
+
 }

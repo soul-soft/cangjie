@@ -2,6 +2,7 @@ package soulsoft_identity_server.endpoints
 
 import soulsoft_asp_http.*
 import soulsoft_identity_server.hosting.*
+import soulsoft_identity_protocols_oidc.*
 import soulsoft_identity_server.services.*
 
 public class DiscoveryEndpoint <: EndpointHandler {
@@ -13,6 +14,6 @@ public class DiscoveryEndpoint <: EndpointHandler {
 
     public func handle(_: HttpContext): IEndpointResult {
         let document = _discoveryDecument.createDiscoveryDocument()
-        return json(document)
+        return json(OpenIdConnectConfiguration.wirte(document))
     }
 }

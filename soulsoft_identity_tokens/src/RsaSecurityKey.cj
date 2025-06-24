@@ -1,5 +1,7 @@
 package soulsoft_identity_tokens
 
+import std.io.*
+import std.fs.*
 import stdx.crypto.x509.*
 import stdx.crypto.keys.*
 
@@ -10,6 +12,12 @@ public class RsaSecurityKey <: AsymmetricSecurityKey {
     public init(publicKey!: ?RSAPublicKey = None, privateKey!: ?RSAPrivateKey = None) {
         _publicKey = publicKey
         _privateKey = privateKey
+    }
+
+    public static func fromPublicKey(file: String) {
+        let fs = File(file, OpenMode.Read)
+        let publicKey = RSAPublicKey.decodeFromPem(String.fromUtf8(readToEnd(fs)))
+        return RsaSecurityKey(publicKey: publicKey)
     }
 
     public prop publicKey: ?RSAPublicKey {

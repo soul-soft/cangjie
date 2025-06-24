@@ -10,6 +10,7 @@ public interface RoutingApplicationBuilderExtensions {
 
 extend ApplicationBuilder <: RoutingApplicationBuilderExtensions {
     public func useEndpoints(endpoints: (EndpointRouteBuilder) -> Unit): Unit {
+        checkRequiredServices()
         let builder = getOrCreateEndpointRouteBuilder()
         endpoints(builder)
         //adding endpointSources
@@ -42,5 +43,13 @@ extend ApplicationBuilder <: RoutingApplicationBuilderExtensions {
             this.properties[endpointRouteBuilderKey] = builder
             return builder
         }
+    }
+
+    private func checkRequiredServices() {
+       try(scope = this.applicationServices.createScope()) {
+            if (scope.services.getOrDefault<RoutingMetrics>().isNone()) {
+                throw Exception("Unable to find the required services. Please add all the required services by calling 'IServiceCollection.addRouting' in the application startup code.")
+            }
+       }
     }
 }

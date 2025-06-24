@@ -1,9 +1,11 @@
 package soulsoft_identity_server.services.defaults
 
-import soulsoft_identity_tokens.*
+import std.collection.*
 
+import soulsoft_identity_tokens.*
 import soulsoft_identity_server.hosting.*
 import soulsoft_identity_server.options.*
+import soulsoft_identity_protocols_oidc.*
 import soulsoft_identity_protocols_oidc.*
 import soulsoft_identity_server.services.*
 import soulsoft_identity_server.constants.*
@@ -17,7 +19,7 @@ public class DiscoveryDecumentService <: IDiscoveryDecumentService {
         let options: IdentityServerOptions) {
     }
     
-    public func createDiscoveryDocument(): String {
+    public func createDiscoveryDocument(): OpenIdConnectConfiguration {
         let configuration = OpenIdConnectConfiguration()
         configuration.issuer = options.issuer
         //endpoints
@@ -35,21 +37,17 @@ public class DiscoveryDecumentService <: IDiscoveryDecumentService {
                 }
             }
         }
-        let json = OpenIdConnectConfiguration.wirte(configuration)
-        return json
+        return configuration
     }
 
-    public func createJwksDocument() : String {
+    public func createJwksDocument() : JsonWebKeySet {
+        let jwks = JsonWebKeySet()
         if (options.dsicovery.showKeySet) {
             let signingCredentials = keyManager.getActiveSigningKeys()
             for (pattern in signingCredentials) {
-               if (let rsa: RsaSecurityKey <- pattern.key) {
-                
-               } else if (let rsa: ECDsaSecurityKey <- pattern.key) {
-                    
-               } 
+                jwks.keys.add(JsonWebKeyConverter.convert(pattern))
             }
         }
-        return String.empty
+        return jwks
     }
 }

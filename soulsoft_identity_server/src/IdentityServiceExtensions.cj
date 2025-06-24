@@ -7,20 +7,19 @@ import soulsoft_identity_server.options.*
 import soulsoft_identity_server.services.*
 
 public interface IdentityServiceExtensions {
-    func addIdentityServer(): ServiceCollection {
+    func addIdentityServer(): IdentityServerBuilder {
         addIdentityServer({_=>})
     }
-    func addIdentityServer(configureOptions: (IdentityServerOptions)->Unit): ServiceCollection
+    func addIdentityServer(configureOptions: (IdentityServerOptions)->Unit): IdentityServerBuilder
     func addIdentityServerBuilder(configureOptions: (IdentityServerOptions)->Unit): IdentityServerBuilder
 }
 
 extend ServiceCollection <: IdentityServiceExtensions {
 
     public func addIdentityServer(configureOptions: (IdentityServerOptions)->Unit) {
-        addIdentityServerBuilder(configureOptions)
+        return addIdentityServerBuilder(configureOptions)
             .addDefaultEndpoints()
             .AddPluggableServices()
-        return this
     }
 
     public func addIdentityServerBuilder(configureOptions: (IdentityServerOptions)->Unit) : IdentityServerBuilder {

@@ -22,6 +22,10 @@ public class IdentityServerBuilder {
         this.services = services
     }
 
+    public func addSigningCredential(signingCredentials: ()->SigningCredentials) {
+        addSigningCredentialStore(InMemorySigningCredentialStore(signingCredentials()))
+    }
+
     public func addSigningCredential(credential: SigningCredentials) {
         addSigningCredentialStore(InMemorySigningCredentialStore(credential))
     }
@@ -55,11 +59,11 @@ extend IdentityServerBuilder {
 
     public func AddPluggableServices() {
         services.addHttpContextAccessor()
-        services.tryAddScoped<IKeyManager, KeyManager>()
         services.tryAddScoped<IServerUrls, ServerUrls>()
         services.tryAddScoped<IClaimService, ClaimsService>()
         services.tryAddSingleton<IEndpointRouter, EndpointRouter>()
         services.tryAddScoped<IDiscoveryDecumentService, DiscoveryDecumentService>()
+        services.tryAddScoped<IKeyManager, KeyManager>{sp => KeyManager(sp.getAll<ISigningCredentialStore>())}
         services.tryAddSingleton<EndpointManager, EndpointManager>{sp => EndpointManager(sp.getAll<EndpointDescriptor>())}
         return this
     }
