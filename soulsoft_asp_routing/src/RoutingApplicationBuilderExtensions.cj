@@ -45,6 +45,7 @@ extend ApplicationBuilder <: RoutingApplicationBuilderExtensions {
         }
     }
 
+    //项目启动过程检测是否注册路由所需的服务
     private func checkRequiredServices() {
        try(scope = this.applicationServices.createScope()) {
             if (scope.services.getOrDefault<RoutingMetrics>().isNone()) {
