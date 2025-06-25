@@ -11,9 +11,17 @@ public class JwtPayload <: JwtContent {
         add(all: all)
     }
 
-    public init(issuer!: ?String = None, audience!: ?String = None, notBefore!: ?DateTime = None,
-        expires!: ?DateTime = None, issuedAt!: ?DateTime = None, claims!: Array<(String, Any)>) {
-        add(all: claims)
+    public init(issuer!: ?String = None, audience!: ?String = None, notBefore!: ?DateTime = None, expires!: ?DateTime = None, issuedAt!: ?DateTime = None, claims!: ?Collection<Claim> = None) {
+        if (let Some(claims) <- claims) {
+            addClaims(claims)
+        }
+        addFirstPriorityClaims(issuer, audience, notBefore, expires, issuedAt)
+    }
+
+    public init(issuer!: ?String = None, audience!: ?String = None, notBefore!: ?DateTime = None, expires!: ?DateTime = None, issuedAt!: ?DateTime = None, claims!: ?Collection<(String,Any)> = None) {
+        if (let Some(claims) <- claims) {
+            add(all: claims)
+        }
         addFirstPriorityClaims(issuer, audience, notBefore, expires, issuedAt)
     }
 

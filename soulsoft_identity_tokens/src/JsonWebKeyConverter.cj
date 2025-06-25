@@ -26,9 +26,10 @@ public class JsonWebKeyConverter {
 
     public static func convert(key: RsaSecurityKey, algorithm!: ?String = None) {
         let jwk = JsonWebKey()
-        jwk.kty = "EC"
+        jwk.kty = "RSA"
         jwk.use = "sig"
         jwk.alg = algorithm
+        jwk.kid = key.keyId
         if (let Some(alg) <- algorithm) {
             jwk.crv = CryptoHelper.getCrvParameterValue(alg)
         }

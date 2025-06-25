@@ -13,12 +13,12 @@ public class JwtSecurityToken <: SecurityToken {
         _payload = payload
     }
 
-    public init(signingCredentials: SigningCredentials, issuer!: ?String = None, audience!: ?String = None,
-        notBefore!: ?DateTime = None, expires!: ?DateTime = None, issuedAt!: ?DateTime = None,
-        claims!: Array<(String, Any)>) {
-        this(JwtHeader(signingCredentials),
-            JwtPayload(issuer: issuer, audience: audience, notBefore: notBefore, expires: expires, issuedAt: issuedAt,
-                claims: claims))
+    public init(signingCredentials: SigningCredentials, issuer!: ?String = None, audience!: ?String = None,notBefore!: ?DateTime = None, expires!: ?DateTime = None, issuedAt!: ?DateTime = None, claims!: ?Collection<Claim> = None) {
+        this(JwtHeader(signingCredentials), JwtPayload(issuer: issuer, audience: audience, notBefore: notBefore, expires: expires, issuedAt: issuedAt, claims: claims))
+    }
+
+    public init(signingCredentials: SigningCredentials, issuer!: ?String = None, audience!: ?String = None,notBefore!: ?DateTime = None, expires!: ?DateTime = None, issuedAt!: ?DateTime = None, claims!: ?Collection<(String, Any)> = None) {
+        this(JwtHeader(signingCredentials), JwtPayload(issuer: issuer, audience: audience, notBefore: notBefore, expires: expires, issuedAt: issuedAt, claims: claims))
     }
 
     public prop id: ?String {

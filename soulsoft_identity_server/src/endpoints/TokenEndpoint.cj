@@ -1,6 +1,7 @@
 package soulsoft_identity_server.endpoints
 
 import soulsoft_asp_http.*
+import soulsoft_identity_server.models.*
 import stdx.serialization.serialization.*
 import soulsoft_identity_protocols_oidc.*
 import soulsoft_identity_server.hosting.*
@@ -8,22 +9,42 @@ import soulsoft_identity_server.services.*
 import soulsoft_identity_server.constants.*
 
 public class TokenEndpoint <: EndpointHandler {
+    public TokenEndpoint(let tokens: ITokenService) {
+        
+    }
     public func handle(context: HttpContext): IEndpointResult {
         if (!HttpMethods.isPost(context.request.method)) {
             return methodNotAllowed()
         }
-        context.services.getOrThrow<IServerUrls>()
-        context.services.getOrThrow<IDiscoveryDecumentService>()
+     
         if (!context.request.hasFormContentType()) {
             return error(InvalidErrors.InvalidRequest, "Content-Type must be application/x-www-form-urlencoded")
         }
 
-        let scope = context.request.form.get(OpenIdConnectParameterNames.Scope)
+        // let scope = context.request.form.get(OpenIdConnectParameterNames.Scope)
 
-        if (scope.isSome()) {
-            return error(InvalidErrors.InvalidScope, "Invalid scope parameter.")
-        }    
+        // if (scope.isSome()) {
+        //     return error(InvalidErrors.InvalidScope, "Invalid scope parameter.")
+        // }    
+        let accessToken = tokens.create(Token())
+        return json(TokenResult(accessToken, 3600))
+    }
+}
+
+
+class TokenResult <: Serializable<TokenResult> {
+    public TokenResult(let accessToken: String, let expiresIn: Int64) {
         
-        return methodNotAllowed()
+    }
+
+    public func serialize(): DataModel {
+        var dms = DataModelStruct()
+        dms.add(Field(OpenIdConnectParameterNames.ExpiresIn, expiresIn.serialize()))
+        dms.add(Field(OpenIdConnectParameterNames.AccessToken, accessToken.serialize()))
+        return dms
+    }
+
+    public static func deserialize(_: DataModel): TokenResult {
+        throw UnsupportedException()
     }
 }

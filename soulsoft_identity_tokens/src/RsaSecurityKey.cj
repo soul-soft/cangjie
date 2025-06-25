@@ -6,18 +6,22 @@ import stdx.crypto.x509.*
 import stdx.crypto.keys.*
 
 public class RsaSecurityKey <: AsymmetricSecurityKey {
-    private let _publicKey: ?RSAPublicKey
-    private let _privateKey: ?RSAPrivateKey
+    private var _publicKey: ?RSAPublicKey = None
+    private var _privateKey: ?RSAPrivateKey = None
 
-    public init(publicKey!: ?RSAPublicKey = None, privateKey!: ?RSAPrivateKey = None) {
-        _publicKey = publicKey
-        _privateKey = privateKey
+    public static func create() {
+        return RsaSecurityKey()
+    }
+   
+
+    public func importPublicKeyFromPemFile(file: String): Unit {
+        let fs = File(file, OpenMode.Read)
+        _publicKey = RSAPublicKey.decodeFromPem(String.fromUtf8(readToEnd(fs)))
     }
 
-    public static func fromPublicKey(file: String) {
+    public func importPrivateKeyFromPemFile(file: String): Unit {
         let fs = File(file, OpenMode.Read)
-        let publicKey = RSAPublicKey.decodeFromPem(String.fromUtf8(readToEnd(fs)))
-        return RsaSecurityKey(publicKey: publicKey)
+        _privateKey = RSAPrivateKey.decodeFromPem(String.fromUtf8(readToEnd(fs)))
     }
 
     public prop publicKey: ?RSAPublicKey {
@@ -48,7 +52,7 @@ public class RsaSecurityKey <: AsymmetricSecurityKey {
         if (let Some(key) <- _publicKey) {
             let data = key.encodeToDer().body
             let node = AsnParser.parse(data).toHashMap()
-            let modulus = node["00:03:1:30:02:0"]
+            let modulus = node["00:03:1:30:02:0"][1..]
             let exponent = node["00:03:1:30:02:1"]
             return RsaParameters(modulus: modulus, exponent: exponent)
         }

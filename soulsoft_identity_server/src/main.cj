@@ -10,13 +10,15 @@ import soulsoft_identity_server.services.*
 
 main(): Int64 {
     let builer = WebHost.createBuilder()
-    
+    let rsaSecurityKey = RsaSecurityKey.create()
+    rsaSecurityKey.importPublicKeyFromPemFile("rsa256_public.pem")
+    rsaSecurityKey.importPrivateKeyFromPemFile("rsa256_private.pem")
     builer.services.addIdentityServer({ configureOptions =>
         configureOptions.idp = "soulsoft"
         configureOptions.issuer = "soulsoft"
         configureOptions.issuerUri = "http://localhost:5000"
     })
-    .addSigningCredential(SigningCredentials(RsaSecurityKey.fromPublicKey("rsa256_public.pem"), SecurityAlgorithms.RsaSha256))
+    .addSigningCredential(SigningCredentials(rsaSecurityKey, SecurityAlgorithms.RsaSha256))
     
     let host = builer.build()
   

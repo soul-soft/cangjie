@@ -15,12 +15,13 @@ main() {
     //     String.join(parameters.q.y |> map{f=>f.format("02X")}|> collectArray, delimiter: " ") |> println
     // }
     
-    // let pem = RSAPublicKey.decodeFromPem(String.fromUtf8(readToEnd(File("rsa256_public.pem", OpenMode.Read))))
-    // let key = RsaSecurityKey(publicKey: pem)
-    // //let paramaters = key.exportParameters()
-    // var node = AsnParser.parse(pem.encodeToDer().body).toHashMap()
-    // println(String.join(node["00:03:1:30:02:0"] |> map{f=>f.format("02X")}|> collectArray, delimiter: " "))
-    // println(String.join(node["00:03:1:30:02:1"] |> map{f=>f.format("02X")}|> collectArray, delimiter: " "))
+    let pem = RSAPublicKey.decodeFromPem(String.fromUtf8(readToEnd(File("rsa256_public.pem", OpenMode.Read))))
+    let rsa = RsaSecurityKey.create()
+    rsa.importPublicKeyFromPemFile("rsa256_public.pem")
+    //let paramaters = key.exportParameters()
+    var node = AsnParser.parse(pem.encodeToDer().body).toHashMap()
+    println(String.join(node["00:03:1:30:02:0"] |> map{f=>f.format("02X")}|> collectArray, delimiter: " "))
+    println(String.join(node["00:03:1:30:02:1"] |> map{f=>f.format("02X")}|> collectArray, delimiter: " "))
 
     // let jsk = JsonWebKey.create("{\"k\":  \"fa\"}")
     // println(jsk.k)

@@ -60,6 +60,7 @@ extend IdentityServerBuilder {
     public func AddPluggableServices() {
         services.addHttpContextAccessor()
         services.tryAddScoped<IServerUrls, ServerUrls>()
+        services.tryAddScoped<ITokenService, TokenService>()
         services.tryAddScoped<IClaimService, ClaimsService>()
         services.tryAddSingleton<IEndpointRouter, EndpointRouter>()
         services.tryAddScoped<IDiscoveryDecumentService, DiscoveryDecumentService>()
