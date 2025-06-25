@@ -11,6 +11,12 @@ public class AuthenticationBuilder {
         _services = services
     }
 
+    public prop services: ServiceCollection {
+        get() {
+            _services
+        }
+    }
+
     public func addScheme<TOptions, THandler>(authenticateScheme: String): AuthenticationBuilder where TOptions <: AuthenticationSchemeOptions,
         THandler <: AuthenticationHandler<TOptions> {
         addSchemeHelper<TOptions, THandler>(authenticateScheme, None) { _ =>

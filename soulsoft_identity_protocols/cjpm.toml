@@ -1,19 +1,18 @@
 [package]
   cjc-version = "0.60.5"
-  name = "soulsoft_identity_protocols_oidc"
+  name = "soulsoft_identity_protocols"
   description = "nothing here"
   version = "1.0.0"
   target-dir = ""
   src-dir = ""
-  output-type = "static"
+  output-type = "executable"
   compile-option = ""
   override-compile-option = ""
   link-option = ""
   package-configuration = {}
-  
+
 [dependencies]
-  soulsoft_identity_tokens = { path = "../soulsoft_identity_tokens"}
-  soulsoft_identity_protocols = { path = "../soulsoft_identity_protocols"}
+  soulsoft_net_http = { path = "../soulsoft_net_http"}
 
 [target.x86_64-w64-mingw32.bin-dependencies]
   path-option = ["${CANGJIE_STDX}"]

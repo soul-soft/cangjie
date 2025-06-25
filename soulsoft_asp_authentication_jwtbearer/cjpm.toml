@@ -19,6 +19,8 @@
   soulsoft_asp_authentication = { path = "../soulsoft_asp_authentication"}
   soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
   soulsoft_extensions_logging = { path = "../soulsoft_extensions_logging"}
+  soulsoft_identity_protocols = { path = "../soulsoft_identity_protocols"}
+  soulsoft_identity_protocols_oidc = { path = "../soulsoft_identity_protocols_oidc"}
 
 [target.x86_64-w64-mingw32.bin-dependencies]
   path-option = ["${CANGJIE_STDX}"]

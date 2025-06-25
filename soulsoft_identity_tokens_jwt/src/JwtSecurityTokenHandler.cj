@@ -18,8 +18,38 @@ public class JwtSecurityTokenHandler <: SecurityTokenHandler {
     }
 
     public func validateToken(token: String, parameters: TokenValidationParameters): TokenValidationResult {
-        try {            
-            let securityToken = validateSign(token, parameters.issuerSigningKey.getOrThrow())       
+        try {
+            let segments = token.split('.')
+
+            if (segments.size != 3) {
+                throw SecurityTokenValidationException(
+                    "Signature validation failed.")
+            }   
+
+            let headerJson = Base64UrlEncoder.decode(segments[0]).flatMap {f => String.fromUtf8(f)}.getOrThrow {
+                SecurityTokenValidationException("Signature validation failed.")
+            }
+
+            let claims = JsonSerializer.deserialize(headerJson)
+            let algorithm = (claims["alg"] as String).getOrThrow {
+                SecurityTokenValidationException("Signature validation failed.")
+            }
+            
+            let jwtHeader = JwtHeader(signingCredentials, claims)
+            
+            let payloadJson = Base64UrlEncoder.decode(segments[1]).flatMap {f => String.fromUtf8(f)}.getOrThrow {
+                SecurityTokenValidationException("Failed to decode or parse JWT payload.")
+            }
+            
+            let payloadClaims = JsonSerializer.deserialize(payloadJson)
+            let jwtPayload = JwtPayload(payloadClaims)
+            let jwtToken = JwtSecurityToken(jwtHeader, jwtPayload)
+            let signingCredentials = SigningCredentials(signingKey, algorithm)
+            
+            let signingKeys = if (condExpr) {
+                
+            }
+            let securityToken = validateSign(token, parameters)       
             let identity = ClaimsIdentity(parameters.authenticationType)
             identity.addClaims(securityToken.payload.toClaims())
             let subject = ClaimsPrincipal(identity)
@@ -30,25 +60,8 @@ public class JwtSecurityTokenHandler <: SecurityTokenHandler {
         }
     }
 
+    private func validateSign(sign: String, SigningCredentials: SigningCredentials): JwtSecurityToken {
 
-    private func validateSign(token: String, signingKey: SecurityKey): JwtSecurityToken {
-        let segments = token.split('.')
-
-        if (segments.size != 3) {
-            throw SecurityTokenValidationException(
-                "Signature validation failed.")
-        }
-
-        let headerJson = Base64UrlEncoder.decode(segments[0]).flatMap {f => String.fromUtf8(f)}.getOrThrow {
-            SecurityTokenValidationException("Signature validation failed.")
-        }
-
-        let claims = JsonSerializer.deserialize(headerJson)
-        let algorithm = (claims["alg"] as String).getOrThrow {
-            SecurityTokenValidationException("Signature validation failed.")
-        }
-
-        let signingCredentials = SigningCredentials(signingKey, algorithm)
         let provider = getSignatureProvider(signingCredentials)
         let text = "${segments[0]}.${segments[1]}"
         let sign = Base64UrlEncoder.decode(segments[2]).getOrThrow {
@@ -57,15 +70,7 @@ public class JwtSecurityTokenHandler <: SecurityTokenHandler {
         if (!provider.verify(text.toArray(), sign)) {
             throw SecurityTokenValidationException("JWT signature validation failed.")
         }
-        let jwtHeader = JwtHeader(signingCredentials, claims)
-        let payloadJson = Base64UrlEncoder.decode(segments[1]).flatMap {f => String.fromUtf8(f)}.getOrThrow {
-            SecurityTokenValidationException("Failed to decode or parse JWT payload.")
-        }
-        
-        let payloadClaims = JsonSerializer.deserialize(payloadJson)
        
-        let jwtPayload = JwtPayload(payloadClaims)
-        return JwtSecurityToken(jwtHeader, jwtPayload)
     }
 
     private func validateSubject(subject: ClaimsPrincipal, parameters: TokenValidationParameters) {

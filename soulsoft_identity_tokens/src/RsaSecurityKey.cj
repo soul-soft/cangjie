@@ -9,19 +9,9 @@ public class RsaSecurityKey <: AsymmetricSecurityKey {
     private var _publicKey: ?RSAPublicKey = None
     private var _privateKey: ?RSAPrivateKey = None
 
-    public static func create() {
-        return RsaSecurityKey()
-    }
-   
-
-    public func importPublicKeyFromPemFile(file: String): Unit {
-        let fs = File(file, OpenMode.Read)
-        _publicKey = RSAPublicKey.decodeFromPem(String.fromUtf8(readToEnd(fs)))
-    }
-
-    public func importPrivateKeyFromPemFile(file: String): Unit {
-        let fs = File(file, OpenMode.Read)
-        _privateKey = RSAPrivateKey.decodeFromPem(String.fromUtf8(readToEnd(fs)))
+    public init(publicKey!: ?RSAPublicKey = None, privateKey!: ?RSAPrivateKey = None) {
+        _publicKey = publicKey
+        _privateKey = privateKey
     }
 
     public prop publicKey: ?RSAPublicKey {
