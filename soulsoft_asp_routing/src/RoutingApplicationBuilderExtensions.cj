@@ -4,7 +4,9 @@ import soulsoft_asp_http.*
 import soulsoft_extensions_injection.*
 
 public interface RoutingApplicationBuilderExtensions {
+    /*注册路由中间件*/
     func useRouting(): Unit
+    /*注册终结点及终结点中间件，如果未注册路由中间件那么自动注册*/
     func useEndpoints(endpoints: (EndpointRouteBuilder) -> Unit): Unit
 }
 
