@@ -14,17 +14,19 @@ public class ServiceProvider <: IServiceProvider {
     private let _resources = ArrayList<Resource>()
     private let _instances = HashMap<SerivceCacheKey, Object>()
 
-    init(services: ServiceCollection,options: ServiceProviderOptions,root!: ?ServiceProvider = None) {
+    init(services: ServiceCollection, options: ServiceProviderOptions, root!: ?ServiceProvider = None) {
         _root = root
         _options = options
         _services = services
     }
 
     public func createScope(): IServiceScope {
+        //永远通过根容器来创建作用域
         return ServiceScope(ServiceProvider(_services, _options, root: this))
     }
 
     public func getOrDefault(serviceType: TypeInfo): ?Object {
+        //解析容器本身，返回this
         if(serviceType == SUPPER_SERVICE_PROVIDER_TYPE || serviceType.isSubtypeOf(SUPPER_SERVICE_PROVIDER_TYPE)){
             return getServiceProviderEngine() as Object
         }
@@ -51,6 +53,7 @@ public class ServiceProvider <: IServiceProvider {
     }
 
     private func getServiceProviderEngine(): IServiceProvider {
+        //判断是否启用循环依赖检测
         if (_options.validateLoopDependency) {
             return  ServiceProviderEngine(this)
         }  

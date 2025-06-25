@@ -3,6 +3,9 @@ package soulsoft_extensions_injection
 import std.reflect.*
 import std.collection.*
 
+/*
+用于创建依赖容器中但是未注册的服务
+*/
 public class ActivatorUtilities {
     public static func createInstance<T>(serviceProvider: IServiceProvider, args: Array<Any>): T {
         let obj = createInstance(serviceProvider, TypeInfo.of<T>(), args) as T
@@ -23,8 +26,7 @@ public class ActivatorUtilities {
         )
     }
 
-    private static func apply(constructor: ConstructorInfo, sp: IServiceProvider, isFinal: Bool,
-        customArguments: Array<Any>): ?Object {
+    private static func apply(constructor: ConstructorInfo, sp: IServiceProvider, isFinal: Bool, customArguments: Array<Any>): ?Object {
         var customArgumentIndex = 0
         let arguments = ArrayList<Any>()
         for (pattern in constructor.parameters) {
@@ -48,6 +50,7 @@ public class ActivatorUtilities {
 
     private static func noServiceResult(isFinal: Bool, typeInfo: TypeInfo): ?Object {
         if (isFinal) {
+            //如果是最后一个构造器依赖的服务未注册
             throw NoneValueException("No service for type ${typeInfo}' has been registered.")
         } else {
             return None
