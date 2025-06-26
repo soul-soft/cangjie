@@ -4,7 +4,7 @@ import std.collection.*
 import stdx.encoding.json.*
 import soulsoft_security_claims.*
 
-class JsonSerializer {
+class JwtJsonSerializer {
     public static func deserialize(str: String) {
         return deserialize(JsonValue.fromStr(str).asObject())
     }

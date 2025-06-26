@@ -33,12 +33,15 @@ main(): Int64 {
     var jwtToken = JwtSecurityToken(header, payload)
     let tokenHandler = JwtSecurityTokenHandler()
     tokenHandler.writeToken(jwtToken) |> println
-    var parameters = TokenValidationParameters(securityKey)
+    var parameters = TokenValidationParameters()
+    parameters.issuerSigningKey = securityKey
     parameters.validIssuer = "cangjie"
     parameters.validAudience = "cangjie"
     parameters.requireExpirationTime = false
     let result = tokenHandler.validateToken(tokenHandler.writeToken(jwtToken), parameters)
-    println(result.isValid)
+    if (!result.isValid && let Some(ex) <- result.exception) {
+        ex.printStackTrace()
+    }
     if (result.isValid) {
         for (pattern in result.subject.claims) {
             println("${pattern.name}=${pattern.value}")

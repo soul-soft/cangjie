@@ -94,7 +94,7 @@ public abstract class JwtContent <: Map<String, Any> {
     }
 
     public func toJsonString(): String {
-        return JsonSerializer.serialize(this._items)
+        return JwtJsonSerializer.serialize(this._items)
     }
 
     public func toBase64UrlString() {

@@ -22,34 +22,43 @@ public class JwtSecurityTokenHandler <: SecurityTokenHandler {
             let segments = token.split('.')
 
             if (segments.size != 3) {
-                throw SecurityTokenValidationException(
-                    "Signature validation failed.")
+                throw SecurityTokenValidationException("")
             }   
 
             let headerJson = Base64UrlEncoder.decode(segments[0]).flatMap {f => String.fromUtf8(f)}.getOrThrow {
-                SecurityTokenValidationException("Signature validation failed.")
+                SecurityTokenValidationException("")
             }
 
-            let claims = JsonSerializer.deserialize(headerJson)
+            let claims = JwtJsonSerializer.deserialize(headerJson)
             let algorithm = (claims["alg"] as String).getOrThrow {
-                SecurityTokenValidationException("Signature validation failed.")
+                SecurityTokenValidationException("")
             }
             
+            let signData = Base64UrlEncoder.decode(segments[2]).getOrThrow{
+                SecurityTokenValidationException("")
+            }
+
+            let issuerSigningKeys = ArrayList<SecurityKey>(parameters.issuerSigningKeys)
+
+            if (let Some(issuerSigningKey) <- parameters.issuerSigningKey) {
+                issuerSigningKeys.add(issuerSigningKey)
+            }
+
+            if (issuerSigningKeys.size == 0) {
+                throw SecurityTokenValidationException("")
+            }
+
+            let signingCredentials = validateSignature("${segments[0]}.${segments[1]}", signData, algorithm, issuerSigningKeys).getOrThrow{
+                SecurityTokenValidationException("")
+            }
+
             let jwtHeader = JwtHeader(signingCredentials, claims)
-            
             let payloadJson = Base64UrlEncoder.decode(segments[1]).flatMap {f => String.fromUtf8(f)}.getOrThrow {
-                SecurityTokenValidationException("Failed to decode or parse JWT payload.")
+                SecurityTokenValidationException("")
             }
             
-            let payloadClaims = JsonSerializer.deserialize(payloadJson)
-            let jwtPayload = JwtPayload(payloadClaims)
-            let jwtToken = JwtSecurityToken(jwtHeader, jwtPayload)
-            let signingCredentials = SigningCredentials(signingKey, algorithm)
-            
-            let signingKeys = if (condExpr) {
-                
-            }
-            let securityToken = validateSign(token, parameters)       
+            let jwtPayload = JwtPayload(JwtJsonSerializer.deserialize(payloadJson))
+            let securityToken = JwtSecurityToken(jwtHeader, jwtPayload)
             let identity = ClaimsIdentity(parameters.authenticationType)
             identity.addClaims(securityToken.payload.toClaims())
             let subject = ClaimsPrincipal(identity)
@@ -60,27 +69,33 @@ public class JwtSecurityTokenHandler <: SecurityTokenHandler {
         }
     }
 
-    private func validateSign(sign: String, SigningCredentials: SigningCredentials): JwtSecurityToken {
-
-        let provider = getSignatureProvider(signingCredentials)
-        let text = "${segments[0]}.${segments[1]}"
-        let sign = Base64UrlEncoder.decode(segments[2]).getOrThrow {
-            SecurityTokenValidationException("Signature validation failed.")
+    private func validateSignature(text: String, signData: Array<Byte>, algorithm: String, signingKeys: Collection<SecurityKey>): ?SigningCredentials{
+        for (signingKey in signingKeys) {
+            let signingCredentials = SigningCredentials(signingKey, algorithm)
+            let provider = getSignatureProvider(signingCredentials)
+            if (provider.verify(text.toArray(), signData)) {
+                return signingCredentials
+            }
         }
-        if (!provider.verify(text.toArray(), sign)) {
-            throw SecurityTokenValidationException("JWT signature validation failed.")
-        }
-       
+        return None
     }
 
     private func validateSubject(subject: ClaimsPrincipal, parameters: TokenValidationParameters) {
+       
         if (parameters.requireExpirationTime) {
             if (let Some(notBefore) <- subject.findFirstValue(ClaimNames.NotBefore).flatMap{f => Int64.parse(f)}) {
                 if (DateTime.now() < DateTime.fromUnixTimeStamp(Duration.second * notBefore)) {
                     throw SecurityTokenValidationException("NotBefore validation failed.")
                 }
             }
-            if (let Some(expirationTime) <- subject.findFirstValue(ClaimNames.ExpirationTime).flatMap{f => Int64.parse(f)}) {
+
+            let expTimestamp = subject.findFirstValue(ClaimNames.ExpirationTime).flatMap{f => Int64.parse(f)}
+            
+            if (parameters.requireExpirationTime && expTimestamp.isNone()) {
+                throw SecurityTokenValidationException("NotBefore validation failed.")
+            }
+           
+            if (parameters.validateLifetime && let Some(expirationTime) <- expTimestamp) {
                 if (DateTime.now() > DateTime.fromUnixTimeStamp(Duration.second * expirationTime)) {
                     throw SecurityTokenValidationException("ExpirationTime validation failed.")
                 }
@@ -88,6 +103,7 @@ public class JwtSecurityTokenHandler <: SecurityTokenHandler {
                 throw SecurityTokenValidationException("ExpirationTime validation failed")
             }
         }
+
         if (parameters.validateIssuer) {
             let issuers = parameters.validIssuers |> collectHashSet
             if (let Some(issuer) <- parameters.validIssuer) {
@@ -98,6 +114,7 @@ public class JwtSecurityTokenHandler <: SecurityTokenHandler {
                 throw SecurityTokenValidationException("Issuer validation failed. ")
             }
         }
+
         if (parameters.validateAudience) {
             let audiences = parameters.validAudiences |> collectHashSet
             if (let Some(audience) <- parameters.validAudience) {
