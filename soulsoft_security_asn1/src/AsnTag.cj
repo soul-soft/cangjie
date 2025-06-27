@@ -22,10 +22,13 @@ public class AsnTag {
             ConstructedMask
         } else {
             0
-        }, Int64(universalTagNumber.asByte()))
+        }, universalTagNumber.value())
 
-        if (condExpr) {
-            
+        if (universalTagNumber < UniversalTagNumber.EndOfContents ||
+            universalTagNumber > UniversalTagNumber.RelativeObjectIdentifierIRI ||
+            universalTagNumber == ReservedIndex)
+        {
+            throw IllegalArgumentException("universalTagNumber")
         }
     }
 

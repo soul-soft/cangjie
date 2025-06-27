@@ -5,7 +5,7 @@ package soulsoft_security_asn1
 
 import std.convert.*
 
-public enum UniversalTagNumber <: ToString {
+public enum UniversalTagNumber <: ToString & Comparable<UniversalTagNumber> {
     EndOfContents
     | Boolean
     | Integer
@@ -22,6 +22,7 @@ public enum UniversalTagNumber <: ToString {
     | UTF8String
     | RelativeObjectIdentifier
     | Time
+    | ReservedIndex
     | Sequence
     | SequenceOf
     | Set
@@ -48,7 +49,7 @@ public enum UniversalTagNumber <: ToString {
     | ObjectIdentifierIRI
     | RelativeObjectIdentifierIRI
 
-    public func asByte() {
+    public func value() {
         match (this) {
             case EndOfContents => 0
             case Boolean => 1
@@ -66,6 +67,7 @@ public enum UniversalTagNumber <: ToString {
             case UTF8String => 12
             case RelativeObjectIdentifier => 13
             case Time => 14
+            case ReservedIndex => 15
             case Sequence => 16
             case SequenceOf => 16
             case Set => 17
@@ -94,7 +96,33 @@ public enum UniversalTagNumber <: ToString {
         }
     }
 
+    public operator func >(right: UniversalTagNumber): Bool {
+        this.value() > right.value()
+    }
+
+    public operator func <(right: UniversalTagNumber): Bool {
+        this.value() < right.value()
+    }
+
+    public operator func ==(right: UniversalTagNumber): Bool {
+        this.value() == right.value()
+    }
+
+    public operator func !=(right: UniversalTagNumber): Bool {
+        this.value() != right.value()
+    }
+
     public func toString() {
-        "0X (${asByte().format("02X")})"
+        "0X (${value().format("02X")})"
+    }
+
+    public func compare(right: UniversalTagNumber): Ordering {
+        if (this == right) {
+            Ordering.EQ
+        } else if (this > right) {
+            Ordering.GT
+        } else {
+            Ordering.LT
+        }
     }
 }
