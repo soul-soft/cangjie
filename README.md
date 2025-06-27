@@ -228,7 +228,7 @@ logFactory.createLogger("asp.soulsoft").info("hello")
 logFactory.createLogger("cangjie").info("hello")    
 ```
 
-./appsettings.json
+appsettings.json
 
 ``` json
 {
