@@ -16,7 +16,7 @@ MIT
 🔧 标准化组件库    
 🔄 统一技术生态   
 🌍 开源社区协作平台 
-(立即加入)[https://gitcode.com/invite/link/995e1b43629f4773b38c]    
+[https://gitcode.com/invite/link/995e1b43629f4773b38c](立即加入)    
 
 如果你想深入了解或者扩展该项目，那么你可以学习`soulsoft_identity_server`,该项目大量灵活运用了`asp`基础组件和`asp`设计思想
 
@@ -40,7 +40,11 @@ MIT
 | soulsoft_extensions_injection              | 依赖注入                      | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_injection.git) |
 | soulsoft_extensions_healthchecks           | 健康检查服务                  | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_healthchecks.git) |
 | soulsoft_extensions_configuration          | 配置管理                      | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_extensions_configuration.git) |
-| soulsoft_identity_server                   | Auth2.0认证中心               | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_identity_server.git) |
+| soulsoft_identity_server                   | Auth2.0，OIDC认证服务               | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_identity_server.git) |
+| soulsoft_identity_tokens                   | 身份令牌               | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_identity_tokens.git) |
+| soulsoft_identity_tokens_jwt               | Jwt身份令牌               | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_identity_tokens_jwt.git) |
+| soulsoft_identity_protocols                | 身份协议               | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_identity_protocols.git) |
+| soulsoft_identity_protocols_oidc            | OIDC协议               | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_identity_protocols_oidc.git) |
 
 
 
