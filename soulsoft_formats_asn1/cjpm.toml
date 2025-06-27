@@ -1,6 +1,6 @@
 [package]
   cjc-version = "0.60.5"
-  name = "soulsoft_security_asn1"
+  name = "soulsoft_formats_asn1"
   description = "nothing here"
   version = "1.0.0"
   target-dir = ""

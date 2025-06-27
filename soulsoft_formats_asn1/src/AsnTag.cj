@@ -1,7 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-package soulsoft_security_asn1
+package soulsoft_formats_asn1
 
 private let ClassMask: Byte = 0b1100_0000
 private let ConstructedMask: Byte = 0b0010_0000
