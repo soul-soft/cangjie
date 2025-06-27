@@ -1,6 +1,6 @@
 # soulsoft
 
-# 许可
+## 许可
 
 MIT
 
@@ -19,7 +19,7 @@ MIT
 
 如果你想深入了解或者扩展该项目，那么你可以学习`soulsoft_identity_server`,该项目大量灵活运用了`asp`基础组件和`asp`设计思想
 
-### 内置模块
+## 内置模块
 
 | 模块名称                                    | 描述                          | 必要性  | 链接                                                                 |
 |--------------------------------------------|------------------------------|--------|----------------------------------------------------------------------|
@@ -43,7 +43,7 @@ MIT
 
 
 
-### 《依赖注入》
+## 《依赖注入》
 
 1. 基本使用
 ``` cangjie
@@ -86,7 +86,7 @@ try (scope = provider.createScope()){
 
 > 注意：通过`ServiceCollection`直接构建的称为`根容器`,通过`ServiceProvider`创建的scope关联的容器称为`子容器`。根容器无法解析非单例的服务。
 
-### 《选项》
+## 《选项》
 
 选项是对依赖注入模块的扩展和补充，用于统一框架设计者和使用者之间的约定，设计者通过`configure`方法设置默认值，使用者使用者通过`configureAfter`方法修改默认值
 
@@ -137,7 +137,7 @@ println(options.get("tenant2").connectionString)
 ```
 > 命名选项在多租户，多架构场景下非常有用
 
-### 《配置》
+## 《配置》
 
 配置支持多数据源（命令行参数，环境变量，json）和自定义数据来源。
 
@@ -174,7 +174,7 @@ appsettings.json
 }
 ```
 
-### 《日志》
+## 《日志》
 
 日志模块也是应用开发过程中必备可却的组件，日志模块内置了控制台和文件提供程序，同样也支持自定义日志提供程序
 
@@ -250,7 +250,7 @@ appsettings.json
 }
 ```
 
-### 《通用主机》
+## 《通用主机》
 
 通用主机整合了上述所有模块，用于处理定时任务和消息队列
 
@@ -314,11 +314,11 @@ main(args: Array<String>) {
 > - 主机内置了`IHostEnvironment`服务，可以通过解析它来区分开发环境还是生成环境    
 > - 可以通过`asp_environment`环境变量或者`--environment=test`命令行参数来修改环境名
 
-### 《Web主机》
+## 《Web主机》
 
 web主机实现了通用主机，并且在此基础上扩展了http协议，内置请求管道来处理请求逻辑。`soulsoft`组织提供了了大量的中间件供开发者使用
 
-#### 启动一个支持静态文件的web主机
+### 启动一个支持静态文件的web主机
 
 ``` cangjie
 main(args: Array<String>) {
@@ -337,7 +337,7 @@ main(args: Array<String>) {
 }
 ```
 
-#### 启动一个支持动态资源的web主机
+### 启动一个支持动态资源的web主机
 
 ``` cangjie
 main(args: Array<String>) {
@@ -361,7 +361,7 @@ main(args: Array<String>) {
 > - 路由中间件(EndpointRoutingMiddleware)：负责根据用户输入的`uri`查找对应的`Endpoint`并放到`HttpContext`上（调用`setEndpoint`）
 > - 终结点中间件(EndpointMiddleware)：通过调用`HttpContext`上面的`getEndpoint()`方法获取终结点，如果存在`Endpoint`将会执行它
 
-#### 健康检查中间件
+### 健康检查中间件
 
 ``` cangjie
 main(args: Array<String>) {
@@ -389,9 +389,9 @@ main(args: Array<String>) {
 }
 ```
 
-### 《身份认证》
+## 《身份认证》
 
-#### Basic认证方案
+### Basic认证方案
 
 我们在身份认证模块下可以非常方便的实现一个认证方案，比如`Basic`认证方案。身份认证模块为我们处理好了认证和授权流程
 
@@ -515,7 +515,7 @@ main (args: Array<String>) {
 > - 注意：认证是确定你是谁，无论成果与否都不影响流程，而授权，需要验证你的身份，如果身份认证不通过，那么将会发起`challenge`（挑战），并返回401状态码。如果身份认证通过，但是不满足`授权策略`将会发起`forbid`（禁止）返回403状态码。你可以通过override来重写挑战和禁止的逻辑
 > - web主机在分发请求的时候，创建了一个子容器放到`HttpContext`的`services`字段上，进而实现请求scope级别的生命周期
 
-#### Jwt认证方案
+### Jwt认证方案
 
 
 
