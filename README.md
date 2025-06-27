@@ -47,7 +47,6 @@ MIT
 | soulsoft_identity_protocols_oidc            | OIDC协议               | 可选     | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_identity_protocols_oidc.git) |
 
 
-
 ## 《依赖注入》
 
 1. 基本使用
