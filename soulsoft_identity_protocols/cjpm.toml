@@ -5,7 +5,7 @@
   version = "1.0.0"
   target-dir = ""
   src-dir = ""
-  output-type = "executable"
+  output-type = "static"
   compile-option = ""
   override-compile-option = ""
   link-option = ""

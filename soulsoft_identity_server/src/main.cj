@@ -10,9 +10,11 @@ import soulsoft_identity_server.services.*
 
 main(): Int64 {
     let builer = WebHost.createBuilder()
-    let rsaSecurityKey = RsaSecurityKey.create()
-    rsaSecurityKey.importPublicKeyFromPemFile("rsa256_public.pem")
-    rsaSecurityKey.importPrivateKeyFromPemFile("rsa256_private.pem")
+     
+    let rsaSecurityKey = RsaSecurityKey(
+        publicKey: SecurityKeyHelper.createRSAPublicKeyFromDerFile("rsa256_public.pem"),
+        privateKey: SecurityKeyHelper.createRSAPrivateKeyFromDerFile("rsa256_private.pem"))
+
     builer.services.addIdentityServer({ configureOptions =>
         configureOptions.idp = "soulsoft"
         configureOptions.issuer = "soulsoft"

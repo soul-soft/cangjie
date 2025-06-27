@@ -10,7 +10,7 @@ public class TokenService <: ITokenService {
     public TokenService(let keys: IKeyManager) {
     }
 
-    public func create(token: Token): String {
+    public func create(_: Token): String {
         let signingCredentials = keys.getActiveSigningKeys() |> first
         let handler = JwtSecurityTokenHandler()
         let claims: Collection<(String, Any)> = [("issuer", "soulsoft"), ("scope", "api")]
