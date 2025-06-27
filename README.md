@@ -23,11 +23,11 @@ MIT
 
 | 模块名称                                    | 描述                          | 必要性  | 链接                                                                 |
 |--------------------------------------------|------------------------------|--------|----------------------------------------------------------------------|
-| soulsoft_asp_http                          | HTTP核心功能                  | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_http.git)           |
+| soulsoft_asp_http                          | HTTP核心接口                  | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_http.git)           |
 | soulsoft_asp_mvc                           | MVC                          | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_mvc.git)        |
 | soulsoft_asp_routing                       | 路由与终结点                  | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_routing.git)        |
 | soulsoft_asp_hosting                       | Web主机                       | 必需    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_hosting.git)        |
-| soulsoft_asp_staticfiles                   | 静态文件支持                  | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_staticfiles.git)    |
+| soulsoft_asp_staticfiles                   | 静态文件中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_staticfiles.git)    |
 | soulsoft_asp_healthchecks                  | 健康检查中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_healthchecks.git)   |
 | soulsoft_asp_authorization                 | 授权中间件                     | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authorization.git)   |
 | soulsoft_asp_authentication                | 身份认证中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_asp/soulsoft_asp_authentication.git)   |
