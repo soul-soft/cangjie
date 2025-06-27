@@ -15,7 +15,8 @@ MIT
 诚邀志同道合的开发者加入 Soulsoft 组织，共同构建：    
 🔧 标准化组件库    
 🔄 统一技术生态   
-🌍 开源社区协作平台     
+🌍 开源社区协作平台 
+(立即加入)[https://gitcode.com/invite/link/995e1b43629f4773b38c]    
 
 如果你想深入了解或者扩展该项目，那么你可以学习`soulsoft_identity_server`,该项目大量灵活运用了`asp`基础组件和`asp`设计思想
 
