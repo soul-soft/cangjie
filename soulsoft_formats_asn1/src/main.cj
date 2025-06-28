@@ -1,6 +1,11 @@
-package soulsoft_security_asn1
+package soulsoft_formats_asn1
 
 main(): Int64 {
-    println("hello world")
+    let writer = AsnWriter(AsnEncodingRules.DER)
+    writer.
     return 0
+}
+
+func name() {
+    [12u8,1u8,2u8]
 }

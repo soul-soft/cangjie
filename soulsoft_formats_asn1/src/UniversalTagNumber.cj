@@ -1,7 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-package soulsoft_security_asn1
+package soulsoft_formats_asn1
 
 import std.convert.*
 
@@ -49,7 +49,7 @@ public enum UniversalTagNumber <: ToString & Comparable<UniversalTagNumber> {
     | ObjectIdentifierIRI
     | RelativeObjectIdentifierIRI
 
-    public func value() {
+    public func asByte() {
         match (this) {
             case EndOfContents => 0
             case Boolean => 1
@@ -97,23 +97,23 @@ public enum UniversalTagNumber <: ToString & Comparable<UniversalTagNumber> {
     }
 
     public operator func >(right: UniversalTagNumber): Bool {
-        this.value() > right.value()
+        this.asByte() > right.asByte()
     }
 
     public operator func <(right: UniversalTagNumber): Bool {
-        this.value() < right.value()
+        this.asByte() < right.asByte()
     }
 
     public operator func ==(right: UniversalTagNumber): Bool {
-        this.value() == right.value()
+        this.asByte() == right.asByte()
     }
 
     public operator func !=(right: UniversalTagNumber): Bool {
-        this.value() != right.value()
+        this.asByte() != right.asByte()
     }
 
     public func toString() {
-        "0X (${value().format("02X")})"
+        "0X (${asByte().format("02X")})"
     }
 
     public func compare(right: UniversalTagNumber): Ordering {

@@ -3,7 +3,6 @@
 
 package soulsoft_formats_asn1
 
-public enum AsnEncodingRules {
-    DER 
-    | CER
+public class AsnReader {
+    
 }
