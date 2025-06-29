@@ -10,13 +10,13 @@ public class AsnWriter {
     var _offset: Int64 = 0
     private let _ruleSet: AsnEncodingRules
     var _buffer: ?Array<Byte> = None
-    private let _nestingStack: ?ArrayStack<StackFrame> = None
+    var _nestingStack: ?ArrayStack<StackFrame> = None
 
     public init(ruleSet: AsnEncodingRules) {
         _ruleSet = ruleSet
     }
 
-    public init(ruleSet: AsnEncodingRules,initialCapacity: Int64) {
+    public init(ruleSet: AsnEncodingRules, initialCapacity: Int64) {
         this(ruleSet)
         if (initialCapacity < 0) {
             throw IllegalArgumentException()
@@ -61,7 +61,7 @@ public class AsnWriter {
         return []
     }
 
-    func writeEndOfContents(){
+    func writeEndOfContents() {
         ensureWriteCapacity(2)
         _buffer.getOrThrow()[_offset] = 0
         _offset++
@@ -81,7 +81,7 @@ public class AsnWriter {
         if (pendingCount < 0) {
             throw OverflowException()
         }
-        if (_buffer.isNone() ||  _buffer.getOrThrow().size - _offset < pendingCount) {
+        if (_buffer.isNone() || _buffer.getOrThrow().size - _offset < pendingCount) {
             let BlockSize = 1024
             let blocks = (_offset + pendingCount + (BlockSize - 1)) / BlockSize
             let oldBuffer = _buffer
@@ -94,7 +94,7 @@ public class AsnWriter {
     func writeTag(tag: Asn1Tag) {
         var spaceRequired = tag.calculateEncodedSize()
         ensureWriteCapacity(spaceRequired)
-        let written = tag.tryEncode(_buffer.getOrThrow()[_offset.._offset + spaceRequired])
+        let written = tag.encode(_buffer.getOrThrow()[_offset.._offset + spaceRequired])
         if (written.isNone() || written.getOrThrow() != spaceRequired) {
             throw UnsupportedException()
         }
@@ -107,7 +107,7 @@ public class AsnWriter {
             ensureWriteCapacity(1)
             _buffer.getOrThrow()[_offset] = MultiByteMarker
             _offset++
-            return 
+            return
         }
 
         if (length < Int64(MultiByteMarker)) {
@@ -130,7 +130,7 @@ public class AsnWriter {
             remaining >>= 8
             idx--
         } while (remaining > 0)
-        
+
         _offset += lengthLength + 1
     }
 
@@ -152,6 +152,42 @@ public class AsnWriter {
         }
         return 4
     }
+
+    func popTag(tag: Asn1Tag, tagType: UniversalTagNumber, sortContents!: Bool = false) {
+        if (_nestingStack.isNone() || _nestingStack.flatMap{f=>f.size} == 0) {
+            throw UnsupportedException()
+        }
+
+        if (let Some(frame) <- _nestingStack.flatMap{f => f.peek()}) {
+            if (frame.tag != tag || frame.itemType != tagType) {
+                throw UnsupportedException()
+            }
+        }
+
+        _nestingStack?.remove()
+
+        if (sortContents) {
+            sortContents()
+        }
+    }
+
+    static func sortContents(buffer: Array<Byte>, start: Int64, end: Int64): Unit {
+        let len = end - start
+        
+        if (len == 0) {
+            return
+        }
+
+        let reader = AsnWriter()
+    }
+
+    func pushTag(tag: Asn1Tag, tagType: UniversalTagNumber) {
+        _nestingStack = _nestingStack ?? ArrayStack<StackFrame>()
+        writeTag(tag)
+        _nestingStack?.add(StackFrame(tag, _offset, tagType))
+        writeLength(-1)
+        return Scope(this)
+    }
 }
 
 struct StackFrame <: Equal<StackFrame> {
@@ -163,6 +199,24 @@ struct StackFrame <: Equal<StackFrame> {
         _tag = tag
         _offset = offset
         _itemType = itemType
+    }
+
+    public prop tag: Asn1Tag {
+        get() {
+            _tag
+        }
+    }
+
+    public prop offset: Int64 {
+        get() {
+            _offset
+        }
+    }
+
+    public prop itemType: UniversalTagNumber {
+        get() {
+            _itemType
+        }
     }
 
     public operator func ==(oth: StackFrame) {

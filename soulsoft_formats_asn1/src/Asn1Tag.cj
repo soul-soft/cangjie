@@ -5,7 +5,7 @@ package soulsoft_formats_asn1
 
 import std.math.numeric.*
 
-public class Asn1Tag <: Equal<Asn1Tag> {
+public class Asn1Tag <: Equal<Asn1Tag> & NotEqual<Asn1Tag> {
     private let _tagValue: Int64
     private let _controlFlags: Byte
 
@@ -60,7 +60,62 @@ public class Asn1Tag <: Equal<Asn1Tag> {
         return Asn1Tag(_controlFlags | ConstructedMask, tagValue)
     }
 
-    public func tryEncode(destination: Array<Byte>): ?Int64 {
+    public static func decode(source: Array<Byte>): ?(Asn1Tag, Int64) {
+        var bytesConsumed = 0
+        if (source.isEmpty()) {
+            return None
+        }
+
+        let first = source[bytesConsumed]
+        bytesConsumed++
+        var tagValue = first & TagNumberMask
+
+        if (tagValue == TagNumberMask) {
+            let ContinuationFlag = 0x80u8
+            let ValueMask = ContinuationFlag - 1
+
+            tagValue = 0
+
+            var current = 0u8
+
+            do {
+                if (source.size <= bytesConsumed) {
+                    bytesConsumed = 0
+                    return None
+                }
+
+                current = source[bytesConsumed]
+                let currentValue = current & ValueMask
+                bytesConsumed++
+                
+                let TooBigToShift = 0b00000010_00000000_00000000_00000000
+
+                if (Int64(tagValue) >= TooBigToShift) {
+                    bytesConsumed = 0
+                    return None
+                }
+
+                tagValue <<= 7
+                tagValue |= currentValue
+
+                if (tagValue == 0) {
+                    bytesConsumed = 0
+                    return None
+                }
+                
+            } while ((current & ContinuationFlag) == ContinuationFlag)
+
+            if (Int32(tagValue) > Int32.Max) {
+                bytesConsumed = 0
+                return None
+            }
+        }
+
+        let tag = Asn1Tag(first, Int64(tagValue))
+        return (tag, bytesConsumed)
+    }
+
+    public func encode(destination: Array<Byte>): ?Int64 {
         let spaceRequired = calculateEncodedSize()
         if (destination.size < spaceRequired) {
             return None
@@ -95,6 +150,10 @@ public class Asn1Tag <: Equal<Asn1Tag> {
 
     public operator func ==(oth: Asn1Tag) {
         _tagValue == oth._tagValue && _controlFlags == oth._controlFlags
+    }
+
+    public operator func !=(oth: Asn1Tag) {
+        !(this == oth)
     }
 
     public prop tagClass: TagClass {

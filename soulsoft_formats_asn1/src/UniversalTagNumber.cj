@@ -96,30 +96,17 @@ public enum UniversalTagNumber <: ToString & Comparable<UniversalTagNumber> {
         }
     }
 
-    public operator func >(right: UniversalTagNumber): Bool {
-        this.asByte() > right.asByte()
-    }
-
-    public operator func <(right: UniversalTagNumber): Bool {
-        this.asByte() < right.asByte()
-    }
-
-    public operator func ==(right: UniversalTagNumber): Bool {
-        this.asByte() == right.asByte()
-    }
-
-    public operator func !=(right: UniversalTagNumber): Bool {
-        this.asByte() != right.asByte()
-    }
-
     public func toString() {
         "0X (${asByte().format("02X")})"
     }
 
     public func compare(right: UniversalTagNumber): Ordering {
-        if (this == right) {
+        let value1 = this.asByte()
+        let value2 = right.asByte()
+       
+        if (value1 == value2) {
             Ordering.EQ
-        } else if (this > right) {
+        } else if (value1 >= value2) {
             Ordering.GT
         } else {
             Ordering.LT

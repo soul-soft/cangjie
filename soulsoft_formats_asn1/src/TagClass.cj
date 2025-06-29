@@ -31,6 +31,10 @@ public enum TagClass <: ToString & Equal<TagClass> {
         }
     }
 
+    public operator func !=(oth: TagClass) {
+        !(this == oth)
+    }
+
     public func toString() {
         match (this) {
             case Universal => "Universal"
