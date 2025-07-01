@@ -4,10 +4,12 @@ public enum LogLevel <: Comparable<LogLevel> & ToString {
     Trace | Debug | Info | Warn | Error | Fatal | Off
 
     public func compare(right: LogLevel): Ordering {
-        if(this == right) {
+        let leftValue = this.value()
+        let rightValue = right.value()
+        if(leftValue == rightValue) {
             Ordering.EQ
         }
-        else if(this > right) {
+        else if(leftValue > rightValue) {
             Ordering.GT
         }
         else {
@@ -24,6 +26,18 @@ public enum LogLevel <: Comparable<LogLevel> & ToString {
             case Error => "error"
             case Fatal => "fatal"
             case Off => "off"
+        }
+    }
+
+    private func value() {
+        return match (this) {
+            case Trace => 0
+            case Debug => 1
+            case Info => 2
+            case Warn => 3
+            case Error => 4
+            case Fatal => 5
+            case Off => 6
         }
     }
 }
