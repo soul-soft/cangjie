@@ -1,6 +1,6 @@
-package soulsoft_web.hostservices
+package soulsoft_web_quickstart.hostservices
 
-import soulsoft_extensions_hosting.HostedServiceExtensions
+import soulsoft_extensions_hosting.*
 import soulsoft_extensions_options.*
 import soulsoft_extensions_injection.*
 

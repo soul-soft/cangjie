@@ -1,4 +1,4 @@
-package soulsoft_web.infrastructure
+package soulsoft_web_quickstart.infrastructure
 
 import soulsoft_web_http.*
 import soulsoft_extensions_logging.*

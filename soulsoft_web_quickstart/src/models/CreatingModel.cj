@@ -1,4 +1,4 @@
-package soulsoft_web.models
+package soulsoft_web_quickstart.models
 
 import stdx.serialization.serialization.*
 

@@ -1,4 +1,4 @@
-package soulsoft_web.authentication
+package soulsoft_web_quickstart.authentication
 
 import stdx.encoding.base64.*
 import soulsoft_identity_claims.*

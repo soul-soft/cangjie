@@ -1,4 +1,4 @@
-package soulsoft_web.infrastructure
+package soulsoft_web_quickstart.infrastructure
 
 import std.collection.*
 import soulsoft_web_http.*

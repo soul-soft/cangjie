@@ -1,15 +1,16 @@
-package soulsoft_web
+package soulsoft_web_quickstart
+
 
 import std.time.*
 import std.random.*
 import std.reflect.*
 import std.collection.*
 //asp
-import soulsoft_web.services.*
-import soulsoft_web.controllers.*
-import soulsoft_web.hostservices.*
-import soulsoft_web.infrastructure.*
-import soulsoft_web.authentication.*
+import soulsoft_web_quickstart.services.*
+import soulsoft_web_quickstart.controllers.*
+import soulsoft_web_quickstart.hostservices.*
+import soulsoft_web_quickstart.authentication.*
+import soulsoft_web_quickstart.infrastructure.*
 
 main(args: Array<String>): Int64 {
     let builder = WebHost.createBuilder(args)

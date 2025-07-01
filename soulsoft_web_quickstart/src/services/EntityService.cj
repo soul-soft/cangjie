@@ -1,4 +1,4 @@
-package soulsoft_web.services
+package soulsoft_web_quickstart.services
 
 import soulsoft_web_http.*
 import soulsoft_extensions_logging.*

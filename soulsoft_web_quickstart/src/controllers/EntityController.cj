@@ -1,12 +1,13 @@
-package soulsoft_web.controllers
+package soulsoft_web_quickstart.controllers
 
 import soulsoft_web_mvc.*
 import stdx.encoding.json.*
-import soulsoft_web.models.*
 import soulsoft_web_hosting.*
-import soulsoft_web.services.*
 import soulsoft_web_authorization.*
 import soulsoft_extensions_logging.*
+
+import soulsoft_web_quickstart.models.*
+import soulsoft_web_quickstart.services.*
 
 @Route["api/[controller]"]
 public class EntityController <: Controller {

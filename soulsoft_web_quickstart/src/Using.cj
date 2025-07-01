@@ -1,4 +1,4 @@
-package soulsoft_web
+package soulsoft_web_quickstart
 
 internal import soulsoft_web_mvc.*
 internal import soulsoft_web_http.*

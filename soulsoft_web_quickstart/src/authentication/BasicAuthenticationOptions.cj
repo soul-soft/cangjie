@@ -1,4 +1,4 @@
-package soulsoft_web.authentication
+package soulsoft_web_quickstart.authentication
 
 import soulsoft_web_authentication.*
 

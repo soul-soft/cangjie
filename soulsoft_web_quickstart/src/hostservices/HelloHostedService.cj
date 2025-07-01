@@ -1,4 +1,4 @@
-package soulsoft_web.hostservices
+package soulsoft_web_quickstart.hostservices
 
 import std.reflect.*
 import soulsoft_extensions_options.*
