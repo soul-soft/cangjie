@@ -23,7 +23,7 @@
 | soulsoft_web_healthchecks                  | 健康检查中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_web/soulsoft_web_healthchecks.git)   |
 | soulsoft_web_authentication                  | 身份认证中间件              | 可选    | [链接](https://github.com/soul-soft/soulsoft_web/soulsoft_web_authentication.git)   |
 | soulsoft_web_authorization                  | 授权中间件                | 可选    | [链接](https://github.com/soul-soft/soulsoft_web/soulsoft_web_authorization.git)   |
-| soulsoft_security_claims                | 身份声明                  | 可选     | [链接](https://github.com/soul-soft/soulsoft_web/soulsoft_security_claims.git) |
+| soulsoft_identity_claims                | 身份声明                  | 可选     | [链接](https://github.com/soul-soft/soulsoft_web/soulsoft_identity_claims.git) |
 | soulsoft_extensions_hosting                | 通用主机                    | 可选     | [链接](https://github.com/soul-soft/soulsoft_web/soulsoft_extensions_hosting.git) |
 | soulsoft_extensions_logging                | 日志                      | 可选     | [链接](https://github.com/soul-soft/soulsoft_web/soulsoft_extensions_logging.git) |
 | soulsoft_extensions_options                | 选项                      | 必需    | [链接](https://github.com/soul-soft/soulsoft_web/soulsoft_extensions_options.git) |

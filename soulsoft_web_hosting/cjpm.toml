@@ -14,7 +14,7 @@
 
 [dependencies]
   soulsoft_web_http = { path = "../soulsoft_web_http"}
-  soulsoft_security_claims = { path = "../soulsoft_security_claims"}
+  soulsoft_identity_claims = { path = "../soulsoft_identity_claims"}
   soulsoft_extensions_hosting = { path = "../soulsoft_extensions_hosting"}
   soulsoft_extensions_logging = { path = "../soulsoft_extensions_logging"}
   soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}

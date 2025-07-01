@@ -2,7 +2,7 @@ package soulsoft_identity_tokens_jwt
 
 import std.collection.*
 import stdx.encoding.json.*
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 
 class JwtJsonSerializer {
     public static func deserialize(str: String) {

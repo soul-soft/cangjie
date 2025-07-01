@@ -1,6 +1,6 @@
 [package]
   cjc-version = "1.0.0"
-  name = "soulsoft_security_claims"
+  name = "soulsoft_identity_claims"
   description = "nothing here"
   version = "1.0.0"
   target-dir = ""

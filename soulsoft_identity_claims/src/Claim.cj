@@ -1,4 +1,4 @@
-package soulsoft_security_claims
+package soulsoft_identity_claims
 
 public class Claim {
     private let _name: String

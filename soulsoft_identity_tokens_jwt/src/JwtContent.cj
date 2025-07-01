@@ -4,7 +4,7 @@ import std.time.*
 import std.convert.*
 import std.collection.*
 import stdx.encoding.json.*
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 import soulsoft_identity_tokens.*
 
 public abstract class JwtContent <: Map<String, Any> {

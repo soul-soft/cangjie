@@ -1,7 +1,7 @@
 package soulsoft_web_authorization
 
 import std.collection.*
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 
 public class AuthorizationHandlerContext {
     private var _failCalled = false

@@ -1,6 +1,6 @@
 package soulsoft_web_authorization
 
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 
 public interface IAuthorizationService {
     func authorize(user: ClaimsPrincipal, resource: ?Object, policyName: String): AuthorizationResult

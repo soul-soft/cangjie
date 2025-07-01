@@ -1,6 +1,6 @@
 package soulsoft_web_authentication
 
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 
 public class AuthenticationFeatures <: IAuthenticateResultFeature & IHttpAuthenticationFeature {
     private var _result: AuthenticateResult

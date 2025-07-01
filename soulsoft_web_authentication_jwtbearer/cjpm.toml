@@ -13,7 +13,7 @@
 
 [dependencies]
   soulsoft_web_http = { path = "../soulsoft_web_http"}
-  soulsoft_security_claims = { path = "../soulsoft_security_claims"}
+  soulsoft_identity_claims = { path = "../soulsoft_identity_claims"}
   soulsoft_identity_tokens = { path = "../soulsoft_identity_tokens"}
   soulsoft_identity_tokens_jwt = { path = "../soulsoft_identity_tokens_jwt"}
   soulsoft_web_authentication = { path = "../soulsoft_web_authentication"}

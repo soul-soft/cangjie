@@ -1,6 +1,6 @@
 package soulsoft_web_authorization
 
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 import soulsoft_extensions_options.*
 
 

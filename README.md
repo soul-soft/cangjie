@@ -33,7 +33,7 @@ MIT
 | soulsoft_web_authorization                 | 授权中间件                     | 可选    |
 | soulsoft_web_authentication                | 身份认证中间件                | 可选    | 
 | soulsoft_web_authentication_jwtbearer      | Jwt身份认证方案               | 可选      |
-| soulsoft_security_claims                   | 身份声明                      | 可选     |
+| soulsoft_identity_claims                   | 身份声明                      | 可选     |
 | soulsoft_extensions_hosting                | 通用主机                      | 可选     |
 | soulsoft_extensions_logging                | 日志                          | 可选     | 
 | soulsoft_extensions_options                | 选项                         | 必需    | 

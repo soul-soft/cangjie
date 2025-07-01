@@ -1,7 +1,7 @@
 package soulsoft_web.authentication
 
 import stdx.encoding.base64.*
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 import soulsoft_web_authentication.*
 import soulsoft_extensions_logging.*
 import soulsoft_extensions_options.*

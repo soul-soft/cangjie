@@ -1,7 +1,7 @@
 package soulsoft_web_hosting
 
 import soulsoft_web_http.*
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 import stdx.net.http.HttpContext as HttpContextBase
 
 class HttpContextImpl <: HttpContext {

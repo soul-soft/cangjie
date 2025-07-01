@@ -1,7 +1,7 @@
 package soulsoft_web_authorization
 
 import std.collection.*
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 
 class SecurityHelper {
     public static func mergeUserPrincipal(existingPrincipal: ?ClaimsPrincipal, additionalPrincipal: ?ClaimsPrincipal): ClaimsPrincipal {

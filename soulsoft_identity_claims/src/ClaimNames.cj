@@ -1,4 +1,4 @@
-package soulsoft_security_claims
+package soulsoft_identity_claims
 
 public abstract class ClaimNames {
     // Standard JWT Claims (RFC 7519)

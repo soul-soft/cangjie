@@ -1,6 +1,6 @@
 package soulsoft_identity_tokens
 
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 
 public class TokenValidationResult {
     private TokenValidationResult(

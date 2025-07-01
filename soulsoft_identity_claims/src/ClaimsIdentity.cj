@@ -1,4 +1,4 @@
-package soulsoft_security_claims
+package soulsoft_identity_claims
 
 import std.collection.*
 

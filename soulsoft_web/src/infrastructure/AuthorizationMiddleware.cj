@@ -3,7 +3,7 @@ package soulsoft_web.infrastructure
 import std.collection.*
 import soulsoft_web_http.*
 import soulsoft_web_routing.*
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 import soulsoft_web_authentication.*
 import soulsoft_extensions_logging.*
 

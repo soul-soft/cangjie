@@ -1,6 +1,6 @@
 package soulsoft_web_http
 
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 import soulsoft_extensions_injection.*
 
 public abstract class HttpContext {

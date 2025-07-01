@@ -2,7 +2,7 @@ package soulsoft_web_authorization
 
 import std.collection.*
 import soulsoft_web_http.*
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 import soulsoft_web_authentication.*
 
 public class DefaultPolicyEvaluator <: IPolicyEvaluator {

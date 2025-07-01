@@ -5,7 +5,7 @@ internal import soulsoft_web_http.*
 internal import soulsoft_web_routing.*
 internal import soulsoft_web_hosting.*
 internal import soulsoft_identity_tokens.*
-internal import soulsoft_security_claims.*
+internal import soulsoft_identity_claims.*
 internal import soulsoft_web_staticfiles.*
 internal import soulsoft_web_healthchecks.*
 internal import soulsoft_web_authorization.*

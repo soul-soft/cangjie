@@ -3,7 +3,7 @@ package soulsoft_web_authentication_jwtbearer
 import std.unicode.*
 import soulsoft_web_http.*
 import soulsoft_identity_tokens.*
-import soulsoft_security_claims.*
+import soulsoft_identity_claims.*
 import soulsoft_web_authentication.*
 import soulsoft_extensions_options.*
 import soulsoft_extensions_logging.*
