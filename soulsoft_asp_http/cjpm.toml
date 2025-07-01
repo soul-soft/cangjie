@@ -1,8 +1,6 @@
-[dependencies]
-  soulsoft_security_claims = { path = "../soulsoft_security_claims"}
-  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
+
 [package]
-  cjc-version = "0.60.5"
+  cjc-version = "1.0.0"
   compile-option = ""
   description = "nothing here"
   link-option = ""
@@ -13,6 +11,10 @@
   target-dir = ""
   version = "1.0.0"
   package-configuration = {}
+
+[dependencies]
+  soulsoft_security_claims = { path = "../soulsoft_security_claims"}
+  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}  
 
 [target.x86_64-w64-mingw32.bin-dependencies]
   path-option = ["${CANGJIE_STDX}"]

@@ -1,7 +1,6 @@
-[dependencies]
-  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
+
 [package]
-  cjc-version = "0.60.5"
+  cjc-version = "1.0.0"
   compile-option = ""
   description = "nothing here"
   link-option = ""
@@ -12,3 +11,6 @@
   target-dir = ""
   version = "1.0.0"
   package-configuration = {}
+
+[dependencies]
+  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}  

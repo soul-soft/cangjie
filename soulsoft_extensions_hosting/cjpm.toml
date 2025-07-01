@@ -1,11 +1,6 @@
-[dependencies]
-  soulsoft_extensions_logging = { path = "../soulsoft_extensions_logging"}
-  soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
-  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
-  soulsoft_extensions_configuration = { path = "../soulsoft_extensions_configuration"}
-  soulsoft_extensions_logging_configuration = { path = "../soulsoft_extensions_logging_configuration"}
+
 [package]
-  cjc-version = "0.60.5"
+  cjc-version = "1.0.0"
   compile-option = ""
   description = "nothing here"
   link-option = ""
@@ -16,3 +11,10 @@
   target-dir = ""
   version = "1.0.0"
   package-configuration = {}
+  
+[dependencies]
+  soulsoft_extensions_logging = { path = "../soulsoft_extensions_logging"}
+  soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
+  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
+  soulsoft_extensions_configuration = { path = "../soulsoft_extensions_configuration"}
+  soulsoft_extensions_logging_configuration = { path = "../soulsoft_extensions_logging_configuration"}  

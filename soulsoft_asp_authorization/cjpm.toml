@@ -1,5 +1,5 @@
 [package]
-  cjc-version = "0.60.5"
+  cjc-version = "1.0.0"
   name = "soulsoft_asp_authorization"
   description = "nothing here"
   version = "1.0.0"
@@ -18,7 +18,6 @@
   soulsoft_asp_authentication = { path = "../soulsoft_asp_authentication"}
   soulsoft_extensions_options = { path = "../soulsoft_extensions_options"}
   soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
-
 
 [target.x86_64-w64-mingw32.bin-dependencies]
   path-option = ["${CANGJIE_STDX}"]

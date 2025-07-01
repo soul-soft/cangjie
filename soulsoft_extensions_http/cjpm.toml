@@ -1,5 +1,5 @@
 [package]
-  cjc-version = "0.60.5"
+  cjc-version = "1.0.0"
   name = "soulsoft_extensions_http"
   description = "nothing here"
   version = "1.0.0"

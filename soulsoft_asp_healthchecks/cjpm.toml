@@ -1,9 +1,6 @@
-[dependencies]
-  soulsoft_asp_http = { path = "../soulsoft_asp_http"}
-  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
-  soulsoft_extensions_healthchecks = { path = "../soulsoft_extensions_healthchecks"}
+
 [package]
-  cjc-version = "0.58.3"
+  cjc-version = "1.0.0"
   compile-option = ""
   description = "nothing here"
   link-option = ""
@@ -14,3 +11,8 @@
   target-dir = ""
   version = "1.0.0"
   package-configuration = {}
+  
+[dependencies]
+  soulsoft_asp_http = { path = "../soulsoft_asp_http"}
+  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
+  soulsoft_extensions_healthchecks = { path = "../soulsoft_extensions_healthchecks"}  

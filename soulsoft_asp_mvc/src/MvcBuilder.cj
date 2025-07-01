@@ -35,9 +35,6 @@ public class MvcBuilder {
 Extensions ApplicationPartManager
  */
 extend MvcBuilder {
-    public func addApplicationPart(module: ModuleInfo) {
-        partManager.parts.add(ModulePart(module))
-    }
 
     public func addApplicationPart(name: String, types: Array<TypeInfo>) {
         partManager.parts.add(AssemblyPart(name, types))
