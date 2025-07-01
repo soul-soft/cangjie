@@ -1,0 +1,2 @@
+package soulsoft_web_mvc
+public import soulsoft_web_mvc.annotations.*

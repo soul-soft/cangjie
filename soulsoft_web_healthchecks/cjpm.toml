@@ -1,0 +1,18 @@
+
+[package]
+  cjc-version = "1.0.0"
+  compile-option = ""
+  description = "nothing here"
+  link-option = ""
+  name = "soulsoft_web_healthchecks"
+  output-type = "static"
+  override-compile-option = ""
+  src-dir = ""
+  target-dir = ""
+  version = "1.0.0"
+  package-configuration = {}
+  
+[dependencies]
+  soulsoft_web_http = { path = "../soulsoft_web_http"}
+  soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
+  soulsoft_extensions_healthchecks = { path = "../soulsoft_extensions_healthchecks"}  

@@ -1,7 +1,7 @@
 package soulsoft_identity_server
 
-import soulsoft_asp_http.*
-import soulsoft_asp_hosting.*
+import soulsoft_web_http.*
+import soulsoft_web_hosting.*
 import soulsoft_identity_tokens.*
 import soulsoft_extensions_injection.*
 import soulsoft_identity_server.endpoints.*

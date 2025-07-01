@@ -1,0 +1,14 @@
+[package]
+  cjc-version = "1.0.0"
+  name = "soulsoft_web_authentication_oidc"
+  description = "nothing here"
+  version = "1.0.0"
+  target-dir = ""
+  src-dir = ""
+  output-type = "executable"
+  compile-option = ""
+  override-compile-option = ""
+  link-option = ""
+  package-configuration = {}
+
+[dependencies]

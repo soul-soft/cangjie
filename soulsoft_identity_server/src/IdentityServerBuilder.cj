@@ -1,7 +1,7 @@
 package soulsoft_identity_server
 
 import std.reflect.*
-import soulsoft_asp_hosting.*
+import soulsoft_web_hosting.*
 import soulsoft_extensions_options.*
 import soulsoft_extensions_injection.*
 

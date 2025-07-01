@@ -1,6 +1,6 @@
 package soulsoft_identity_server.hosting
 
-import soulsoft_asp_http.*
+import soulsoft_web_http.*
 
 public class StatusEndpointResult <: IEndpointResult {
     public StatusEndpointResult(let status: UInt16) {

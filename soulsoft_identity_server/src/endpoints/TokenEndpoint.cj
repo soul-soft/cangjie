@@ -1,6 +1,6 @@
 package soulsoft_identity_server.endpoints
 
-import soulsoft_asp_http.*
+import soulsoft_web_http.*
 import soulsoft_identity_server.models.*
 import stdx.serialization.serialization.*
 import soulsoft_identity_protocols_oidc.*

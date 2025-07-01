@@ -1,6 +1,6 @@
 package soulsoft_identity_server
 
-import soulsoft_asp_http.*
+import soulsoft_web_http.*
 import soulsoft_identity_server.stores.*
 import soulsoft_identity_server.hosting.*
 

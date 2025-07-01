@@ -12,7 +12,7 @@
   package-configuration = {}
 
 [dependencies]
-  soulsoft_asp_http = { path = "../soulsoft_asp_http"}
+  soulsoft_web_http = { path = "../soulsoft_web_http"}
   soulsoft_security_claims = { path = "../soulsoft_security_claims"}
   soulsoft_identity_tokens = { path = "../soulsoft_identity_tokens"}
   soulsoft_identity_tokens_jwt = { path = "../soulsoft_identity_tokens_jwt"}
@@ -20,7 +20,7 @@
   soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
   soulsoft_identity_protocols_oidc = { path = "../soulsoft_identity_protocols_oidc"}
   #test
-  soulsoft_asp_hosting = { path = "../soulsoft_asp_hosting"}
+  soulsoft_web_hosting = { path = "../soulsoft_web_hosting"}
 
 [target.x86_64-w64-mingw32.bin-dependencies]
   path-option = ["${CANGJIE_STDX}"]
