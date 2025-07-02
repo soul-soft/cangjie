@@ -12,16 +12,21 @@ public interface OptionsServiceCollectionExtensions {
 
 extend ServiceCollection <: OptionsServiceCollectionExtensions {
     public func addOptions<TOptions>() where TOptions <: Object {
-        tryAddSingleton<IOptions<TOptions>, UnnamedOptionsManager<TOptions>>({sp => 
+        tryAddSingleton<IOptions<TOptions>, UnnamedOptionsManager<TOptions>>{sp => 
             let optionsFactory = sp.getOrThrow<IOptionsFactory<TOptions>>()
             return UnnamedOptionsManager<TOptions>(optionsFactory)
-        })
-     
-        tryAddSingleton<IOptionsFactory<TOptions>, OptionsFactory<TOptions>>({sp => 
+        }
+        
+        tryAddSingleton<IOptionsMonitor<TOptions>, OptionsMonitor<TOptions>>{sp =>
+            let optionsFactory = sp.getOrThrow<IOptionsFactory<TOptions>>()
+            return OptionsMonitor(optionsFactory)
+        }
+
+        tryAddSingleton<IOptionsFactory<TOptions>, OptionsFactory<TOptions>>{sp => 
             let configures = sp.getAll<IConfigureOptions<TOptions>>()
             let configureAfters = sp.getAll<IConfigureAfterOptions<TOptions>>()
             return OptionsFactory<TOptions>(configures, configureAfters)
-        })
+        }
         return OptionsBuilder<TOptions>()
     }
 
