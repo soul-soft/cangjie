@@ -19,9 +19,9 @@ main() {
 # 默认文件中间件
 
 ``` cangjie
-host.useDefaultFiles{ configure =>
+host.useDefaultFiles{ configureOptions =>
     //添加更多的欢迎页配置，默认支持的文件名称，请查看源码
-    configure.defaultFileNames.add("welcome.html")
+    configureOptions.defaultFileNames.add("welcome.html")
 }
 ```
 
