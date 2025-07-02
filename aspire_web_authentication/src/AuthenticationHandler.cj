@@ -12,10 +12,10 @@ public abstract class AuthenticationHandler<TOptions> <: IAuthenticationHandler 
     private var _result: ?AuthenticateResult = None
     private var _scheme: ?AuthenticationScheme = None
     private let _logger: ILogger
-    private let _optionsMonitor: IOptions<TOptions>
+    private let _optionsMonitor: IOptionsMonitor<TOptions>
 
-    protected init(options: IOptions<TOptions>, logFactory: ILoggerFactory) {
-        _optionsMonitor = options
+    protected init(optionsMonitor: IOptionsMonitor<TOptions>, logFactory: ILoggerFactory) {
+        _optionsMonitor = optionsMonitor
         _logger = logFactory.createLogger<AuthenticationHandler<TOptions>>()
     }
 

@@ -12,3 +12,4 @@
   package-configuration = {}
 
 [dependencies]
+  aspire_extensions_injection = { path = "../aspire_extensions_injection"}

@@ -11,7 +11,7 @@ import aspire_identity_tokens_jwt.*
 
 public class JwtBearerAuthenticationHandler <: AuthenticationHandler<JwtBearerAuthenticationOptions> {
    
-    public init(options: IOptions<JwtBearerAuthenticationOptions>, logger: ILoggerFactory) {
+    public init(options: IOptionsMonitor<JwtBearerAuthenticationOptions>, logger: ILoggerFactory) {
         super(options, logger)
     }
 

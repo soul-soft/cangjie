@@ -7,7 +7,7 @@ import aspire_extensions_logging.*
 import aspire_extensions_options.*
 
 public class BasicAuthenticationHandler <: AuthenticationHandler<BasicAuthenticationOptions> {
-    public init(options: IOptions<BasicAuthenticationOptions>, logger: ILoggerFactory) {
+    public init(options: IOptionsMonitor<BasicAuthenticationOptions>, logger: ILoggerFactory) {
         super(options, logger)
     }
 

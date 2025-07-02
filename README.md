@@ -22,29 +22,31 @@ MIT
 
 ## 内置模块
 
-| 模块名称                                    | 描述                          | 必要性  |
-|--------------------------------------------|------------------------------|--------|---
-| aspire_web_http                          | HTTP核心接口                  | 必需    | 
-| aspire_web_mvc                           | MVC                          | 可选    | 
-| aspire_web_routing                       | 路由与终结点                  | 必需    | 
-| aspire_web_hosting                       | Web主机                       | 必需    | 
-| aspire_web_staticfiles                   | 静态文件中间件                | 可选    | 
-| aspire_web_healthchecks                  | 健康检查中间件                | 可选    | 
+下面是修复后的表格，其中格式调整正确：
+
+| 模块名称                                  | 描述                         | 必要性  |
+|------------------------------------------|------------------------------|--------|
+| aspire_web_http                          | HTTP核心接口                  | 必需    |
+| aspire_web_mvc                           | MVC                          | 可选    |
+| aspire_web_routing                       | 路由与终结点                  | 必需    |
+| aspire_web_hosting                       | Web主机                       | 必需    |
+| aspire_web_staticfiles                   | 静态文件中间件                | 可选    |
+| aspire_web_healthchecks                  | 健康检查中间件                | 可选    |
 | aspire_web_authorization                 | 授权中间件                     | 可选    |
-| aspire_web_authentication                | 身份认证中间件                | 可选    | 
-| aspire_web_authentication_jwtbearer      | Jwt身份认证方案               | 可选      |
-| aspire_identity_claims                   | 身份声明                      | 可选     |
-| aspire_extensions_hosting                | 通用主机                      | 可选     |
-| aspire_extensions_logging                | 日志                          | 可选     | 
-| aspire_extensions_options                | 选项                         | 必需    | 
-| aspire_extensions_injection              | 依赖注入                      | 可选     | 
-| aspire_extensions_healthchecks           | 健康检查服务                  | 可选    | 
-| aspire_extensions_configuration          | 配置管理                      | 可选     |
-| aspire_identity_server                   | Auth2.0，OIDC认证服务               | 可选     |
-| aspire_identity_tokens                   | 身份令牌               | 可选     | 
-| aspire_identity_tokens_jwt               | Jwt身份令牌               | 可选     |
-| aspire_identity_protocols                | 身份协议               | 可选     | 
-| aspire_identity_protocols_oidc            | OIDC协议               | 可选     | 
+| aspire_web_authentication                | 身份认证中间件                | 可选    |
+| aspire_web_authentication_jwtbearer      | Jwt身份认证方案               | 可选    |
+| aspire_identity_claims                   | 身份声明                      | 可选    |
+| aspire_extensions_hosting                | 通用主机                      | 可选    |
+| aspire_extensions_logging                | 日志                          | 可选    |
+| aspire_extensions_options                | 选项                         | 必需    |
+| aspire_extensions_injection              | 依赖注入                      | 可选    |
+| aspire_extensions_healthchecks           | 健康检查服务                  | 可选    |
+| aspire_extensions_configuration          | 配置管理                      | 可选    |
+| aspire_identity_server                   | OAuth2.0，OIDC认证服务         | 可选    |
+| aspire_identity_tokens                   | 身份令牌                      | 可选    |
+| aspire_identity_tokens_jwt               | Jwt身份令牌                    | 可选    |
+| aspire_identity_protocols                | 身份协议                      | 可选    |
+| aspire_identity_protocols_oidc           | OIDC协议                      | 可选    |
 
 
 ## 《依赖注入》

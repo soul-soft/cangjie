@@ -19,7 +19,7 @@ interface IDbConnection <: ToString & Resource {
     prop id: String
 }
 
-public class MySqlConnection <: IDbConnection {
+class MySqlConnection <: IDbConnection {
     private let _id: String
     private var _isClosed = false
 
@@ -46,7 +46,7 @@ public class MySqlConnection <: IDbConnection {
     }
 }
 
-public class MsSqlConnection <: IDbConnection {
+class MsSqlConnection <: IDbConnection {
     private let _id: String
     private var _isClosed = false
 
