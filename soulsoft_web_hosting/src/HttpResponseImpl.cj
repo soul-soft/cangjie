@@ -18,6 +18,10 @@ class HttpResponseImpl <: HttpResponse {
         _response.body(text)
     }
 
+    public func write(stream: InputStream): Unit {
+        _response.body(stream)
+    }
+
     public func write(bytes: Array<Byte>): Unit {
         _response.body(bytes)
     }

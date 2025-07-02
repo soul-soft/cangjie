@@ -15,4 +15,11 @@
 [dependencies]
   soulsoft_web_http = { path = "../soulsoft_web_http"}
   soulsoft_web_hosting = { path = "../soulsoft_web_hosting"}
+  soulsoft_web_routing = { path = "../soulsoft_web_routing"}
   soulsoft_extensions_injection = { path = "../soulsoft_extensions_injection"}
+
+[target.x86_64-w64-mingw32.bin-dependencies]
+  path-option = ["${CANGJIE_STDX}"]
+
+[target.x86_64-unknown-linux-gnu.bin-dependencies]    
+  path-option = ["${CANGJIE_STDX}"]  
