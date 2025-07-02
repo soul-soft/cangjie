@@ -86,10 +86,15 @@ main(args: Array<String>): Int64 {
     host.useHealthChecks("/health")
 
     //默认静态资源
-    host.useDefaultFiles()
+    host.useDefaultFiles{ configureOptions =>
+        configureOptions.defaultFileNames.add("welcome.html")
+    }
 
     //静态资源
-    host.useStaticFiles()
+    host.useStaticFiles{ configureOptions =>
+        configureOptions.serveUnknownFileTypes = true
+        configureOptions.defaultContentType = "application/octet-stream"
+    }
 
     //使用身份认证
     host.useAuthentication()

@@ -6,7 +6,7 @@ public class DefaultFilesOptions <: SharedOptionsBase {
     public let _defaultFileNames: List<String>
 
     public init() {
-        _defaultFileNames = ArrayList<String>(["default.htm", "default.html", "index.htm", "index.html"])
+        _defaultFileNames = ArrayList<String>(["index.html", "default.html", "default.htm",  "index.htm"])
     }
 
     public prop defaultFileNames: List<String> {
