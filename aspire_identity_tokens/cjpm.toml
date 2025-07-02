@@ -1,0 +1,21 @@
+[package]
+  cjc-version = "1.0.0"
+  name = "aspire_identity_tokens"
+  description = "nothing here"
+  version = "1.0.0"
+  target-dir = ""
+  src-dir = ""
+  output-type = "static"
+  compile-option = ""
+  override-compile-option = ""
+  link-option = ""
+  package-configuration = {}
+
+[dependencies]
+  aspire_identity_claims = { path = "../aspire_identity_claims"}
+
+[target.x86_64-w64-mingw32.bin-dependencies]
+  path-option = ["${CANGJIE_STDX}"]
+
+[target.x86_64-unknown-linux-gnu.bin-dependencies]    
+  path-option = ["${CANGJIE_STDX}"]

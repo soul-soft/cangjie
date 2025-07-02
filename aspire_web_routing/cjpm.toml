@@ -1,0 +1,18 @@
+
+[package]
+  cjc-version = "1.0.0"
+  compile-option = ""
+  description = "nothing here"
+  link-option = ""
+  name = "aspire_web_routing"
+  output-type = "static"
+  override-compile-option = ""
+  src-dir = ""
+  target-dir = ""
+  version = "1.0.0"
+  package-configuration = {}
+
+[dependencies]
+  aspire_web_http = { path = "../aspire_web_http"}
+  aspire_extensions_options = { path = "../aspire_extensions_options"}
+  aspire_extensions_injection = { path = "../aspire_extensions_injection"}  

@@ -1,0 +1,30 @@
+[package]
+  cjc-version = "1.0.0"
+  name = "aspire_web_authentication_jwtbearer"
+  description = "nothing here"
+  version = "1.0.0"
+  target-dir = ""
+  src-dir = ""
+  output-type = "static"
+  compile-option = ""
+  override-compile-option = ""
+  link-option = ""
+  package-configuration = {}
+
+[dependencies]
+  aspire_web_http = { path = "../aspire_web_http"}
+  aspire_identity_claims = { path = "../aspire_identity_claims"}
+  aspire_identity_tokens = { path = "../aspire_identity_tokens"}
+  aspire_identity_tokens_jwt = { path = "../aspire_identity_tokens_jwt"}
+  aspire_web_authentication = { path = "../aspire_web_authentication"}
+  aspire_extensions_options = { path = "../aspire_extensions_options"}
+  aspire_extensions_logging = { path = "../aspire_extensions_logging"}
+  aspire_identity_protocols = { path = "../aspire_identity_protocols"}
+  aspire_extensions_injection = { path = "../aspire_extensions_injection"}
+  aspire_identity_protocols_oidc = { path = "../aspire_identity_protocols_oidc"}
+
+[target.x86_64-w64-mingw32.bin-dependencies]
+  path-option = ["${CANGJIE_STDX}"]
+
+[target.x86_64-unknown-linux-gnu.bin-dependencies]    
+  path-option = ["${CANGJIE_STDX}"]

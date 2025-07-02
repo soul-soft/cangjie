@@ -1,0 +1,16 @@
+[package]
+  cjc-version = "1.0.0"
+  name = "aspire_extensions_logging_configuration"
+  description = "nothing here"
+  version = "1.0.0"
+  target-dir = ""
+  src-dir = ""
+  output-type = "static"
+  compile-option = ""
+  override-compile-option = ""
+  link-option = ""
+  package-configuration = {}
+
+[dependencies]
+  aspire_extensions_logging = { path = "../aspire_extensions_logging"}
+  aspire_extensions_configuration = { path = "../aspire_extensions_configuration"}

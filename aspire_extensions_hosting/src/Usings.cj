@@ -1,0 +1,7 @@
+package aspire_extensions_hosting
+
+internal import aspire_extensions_logging.*
+internal import aspire_extensions_options.*
+internal import aspire_extensions_injection.*
+internal import aspire_extensions_configuration.*
+internal import aspire_extensions_logging_configuration.*

@@ -1,0 +1,20 @@
+
+[package]
+  cjc-version = "1.0.0"
+  compile-option = ""
+  description = "nothing here"
+  link-option = ""
+  name = "aspire_extensions_hosting"
+  output-type = "static"
+  override-compile-option = ""
+  src-dir = ""
+  target-dir = ""
+  version = "1.0.0"
+  package-configuration = {}
+  
+[dependencies]
+  aspire_extensions_logging = { path = "../aspire_extensions_logging"}
+  aspire_extensions_options = { path = "../aspire_extensions_options"}
+  aspire_extensions_injection = { path = "../aspire_extensions_injection"}
+  aspire_extensions_configuration = { path = "../aspire_extensions_configuration"}
+  aspire_extensions_logging_configuration = { path = "../aspire_extensions_logging_configuration"}  
